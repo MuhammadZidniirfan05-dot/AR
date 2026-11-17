@@ -460,9 +460,46 @@ model-viewer {
 }
 
 .detail-info h1 {
-  margin: 0 0 0.75rem;
+  margin: 0;
   font-size: 1.85rem;
   color: var(--text);
+}
+
+.detail-title-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.btn-tts {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1rem;
+  min-height: 40px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  font-family: inherit;
+  color: var(--primary);
+  background-color: var(--surface-alt);
+  border: 1px solid var(--border-strong);
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.btn-tts:hover,
+.btn-tts:focus-visible {
+  border-color: var(--primary);
+}
+
+.btn-tts.speaking {
+  color: #ffffff;
+  background-color: #dc2626;
+  border-color: #dc2626;
 }
 
 .detail-info h2 {
