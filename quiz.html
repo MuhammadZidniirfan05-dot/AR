@@ -4,13 +4,22 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Kuis Anatomi | AR Organ Tubuh</title>
+  <meta name="description" content="Uji pengetahuanmu tentang anatomi dan fungsi organ tubuh manusia melalui kuis interaktif.">
+  <meta property="og:title" content="Kuis Anatomi | AR Organ Tubuh">
+  <meta property="og:description" content="Kuis singkat seputar fungsi dan fakta organ tubuh manusia.">
+  <meta property="og:image" content="img/jantung.webp">
+  <link rel="icon" type="image/svg+xml" href="img/favicon.svg">
+  <script>try{const t=localStorage.getItem("ar-organ-theme")||(matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light");document.documentElement.dataset.theme=t;}catch(e){}</script>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
   <header class="site-header">
     <div class="container detail-header">
       <a class="back-link" href="index.html">&larr; Kembali ke Daftar</a>
-      <span class="brand-name">Kuis AR Organ Tubuh</span>
+      <div class="detail-header-right">
+        <span class="brand-name">Kuis AR Organ Tubuh</span>
+        <button id="theme-toggle" class="btn-theme" type="button" aria-label="Ubah tema">Gelap</button>
+      </div>
     </div>
   </header>
 

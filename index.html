@@ -4,6 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AR Organ Tubuh</title>
+  <meta name="description" content="Media edukasi anatomi organ tubuh manusia interaktif dalam 3D, Augmented Reality (AR), hotspot bagian organ, dan kuis.">
+  <meta property="og:title" content="AR Organ Tubuh">
+  <meta property="og:description" content="Jelajahi anatomi 6 organ tubuh manusia dalam 3D dan Augmented Reality langsung dari browser.">
+  <meta property="og:image" content="img/jantung.webp">
+  <link rel="icon" type="image/svg+xml" href="img/favicon.svg">
+  <script>try{const t=localStorage.getItem("ar-organ-theme")||(matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light");document.documentElement.dataset.theme=t;}catch(e){}</script>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -19,6 +25,7 @@
           <input id="search" type="search" placeholder="Cari organ (mis. Jantung)..." autocomplete="off">
         </div>
         <a class="btn-quiz" href="quiz.html">Kuis</a>
+        <button id="theme-toggle" class="btn-theme" type="button" aria-label="Ubah tema">Gelap</button>
       </div>
     </div>
   </header>
