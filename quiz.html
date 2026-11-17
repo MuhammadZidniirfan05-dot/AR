@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kuis Anatomi | AR Organ Tubuh</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container detail-header">
+      <a class="back-link" href="index.html">&larr; Kembali ke Daftar</a>
+      <span class="brand-name">Kuis AR Organ Tubuh</span>
+    </div>
+  </header>
+
+  <main class="container quiz-main">
+    <section id="quiz-card" class="quiz-card">
+      <div class="quiz-top">
+        <span id="quiz-mode" class="quiz-mode"></span>
+        <span id="quiz-progress" class="quiz-progress"></span>
+      </div>
+
+      <h1 id="quiz-question" class="quiz-question"></h1>
+      <div id="quiz-options" class="quiz-options"></div>
+
+      <div id="quiz-feedback" class="quiz-feedback" hidden>
+        <p id="quiz-status" class="quiz-status"></p>
+        <p id="quiz-explanation" class="quiz-explanation"></p>
+        <button id="quiz-next" class="btn-quiz" type="button">Lanjut</button>
+      </div>
+    </section>
+
+    <section id="quiz-result" class="quiz-card quiz-result" hidden>
+      <h1>Hasil Kuis</h1>
+      <p id="result-score" class="result-score"></p>
+      <p id="result-high-score" class="result-high-score"></p>
+      <div class="result-actions">
+        <button id="quiz-retry" class="btn-quiz" type="button">Ulangi</button>
+        <a class="btn-secondary" href="index.html">Kembali ke daftar</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>AR Organ Tubuh &mdash; Media Edukasi Anatomi 3D</p>
+    </div>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/quiz.js"></script>
+</body>
+</html>

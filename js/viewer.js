@@ -30,6 +30,7 @@ if (!organ) {
   document.getElementById("nama").textContent = organ.nama;
   document.getElementById("deskripsi").textContent = organ.deskripsi;
   document.getElementById("fakta").textContent = organ.fakta;
+  document.getElementById("link-kuis").href = `quiz.html?organ=${organ.id}`;
 
   const fungsiList = document.getElementById("fungsi");
   organ.fungsi.forEach(teks => {

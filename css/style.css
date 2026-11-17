@@ -517,3 +517,162 @@ model-viewer {
     height: 68vh;
   }
 }
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.header-actions .search-box {
+  flex: 1;
+}
+
+.quiz-main {
+  max-width: 720px;
+  margin-bottom: 3rem;
+}
+
+.quiz-card {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06);
+}
+
+.quiz-top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  color: #475569;
+}
+
+.quiz-mode {
+  font-weight: 600;
+  color: #0f766e;
+}
+
+.quiz-question {
+  margin: 0 0 1.25rem;
+  font-size: 1.35rem;
+  color: #0f172a;
+}
+
+.quiz-options {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+}
+
+.quiz-option {
+  width: 100%;
+  text-align: left;
+  padding: 0.85rem 1rem;
+  font-size: 1rem;
+  font-family: inherit;
+  color: #0f172a;
+  background-color: #f8fafc;
+  border: 1px solid #cbd5e1;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.quiz-option:hover:not(:disabled),
+.quiz-option:focus-visible:not(:disabled) {
+  background-color: #eff6ff;
+  border-color: #2563eb;
+}
+
+.quiz-option:disabled {
+  cursor: default;
+}
+
+.quiz-option.correct {
+  background-color: #dcfce7;
+  border-color: #16a34a;
+  color: #14532d;
+  font-weight: 600;
+}
+
+.quiz-option.wrong {
+  background-color: #fee2e2;
+  border-color: #dc2626;
+  color: #7f1d1d;
+}
+
+.quiz-feedback {
+  margin-top: 1.25rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid #e2e8f0;
+}
+
+.quiz-status {
+  margin: 0 0 0.4rem;
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+
+.quiz-status.is-correct {
+  color: #15803d;
+}
+
+.quiz-status.is-wrong {
+  color: #b91c1c;
+}
+
+.quiz-explanation {
+  margin: 0 0 1rem;
+  color: #334155;
+}
+
+.quiz-result {
+  text-align: center;
+  padding: 2.25rem 1.5rem;
+}
+
+.quiz-result h1 {
+  margin: 0 0 0.75rem;
+  color: #0f172a;
+}
+
+.result-score {
+  margin: 0 0 0.5rem;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #2563eb;
+}
+
+.result-high-score {
+  margin: 0 0 1.5rem;
+  font-size: 1rem;
+  color: #475569;
+}
+
+.result-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.btn-secondary {
+  display: inline-block;
+  padding: 0.75rem 1.25rem;
+  font-weight: 600;
+  text-decoration: none;
+  color: #0f172a;
+  background-color: #e2e8f0;
+  border-radius: 0.5rem;
+  transition: background-color 0.2s ease;
+}
+
+.btn-secondary:hover,
+.btn-secondary:focus-visible {
+  background-color: #cbd5e1;
+}
