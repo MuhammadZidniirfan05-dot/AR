@@ -15,18 +15,32 @@ const ORGANS = [
     poster: "img/jantung.webp",
     hotspots: [
       {
+        id: "aorta",
+        label: "Aorta",
+        info: "Pembuluh arteri terbesar yang mengalirkan darah kaya oksigen keluar dari jantung ke seluruh tubuh.",
+        position: "-0.0796 0.5133 0.2720",
+        normal: "0.1333 0.5494 0.8249"
+      },
+      {
         id: "atrium-kanan",
         label: "Atrium Kanan",
-        info: "Serambi kanan menerima darah miskin oksigen dari seluruh tubuh.",
-        position: "0.05 0.1 0.05",
-        normal: "0 1 0"
+        info: "Serambi kanan menerima darah miskin oksigen yang kembali dari seluruh tubuh.",
+        position: "-0.4230 0.3216 0.1700",
+        normal: "-0.6730 0.5494 0.4952"
+      },
+      {
+        id: "ventrikel-kanan",
+        label: "Ventrikel Kanan",
+        info: "Bilik kanan memompa darah miskin oksigen menuju paru-paru untuk mengambil oksigen.",
+        position: "-0.1860 -0.0438 0.4580",
+        normal: "-0.2598 0.0971 0.9608"
       },
       {
         id: "ventrikel-kiri",
         label: "Ventrikel Kiri",
-        info: "Bilik kiri memompa darah kaya oksigen ke seluruh tubuh melalui aorta.",
-        position: "-0.05 -0.1 0.05",
-        normal: "0 1 0"
+        info: "Bilik kiri memiliki otot paling tebal untuk memompa darah kaya oksigen ke seluruh tubuh melalui aorta.",
+        position: "0.1089 -0.4550 0.3641",
+        normal: "0.3287 -0.3274 0.8859"
       }
     ],
     kredit: {
@@ -54,16 +68,30 @@ const ORGANS = [
       {
         id: "trakea",
         label: "Trakea",
-        info: "Saluran udara utama yang menghubungkan tenggorokan dengan bronkus.",
-        position: "0 0.2 0",
-        normal: "0 1 0"
+        info: "Saluran udara utama (batang tenggorokan) yang menghubungkan tenggorokan dengan bronkus.",
+        position: "-0.0003 0.1932 -0.0514",
+        normal: "-0.2494 0.1742 -0.9526"
+      },
+      {
+        id: "bronkus",
+        label: "Bronkus",
+        info: "Dua cabang saluran napas dari trakea yang mengarahkan udara masuk ke paru-paru kanan dan kiri.",
+        position: "0.0030 0.1328 -0.0553",
+        normal: "0.1406 0.0369 -0.9894"
       },
       {
         id: "paru-kanan",
         label: "Paru-paru Kanan",
-        info: "Terdiri dari tiga lobus yang menampung udara saat bernapas.",
-        position: "-0.1 0 0.05",
-        normal: "0 1 0"
+        info: "Terdiri dari tiga lobus dan ukurannya sedikit lebih besar daripada paru-paru kiri.",
+        position: "-0.0673 0.0308 -0.1232",
+        normal: "-0.1316 -0.0477 -0.9902"
+      },
+      {
+        id: "paru-kiri",
+        label: "Paru-paru Kiri",
+        info: "Terdiri dari dua lobus dan memiliki lekukan untuk memberi ruang bagi posisi jantung.",
+        position: "0.0619 0.0808 -0.1223",
+        normal: "-0.2332 0.0096 -0.9724"
       }
     ],
     kredit: {
@@ -91,16 +119,30 @@ const ORGANS = [
       {
         id: "otak-besar",
         label: "Otak Besar (Serebrum)",
-        info: "Mengatur kemampuan berpikir, berbicara, dan ingatan.",
-        position: "0 0.12 0",
-        normal: "0 1 0"
+        info: "Bagian terbesar otak yang mengatur kemampuan berpikir, berbicara, ingatan, dan kesadaran.",
+        position: "1.5150 1.7972 0.4534",
+        normal: "0.6930 0.6968 0.1850"
+      },
+      {
+        id: "lobus-frontal",
+        label: "Lobus Frontal",
+        info: "Bagian depan otak besar yang berperan dalam mengambil keputusan, perencanaan, dan pengendalian emosi.",
+        position: "0.7204 0.7860 1.4316",
+        normal: "0.5420 -0.0566 0.8385"
       },
       {
         id: "otak-kecil",
         label: "Otak Kecil (Serebelum)",
-        info: "Mengatur keseimbangan dan koordinasi gerakan tubuh.",
-        position: "0 -0.05 -0.1",
-        normal: "0 0 -1"
+        info: "Terletak di bagian belakang bawah otak, berfungsi menjaga keseimbangan dan koordinasi gerakan tubuh.",
+        position: "1.0559 -0.8483 -0.9766",
+        normal: "0.6313 -0.7132 -0.3047"
+      },
+      {
+        id: "batang-otak",
+        label: "Batang Otak",
+        info: "Menghubungkan otak dengan sumsum tulang belakang serta mengatur fungsi otomatis seperti bernapas dan detak jantung.",
+        position: "0.0681 -1.1646 -0.4910",
+        normal: "0.1650 -0.7831 -0.5996"
       }
     ],
     kredit: {
@@ -126,18 +168,32 @@ const ORGANS = [
     poster: "img/lambung.webp",
     hotspots: [
       {
-        id: "fundus",
-        label: "Fundus",
-        info: "Bagian atas lambung yang menampung gas dan makanan yang baru masuk.",
-        position: "0.05 0.1 0",
-        normal: "0 1 0"
+        id: "esofagus",
+        label: "Esofagus (Kerongkongan)",
+        info: "Saluran berotot yang mendorong makanan dari tenggorokan turun masuk ke dalam lambung.",
+        position: "-0.0169 0.5707 0.0414",
+        normal: "0.1039 0.0878 0.9907"
       },
       {
-        id: "pilorus",
-        label: "Pilorus",
-        info: "Bagian bawah lambung yang mengatur keluarnya makanan menuju usus halus.",
-        position: "-0.05 -0.1 0",
-        normal: "0 -1 0"
+        id: "fundus",
+        label: "Fundus",
+        info: "Bagian kubah paling atas lambung yang menampung makanan dan gas sementara setelah masuk.",
+        position: "-0.5262 0.2209 0.2980",
+        normal: "-0.1571 0.4156 0.8959"
+      },
+      {
+        id: "badan-lambung",
+        label: "Badan Lambung",
+        info: "Bagian utama terbesar tempat makanan diaduk dan dicerna secara kimiawi oleh asam lambung dan enzim.",
+        position: "-0.7605 -0.2454 0.1702",
+        normal: "-0.6917 0.0329 0.7214"
+      },
+      {
+        id: "duodenum",
+        label: "Duodenum (Usus 12 Jari)",
+        info: "Bagian awal usus halus yang menerima makanan yang sudah dihaluskan dari lambung.",
+        position: "0.6325 -0.8666 0.3835",
+        normal: "0.2131 0.2724 0.9383"
       }
     ],
     kredit: {
@@ -165,16 +221,30 @@ const ORGANS = [
       {
         id: "korteks-ginjal",
         label: "Korteks Ginjal",
-        info: "Lapisan luar ginjal tempat nefron mulai menyaring darah.",
-        position: "0.08 0.05 0",
-        normal: "1 0 0"
+        info: "Lapisan bagian luar ginjal tempat jutaan nefron mulai menyaring darah.",
+        position: "-1.2039 8.8372 -1.2596",
+        normal: "-0.0904 0.9266 -0.3651"
+      },
+      {
+        id: "hilum",
+        label: "Hilum",
+        info: "Bagian lekukan cekung di sisi dalam ginjal yang menjadi pintu keluar-masuk pembuluh darah dan ureter.",
+        position: "-0.1136 4.3211 -1.3267",
+        normal: "0.5535 -0.6555 -0.5138"
+      },
+      {
+        id: "pembuluh-darah-ginjal",
+        label: "Pembuluh Darah Ginjal",
+        info: "Terdiri dari arteri renalis yang membawa darah kotor ke ginjal dan vena renalis yang membawa darah bersih kembali.",
+        position: "1.9112 3.5064 -0.2339",
+        normal: "-0.2612 -0.3971 -0.8798"
       },
       {
         id: "ureter",
         label: "Ureter",
-        info: "Saluran yang mengalirkan urine dari ginjal menuju kandung kemih.",
-        position: "0 -0.1 0",
-        normal: "0 -1 0"
+        info: "Saluran berotot yang mengalirkan urine hasil saringan dari ginjal menuju kandung kemih.",
+        position: "0.2995 0.0978 -0.2137",
+        normal: "0.4389 -0.0380 -0.8977"
       }
     ],
     kredit: {
@@ -187,7 +257,7 @@ const ORGANS = [
   {
     id: "hati",
     nama: "Hati",
-    ringkas: "Menawarkan racun dan menghasilkan empedu.",
+    ringkas: "Menetralkan racun dan menghasilkan empedu.",
     deskripsi: "Hati adalah organ dalam terbesar di tubuh manusia yang berada di perut bagian kanan atas. Hati berperan penting dalam metabolisme, penyimpanan energi, serta menyaring racun.",
     fungsi: [
       "Menetralkan racun dan obat-obatan yang masuk ke tubuh",
@@ -202,16 +272,30 @@ const ORGANS = [
       {
         id: "lobus-kanan",
         label: "Lobus Kanan",
-        info: "Bagian terbesar hati yang menjalankan sebagian besar fungsi metabolisme.",
-        position: "-0.08 0.02 0.05",
-        normal: "0 1 0"
+        info: "Bagian terbesar hati yang menjalankan sebagian besar proses penyaringan racun dan metabolisme.",
+        position: "0.0733 0.0270 0.0314",
+        normal: "0.9376 0.3421 0.0618"
+      },
+      {
+        id: "lobus-kiri",
+        label: "Lobus Kiri",
+        info: "Bagian hati yang lebih kecil dan meruncing ke arah kiri tubuh, membantu metabolisme nutrisi.",
+        position: "0.0326 0.0439 -0.1020",
+        normal: "0.8056 -0.1048 -0.5831"
       },
       {
         id: "kantung-empedu",
         label: "Kantung Empedu",
-        info: "Menyimpan cairan empedu sebelum dialirkan ke usus halus.",
-        position: "0 -0.06 0.05",
-        normal: "0 -1 0"
+        info: "Kantong kecil di bawah hati yang menyimpan dan memekatkan cairan empedu sebelum disalurkan ke usus.",
+        position: "0.0006 -0.0607 0.0252",
+        normal: "-0.6584 -0.7512 0.0479"
+      },
+      {
+        id: "pembuluh-hati",
+        label: "Vena / Pembuluh Hati",
+        info: "Pembuluh darah utama yang menyalurkan darah kaya nutrisi dari pencernaan dan mengalirkan darah keluar dari hati.",
+        position: "-0.0407 0.0931 0.0092",
+        normal: "0.6977 0.0715 0.7128"
       }
     ],
     kredit: {
