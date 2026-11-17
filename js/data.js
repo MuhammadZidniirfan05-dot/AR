@@ -453,3 +453,52 @@ const QUIZ = [
     penjelasan: "Hati merupakan satu-satunya organ dalam manusia yang dapat menumbuhkan kembali jaringannya yang rusak."
   }
 ];
+
+function getPreferredTheme() {
+  try {
+    const saved = localStorage.getItem("ar-organ-theme");
+    if (saved === "dark" || saved === "light") {
+      return saved;
+    }
+  } catch (err) {
+    // Abaikan jika localStorage tidak tersedia
+  }
+  return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches
+    ? "dark"
+    : "light";
+}
+
+function applyTheme(theme) {
+  document.documentElement.dataset.theme = theme;
+  const toggleBtn = document.getElementById("theme-toggle");
+  if (toggleBtn) {
+    const isDark = theme === "dark";
+    toggleBtn.textContent = isDark ? "Terang" : "Gelap";
+    toggleBtn.setAttribute(
+      "aria-label",
+      isDark ? "Ubah ke mode terang" : "Ubah ke mode gelap"
+    );
+  }
+}
+
+function initTheme() {
+  applyTheme(getPreferredTheme());
+  const toggleBtn = document.getElementById("theme-toggle");
+  if (!toggleBtn) {
+    return;
+  }
+  toggleBtn.addEventListener("click", () => {
+    const nextTheme =
+      document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+    applyTheme(nextTheme);
+    try {
+      localStorage.setItem("ar-organ-theme", nextTheme);
+    } catch (err) {
+      // Abaikan jika localStorage tidak tersedia
+    }
+  });
+}
+
+if (typeof document !== "undefined") {
+  initTheme();
+}
