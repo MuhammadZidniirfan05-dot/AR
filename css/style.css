@@ -163,3 +163,256 @@ body {
     grid-template-columns: repeat(3, 1fr);
   }
 }
+
+.detail-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  font-weight: 600;
+  color: #1d4ed8;
+  text-decoration: none;
+  padding: 0.4rem 0.75rem;
+  border-radius: 0.5rem;
+  transition: background-color 0.2s ease;
+}
+
+.back-link:hover,
+.back-link:focus-visible {
+  background-color: #eff6ff;
+}
+
+.brand-name {
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.detail-main {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.viewer-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+model-viewer {
+  width: 100%;
+  height: 60vh;
+  min-height: 320px;
+  max-height: 560px;
+  background: radial-gradient(circle at center, #ffffff 0%, #e2e8f0 100%);
+  border: 1px solid #cbd5e1;
+  border-radius: 0.75rem;
+  overflow: hidden;
+}
+
+.btn-ar {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  padding: 0.75rem 1.25rem;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #ffffff;
+  background-color: #2563eb;
+  border: none;
+  border-radius: 9999px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+  transition: background-color 0.2s ease, transform 0.15s ease;
+}
+
+.btn-ar:hover,
+.btn-ar:focus-visible {
+  background-color: #1d4ed8;
+  transform: translateY(-1px);
+}
+
+.progress {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60%;
+  max-width: 260px;
+  height: 8px;
+  background-color: rgba(15, 23, 42, 0.15);
+  border-radius: 9999px;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.progress.hide {
+  display: none;
+}
+
+.progress-fill {
+  width: 0%;
+  height: 100%;
+  background-color: #2563eb;
+  transition: width 0.15s ease;
+}
+
+.ar-note {
+  margin: 0;
+  font-size: 0.875rem;
+  color: #475569;
+  text-align: center;
+}
+
+.detail-info {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+}
+
+.detail-info h1 {
+  margin: 0 0 0.75rem;
+  font-size: 1.85rem;
+  color: #0f172a;
+}
+
+.detail-info h2 {
+  margin: 1.5rem 0 0.5rem;
+  font-size: 1.15rem;
+  color: #0f172a;
+}
+
+.detail-desc {
+  margin: 0;
+  color: #334155;
+}
+
+.detail-list {
+  margin: 0;
+  padding-left: 1.25rem;
+  color: #334155;
+}
+
+.detail-list li + li {
+  margin-top: 0.35rem;
+}
+
+.fact-box {
+  margin-top: 1.25rem;
+  padding: 1rem 1.25rem;
+  background-color: #eff6ff;
+  border-left: 4px solid #2563eb;
+  border-radius: 0.5rem;
+}
+
+.fact-box h2 {
+  margin: 0 0 0.35rem;
+  font-size: 1rem;
+  color: #1e40af;
+}
+
+.fact-box p {
+  margin: 0;
+  color: #1e3a8a;
+}
+
+.detail-actions {
+  margin-top: 1.5rem;
+}
+
+.btn-quiz,
+.btn-home {
+  display: inline-block;
+  padding: 0.75rem 1.25rem;
+  font-weight: 600;
+  text-decoration: none;
+  color: #ffffff;
+  background-color: #0f766e;
+  border-radius: 0.5rem;
+  transition: background-color 0.2s ease;
+}
+
+.btn-quiz:hover,
+.btn-quiz:focus-visible,
+.btn-home:hover,
+.btn-home:focus-visible {
+  background-color: #115e59;
+}
+
+.credit-box {
+  margin-top: 1.75rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid #e2e8f0;
+  font-size: 0.9rem;
+  color: #475569;
+}
+
+.credit-box h2 {
+  margin: 0 0 0.5rem;
+  font-size: 1rem;
+  color: #0f172a;
+}
+
+.credit-box p {
+  margin: 0.25rem 0;
+  word-break: break-word;
+}
+
+.credit-box a {
+  color: #1d4ed8;
+}
+
+.not-found {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+}
+
+.not-found-card {
+  max-width: 460px;
+  width: 100%;
+  text-align: center;
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.75rem;
+  padding: 2.5rem 1.5rem;
+}
+
+.not-found-code {
+  margin: 0;
+  font-size: 3.5rem;
+  font-weight: 800;
+  color: #2563eb;
+  line-height: 1;
+}
+
+.not-found-card h1 {
+  margin: 0.75rem 0 0.5rem;
+  font-size: 1.5rem;
+  color: #0f172a;
+}
+
+.not-found-card p {
+  margin: 0 0 1.5rem;
+  color: #475569;
+}
+
+@media (min-width: 1024px) {
+  .detail-main {
+    grid-template-columns: 1.15fr 1fr;
+    align-items: start;
+  }
+
+  model-viewer {
+    height: 68vh;
+  }
+}

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detail Organ | AR Organ Tubuh</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container detail-header">
+      <a class="back-link" href="index.html">&larr; Kembali</a>
+      <span class="brand-name">AR Organ Tubuh</span>
+    </div>
+  </header>
+
+  <main class="container detail-main">
+    <section class="viewer-section">
+      <model-viewer
+        id="mv"
+        camera-controls
+        auto-rotate
+        shadow-intensity="1"
+        ar
+        ar-modes="webxr scene-viewer quick-look"
+        ar-scale="auto"
+        loading="eager"
+        reveal="auto">
+        <button slot="ar-button" class="btn-ar">Lihat di AR</button>
+        <div slot="progress-bar" class="progress">
+          <div class="progress-fill"></div>
+        </div>
+      </model-viewer>
+      <p class="ar-note">Fitur AR tersedia di HP Android/iPhone yang didukung.</p>
+    </section>
+
+    <article class="detail-info">
+      <h1 id="nama"></h1>
+      <p id="deskripsi" class="detail-desc"></p>
+
+      <h2>Fungsi</h2>
+      <ul id="fungsi" class="detail-list"></ul>
+
+      <div class="fact-box">
+        <h2>Fakta Menarik</h2>
+        <p id="fakta"></p>
+      </div>
+
+      <div class="detail-actions">
+        <a id="link-kuis" class="btn-quiz" href="#">Ikut kuis organ ini</a>
+      </div>
+
+      <section id="kredit" class="credit-box"></section>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>AR Organ Tubuh &mdash; Media Edukasi Anatomi 3D</p>
+    </div>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/viewer.js"></script>
+</body>
+</html>
