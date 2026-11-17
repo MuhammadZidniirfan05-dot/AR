@@ -32,7 +32,14 @@
           <div class="progress-fill"></div>
         </div>
       </model-viewer>
-      <p class="ar-note">Fitur AR tersedia di HP Android/iPhone yang didukung.</p>
+      <p class="ar-note">Fitur AR tersedia di HP Android/iPhone yang didukung. Klik titik pada model untuk info bagian organ.</p>
+      <aside id="info" class="hotspot-info" aria-live="polite" hidden>
+        <div class="hotspot-info-header">
+          <h2 id="info-title"></h2>
+          <button id="info-close" class="hotspot-info-close" type="button" aria-label="Tutup panel info">&times;</button>
+        </div>
+        <p id="info-text"></p>
+      </aside>
     </section>
 
     <article class="detail-info">
