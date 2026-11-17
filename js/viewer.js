@@ -98,4 +98,48 @@ if (!organ) {
     b.addEventListener("click", () => showInfo(h, b));
     mv.appendChild(b);
   });
+
+  const btnTts = document.getElementById("btn-tts");
+  if (btnTts) {
+    if (!("speechSynthesis" in window)) {
+      btnTts.hidden = true;
+    } else {
+      const narrationText = `${organ.nama}. ${organ.deskripsi} Fungsi utama: ${organ.fungsi.join(". ")}. Fakta menarik: ${organ.fakta}`;
+
+      function resetTtsButton() {
+        btnTts.textContent = "Bacakan";
+        btnTts.classList.remove("speaking");
+        btnTts.setAttribute("aria-pressed", "false");
+        btnTts.setAttribute("aria-label", "Bacakan informasi organ");
+      }
+
+      btnTts.addEventListener("click", () => {
+        if (window.speechSynthesis.speaking) {
+          window.speechSynthesis.cancel();
+          resetTtsButton();
+          return;
+        }
+
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(narrationText);
+        utterance.lang = "id-ID";
+        utterance.onend = resetTtsButton;
+        utterance.onerror = resetTtsButton;
+
+        btnTts.textContent = "Berhenti";
+        btnTts.classList.add("speaking");
+        btnTts.setAttribute("aria-pressed", "true");
+        btnTts.setAttribute("aria-label", "Hentikan pembacaan informasi organ");
+        window.speechSynthesis.speak(utterance);
+      });
+
+      const stopSpeech = () => {
+        if (window.speechSynthesis.speaking) {
+          window.speechSynthesis.cancel();
+        }
+      };
+      window.addEventListener("pagehide", stopSpeech);
+      window.addEventListener("beforeunload", stopSpeech);
+    }
+  }
 }
