@@ -14,24 +14,35 @@
 </head>
 <body>
   <header class="site-header">
-    <div class="container header-inner">
-      <div class="header-title">
-        <h1>AR Organ Tubuh</h1>
-        <p class="subtitle">Jelajahi anatomi organ manusia dalam 3D dan Augmented Reality</p>
-      </div>
-      <div class="header-actions">
-        <div class="search-box">
-          <label class="sr-only" for="search">Cari organ</label>
-          <input id="search" type="search" placeholder="Cari organ (mis. Jantung)..." autocomplete="off">
-        </div>
-        <a class="btn-quiz" href="quiz.html">Kuis</a>
+    <div class="container nav-inner">
+      <a class="brand-link" href="index.html">
+        <img src="img/favicon.svg" alt="" width="28" height="28">
+        <span>AR Organ Tubuh</span>
+      </a>
+      <div class="nav-actions">
+        <a class="btn-quiz" href="quiz.html">Kuis Anatomi</a>
         <button id="theme-toggle" class="btn-theme" type="button" aria-label="Ubah tema">Gelap</button>
       </div>
     </div>
   </header>
 
+  <section class="hero">
+    <div class="container hero-inner">
+      <span class="hero-badge">Anatomi 3D &amp; Augmented Reality</span>
+      <h1 class="hero-title">Jelajahi Organ Tubuh Manusia Secara <span class="text-gradient">Interaktif</span></h1>
+      <p class="hero-desc">Putar model 3D, pelajari titik bagian organ, dengarkan simulasi detak jantung &amp; pernapasan, atau tampilkan langsung di ruangan lewat kamera HP.</p>
+      <div class="search-wrap">
+        <svg class="search-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <path d="m21 21-4.3-4.3"></path>
+        </svg>
+        <label class="sr-only" for="search">Cari organ</label>
+        <input id="search" type="search" placeholder="Cari organ (mis. Jantung, Otak, Ginjal)..." autocomplete="off">
+      </div>
+    </div>
+  </section>
+
   <main class="container">
-    <section id="progress-banner" class="progress-banner" aria-live="polite"></section>
     <section id="organ-grid" class="organ-grid" aria-live="polite"></section>
   </main>
 

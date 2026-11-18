@@ -63,17 +63,6 @@ if (!organ) {
     });
   }
 
-  try {
-    const savedLearned = JSON.parse(localStorage.getItem("ar-organ-learned") || "[]");
-    const learnedList = Array.isArray(savedLearned) ? savedLearned : [];
-    if (!learnedList.includes(organ.id)) {
-      learnedList.push(organ.id);
-      localStorage.setItem("ar-organ-learned", JSON.stringify(learnedList));
-    }
-  } catch (err) {
-    // Abaikan jika localStorage tidak tersedia
-  }
-
   const kreditSection = document.getElementById("kredit");
   kreditSection.innerHTML = `
     <h2>Kredit Model 3D</h2>
