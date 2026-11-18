@@ -1,5 +1,9 @@
 const grid = document.getElementById("organ-grid");
 const searchInput = document.getElementById("search");
+const aboutOpen = document.getElementById("about-open");
+const aboutModal = document.getElementById("about-modal");
+const aboutClose = document.getElementById("about-close");
+const aboutOk = document.getElementById("about-ok");
 
 function render(list) {
   grid.innerHTML = list.length
@@ -7,15 +11,13 @@ function render(list) {
       <a class="card" href="organ.html?id=${o.id}">
         <div class="card-media">
           <img class="card-img" src="${o.poster}" alt="${o.nama}" loading="lazy" width="300" height="300">
-          <span class="card-tag">${o.hotspots.length} Titik 3D</span>
         </div>
         <div class="card-body">
-          <h2>${o.nama}</h2>
+          <div class="card-meta">
+            <h2>${o.nama}</h2>
+            <span class="card-arrow" aria-hidden="true">&rarr;</span>
+          </div>
           <p>${o.ringkas}</p>
-        </div>
-        <div class="card-footer">
-          <span class="card-cta">Lihat 3D &amp; AR</span>
-          <span class="card-arrow" aria-hidden="true">&rarr;</span>
         </div>
       </a>`).join("")
     : '<p class="empty-state">Organ tidak ditemukan.</p>';
@@ -27,3 +29,43 @@ searchInput.addEventListener("input", e => {
   const query = e.target.value.toLowerCase().trim();
   render(ORGANS.filter(o => o.nama.toLowerCase().includes(query)));
 });
+
+function openAboutModal() {
+  if (!aboutModal) {
+    return;
+  }
+  aboutModal.hidden = false;
+  if (aboutClose) {
+    aboutClose.focus();
+  }
+}
+
+function closeAboutModal() {
+  if (!aboutModal || aboutModal.hidden) {
+    return;
+  }
+  aboutModal.hidden = true;
+  if (aboutOpen) {
+    aboutOpen.focus();
+  }
+}
+
+if (aboutOpen && aboutModal) {
+  aboutOpen.addEventListener("click", openAboutModal);
+  if (aboutClose) {
+    aboutClose.addEventListener("click", closeAboutModal);
+  }
+  if (aboutOk) {
+    aboutOk.addEventListener("click", closeAboutModal);
+  }
+  aboutModal.addEventListener("click", e => {
+    if (e.target.dataset.closeModal === "true") {
+      closeAboutModal();
+    }
+  });
+  document.addEventListener("keydown", e => {
+    if (e.key === "Escape" && !aboutModal.hidden) {
+      closeAboutModal();
+    }
+  });
+}
