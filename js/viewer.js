@@ -142,4 +142,288 @@ if (!organ) {
       window.addEventListener("beforeunload", stopSpeech);
     }
   }
+
+  const simPanel = document.getElementById("sim-panel");
+  if (simPanel && (organ.id === "jantung" || organ.id === "paru-paru")) {
+    const simTitle = document.getElementById("sim-title");
+    const simRate = document.getElementById("sim-rate");
+    const simDot = document.getElementById("sim-dot");
+    const simToggle = document.getElementById("sim-toggle");
+    const simModeRest = document.getElementById("sim-mode-rest");
+    const simModeActive = document.getElementById("sim-mode-active");
+    const simSound = document.getElementById("sim-sound");
+    const simStatus = document.getElementById("sim-status");
+
+    const isHeart = organ.id === "jantung";
+    const simConfig = isHeart
+      ? {
+          title: "Simulasi Detak Jantung",
+          unit: "BPM",
+          restRate: 72,
+          activeRate: 130,
+          restLabel: "Istirahat (72 BPM)",
+          activeLabel: "Olahraga (130 BPM)",
+          idleText: "Tekan Mulai Simulasi untuk melihat denyut jantung dan mendengar bunyi Lub-Dub."
+        }
+      : {
+          title: "Simulasi Pernapasan",
+          unit: "RPM",
+          restRate: 15,
+          activeRate: 30,
+          restLabel: "Normal (15x/mnt)",
+          activeLabel: "Olahraga (30x/mnt)",
+          idleText: "Tekan Mulai Simulasi untuk melihat paru-paru mengembang dan mengempis."
+        };
+
+    simPanel.hidden = false;
+    simTitle.textContent = simConfig.title;
+    simModeRest.textContent = simConfig.restLabel;
+    simModeActive.textContent = simConfig.activeLabel;
+    simStatus.textContent = simConfig.idleText;
+
+    let simRunning = false;
+    let simMode = "rest";
+    let soundEnabled = true;
+    let audioCtx = null;
+    let simTimerId = null;
+    let pulseTimerId = null;
+    let breathFrameId = null;
+
+    function getCurrentRate() {
+      return simMode === "active" ? simConfig.activeRate : simConfig.restRate;
+    }
+
+    function updateRateBadge() {
+      simRate.textContent = `${getCurrentRate()} ${simConfig.unit}`;
+    }
+
+    function ensureAudioContext() {
+      if (!soundEnabled) {
+        return null;
+      }
+      const AudioCtor = window.AudioContext || window.webkitAudioContext;
+      if (!AudioCtor) {
+        return null;
+      }
+      if (!audioCtx) {
+        audioCtx = new AudioCtor();
+      }
+      if (audioCtx.state === "suspended") {
+        audioCtx.resume().catch(() => {});
+      }
+      return audioCtx;
+    }
+
+    function playThump(ctx, startTime, startFreq, endFreq, duration, volume) {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = "sine";
+      osc.frequency.setValueAtTime(startFreq, startTime);
+      osc.frequency.exponentialRampToValueAtTime(endFreq, startTime + duration);
+
+      gain.gain.setValueAtTime(0.001, startTime);
+      gain.gain.exponentialRampToValueAtTime(volume, startTime + 0.02);
+      gain.gain.exponentialRampToValueAtTime(0.001, startTime + duration);
+
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(startTime);
+      osc.stop(startTime + duration + 0.02);
+    }
+
+    function playHeartbeatSound() {
+      const ctx = ensureAudioContext();
+      if (!ctx) {
+        return;
+      }
+      const now = ctx.currentTime;
+      playThump(ctx, now, 70, 38, 0.14, 0.45);
+      playThump(ctx, now + 0.18, 58, 32, 0.12, 0.32);
+    }
+
+    function playBreathSound(isInhale, durationSec) {
+      const ctx = ensureAudioContext();
+      if (!ctx) {
+        return;
+      }
+      const sampleCount = Math.max(1, Math.floor(ctx.sampleRate * durationSec));
+      const buffer = ctx.createBuffer(1, sampleCount, ctx.sampleRate);
+      const data = buffer.getChannelData(0);
+      for (let i = 0; i < sampleCount; i += 1) {
+        data[i] = Math.random() * 2 - 1;
+      }
+
+      const source = ctx.createBufferSource();
+      source.buffer = buffer;
+
+      const filter = ctx.createBiquadFilter();
+      filter.type = "bandpass";
+      filter.frequency.value = isInhale ? 520 : 380;
+      filter.Q.value = 1.2;
+
+      const gain = ctx.createGain();
+      const now = ctx.currentTime;
+      const peak = isInhale ? 0.09 : 0.07;
+      gain.gain.setValueAtTime(0.001, now);
+      gain.gain.linearRampToValueAtTime(peak, now + durationSec * 0.35);
+      gain.gain.linearRampToValueAtTime(0.001, now + durationSec);
+
+      source.connect(filter);
+      filter.connect(gain);
+      gain.connect(ctx.destination);
+      source.start(now);
+      source.stop(now + durationSec + 0.02);
+    }
+
+    function runHeartBeat() {
+      if (!simRunning) {
+        return;
+      }
+      const rate = getCurrentRate();
+      const beatMs = Math.round(60000 / rate);
+
+      mv.style.transform = "scale(1.06)";
+      simDot.classList.add("is-pulsing");
+      simStatus.textContent =
+        simMode === "active"
+          ? "Sistol (Olahraga): Jantung memompa lebih cepat untuk memenuhi kebutuhan oksigen otot."
+          : "Sistol (Istirahat): Jantung memompa darah secara stabil ke seluruh tubuh.";
+      playHeartbeatSound();
+
+      pulseTimerId = window.setTimeout(() => {
+        if (!simRunning) {
+          return;
+        }
+        mv.style.transform = "scale(1.02)";
+        window.setTimeout(() => {
+          if (!simRunning) {
+            return;
+          }
+          mv.style.transform = "scale(1)";
+          simDot.classList.remove("is-pulsing");
+          simStatus.textContent = "Diastol: Bilik jantung berelaksasi dan terisi darah kembali.";
+        }, 140);
+      }, 160);
+
+      simTimerId = window.setTimeout(runHeartBeat, beatMs);
+    }
+
+    function runBreathCycle() {
+      if (!simRunning) {
+        return;
+      }
+      const rate = getCurrentRate();
+      const cycleMs = 60000 / rate;
+      const halfMs = cycleMs / 2;
+      const startTime = performance.now();
+      let lastPhase = "";
+
+      function step(now) {
+        if (!simRunning) {
+          return;
+        }
+        const elapsed = (now - startTime) % cycleMs;
+        const isInhale = elapsed < halfMs;
+        const phase = isInhale ? "inhale" : "exhale";
+
+        if (phase !== lastPhase) {
+          lastPhase = phase;
+          if (isInhale) {
+            simDot.classList.add("is-pulsing");
+            simStatus.textContent =
+              "Inspirasi: Paru-paru mengembang menyerap oksigen (O₂).";
+            playBreathSound(true, Math.min(halfMs / 1000, 2.2));
+          } else {
+            simDot.classList.remove("is-pulsing");
+            simStatus.textContent =
+              "Ekspirasi: Paru-paru mengempis mengembuskan karbon dioksida (CO₂).";
+            playBreathSound(false, Math.min(halfMs / 1000, 2.2));
+          }
+        }
+
+        const progress = isInhale
+          ? elapsed / halfMs
+          : 1 - (elapsed - halfMs) / halfMs;
+        const eased = 0.5 - 0.5 * Math.cos(Math.PI * progress);
+        const scale = 0.98 + eased * 0.09;
+        mv.style.transform = `scale(${scale.toFixed(4)})`;
+
+        breathFrameId = window.requestAnimationFrame(step);
+      }
+
+      breathFrameId = window.requestAnimationFrame(step);
+    }
+
+    function stopSimulation() {
+      simRunning = false;
+      if (simTimerId) {
+        window.clearTimeout(simTimerId);
+        simTimerId = null;
+      }
+      if (pulseTimerId) {
+        window.clearTimeout(pulseTimerId);
+        pulseTimerId = null;
+      }
+      if (breathFrameId) {
+        window.cancelAnimationFrame(breathFrameId);
+        breathFrameId = null;
+      }
+      mv.style.transform = "";
+      simDot.classList.remove("is-pulsing");
+      simToggle.textContent = "Mulai Simulasi";
+      simToggle.classList.remove("is-running");
+      simStatus.textContent = simConfig.idleText;
+    }
+
+    function startSimulation() {
+      stopSimulation();
+      simRunning = true;
+      simToggle.textContent = "Hentikan";
+      simToggle.classList.add("is-running");
+      ensureAudioContext();
+      if (isHeart) {
+        runHeartBeat();
+      } else {
+        runBreathCycle();
+      }
+    }
+
+    function setSimMode(nextMode) {
+      simMode = nextMode;
+      simModeRest.classList.toggle("is-active", simMode === "rest");
+      simModeActive.classList.toggle("is-active", simMode === "active");
+      updateRateBadge();
+      if (simRunning) {
+        startSimulation();
+      }
+    }
+
+    updateRateBadge();
+
+    simToggle.addEventListener("click", () => {
+      if (simRunning) {
+        stopSimulation();
+      } else {
+        startSimulation();
+      }
+    });
+
+    simModeRest.addEventListener("click", () => setSimMode("rest"));
+    simModeActive.addEventListener("click", () => setSimMode("active"));
+
+    simSound.addEventListener("click", () => {
+      soundEnabled = !soundEnabled;
+      simSound.textContent = soundEnabled ? "Suara: Aktif" : "Suara: Bisu";
+      simSound.setAttribute("aria-pressed", String(soundEnabled));
+    });
+
+    const cleanupSim = () => {
+      stopSimulation();
+      if (audioCtx && audioCtx.state !== "closed") {
+        audioCtx.close().catch(() => {});
+      }
+    };
+    window.addEventListener("pagehide", cleanupSim);
+    window.addEventListener("beforeunload", cleanupSim);
+  }
 }

@@ -295,6 +295,7 @@ model-viewer {
   border: 1px solid var(--border-strong);
   border-radius: 0.75rem;
   overflow: hidden;
+  transition: transform 0.14s ease-out;
 }
 
 .btn-ar {
@@ -349,6 +350,111 @@ model-viewer {
   font-size: 0.875rem;
   color: var(--text-muted);
   text-align: center;
+}
+
+.sim-panel {
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  padding: 1rem 1.25rem;
+  box-shadow: var(--shadow);
+}
+
+.sim-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.sim-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.sim-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: var(--border-strong);
+  transition: transform 0.12s ease, background-color 0.12s ease;
+}
+
+.sim-dot.is-pulsing {
+  background-color: #ef4444;
+  transform: scale(1.35);
+}
+
+.sim-title {
+  margin: 0;
+  font-size: 1rem;
+  color: var(--text);
+}
+
+.sim-rate {
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 0.2rem 0.6rem;
+  border-radius: 9999px;
+  background-color: var(--fact-bg);
+  color: var(--fact-title);
+}
+
+.sim-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.sim-btn {
+  padding: 0.45rem 0.85rem;
+  min-height: 36px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  font-family: inherit;
+  color: var(--text);
+  background-color: var(--surface-alt);
+  border: 1px solid var(--border-strong);
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.sim-btn:hover,
+.sim-btn:focus-visible {
+  border-color: var(--primary);
+}
+
+.sim-btn.is-active {
+  background-color: var(--fact-bg);
+  border-color: var(--primary);
+  color: var(--fact-title);
+}
+
+.sim-btn-primary {
+  color: #ffffff;
+  background-color: var(--primary);
+  border-color: var(--primary);
+}
+
+.sim-btn-primary:hover,
+.sim-btn-primary:focus-visible {
+  background-color: var(--primary-hover);
+}
+
+.sim-btn-primary.is-running {
+  background-color: #dc2626;
+  border-color: #dc2626;
+}
+
+.sim-status {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--text-body);
 }
 
 .hotspot {
