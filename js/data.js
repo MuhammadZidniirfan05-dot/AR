@@ -48,7 +48,22 @@ const ORGANS = [
       pembuat: "neshallads",
       sumber: "https://skfb.ly/oyBCT",
       lisensi: "CC-BY 4.0"
-    }
+    },
+    penyakit: [
+      {
+        nama: "Penyakit Jantung Koroner",
+        info: "Penyempitan pembuluh darah arteri koroner akibat penumpukan lemak dan kolesterol sehingga aliran darah ke otot jantung terhambat."
+      },
+      {
+        nama: "Aritmia",
+        info: "Gangguan irama detak jantung yang menjadi terlalu cepat, terlalu lambat, atau tidak teratur."
+      }
+    ],
+    tipsSehat: [
+      "Rutin berolahraga minimal 30 menit setiap hari",
+      "Kurangi makanan tinggi lemak jenuh, gula, dan garam berlebih",
+      "Hindari rokok dan kelola stres dengan istirahat yang cukup"
+    ]
   },
   {
     id: "paru-paru",
@@ -99,7 +114,22 @@ const ORGANS = [
       pembuat: "neshallads",
       sumber: "https://skfb.ly/oBDWI",
       lisensi: "CC-BY 4.0"
-    }
+    },
+    penyakit: [
+      {
+        nama: "Asma",
+        info: "Peradangan dan penyempitan saluran napas yang menyebabkan sesak, mengi, dan batuk saat terpapar debu atau udara dingin."
+      },
+      {
+        nama: "Pneumonia",
+        info: "Infeksi pada kantung udara (alveolus) di paru-paru akibat bakteri atau virus sehingga terisi cairan."
+      }
+    ],
+    tipsSehat: [
+      "Hindari asap rokok dan polusi udara dengan memakai masker saat diperlukan",
+      "Rutin berolahraga seperti jalan kaki atau berenang untuk melatih kapasitas paru-paru",
+      "Jaga kebersihan ruangan agar bebas dari debu dan jamur"
+    ]
   },
   {
     id: "otak",
@@ -150,7 +180,22 @@ const ORGANS = [
       pembuat: "AH",
       sumber: "https://skfb.ly/oqZPW",
       lisensi: "CC-BY 4.0"
-    }
+    },
+    penyakit: [
+      {
+        nama: "Stroke",
+        info: "Terhentinya suplai darah ke bagian otak akibat penyumbatan atau pecahnya pembuluh darah otak."
+      },
+      {
+        nama: "Migrain",
+        info: "Sakit kepala berdenyut hebat di satu sisi kepala yang sering disertai sensitivitas terhadap cahaya atau suara."
+      }
+    ],
+    tipsSehat: [
+      "Tidur cukup 7–9 jam setiap malam agar sel saraf otak dapat pulih optimal",
+      "Latih otak dengan membaca, belajar hal baru, atau bermain teka-teki",
+      "Konsumsi makanan kaya omega-3 seperti ikan, kacang-kacangan, dan sayuran hijau"
+    ]
   },
   {
     id: "lambung",
@@ -201,7 +246,22 @@ const ORGANS = [
       pembuat: "Trident.AI",
       sumber: "https://sketchfab.com/3d-models/stomach-organ-56ffcd2330ae4b7ea6c7b8a08c82b4b7",
       lisensi: "Sketchfab Free Standard"
-    }
+    },
+    penyakit: [
+      {
+        nama: "Gastritis (Maag)",
+        info: "Peradangan pada dinding lambung yang menimbulkan nyeri ulu hati, mual, dan perut kembung."
+      },
+      {
+        nama: "GERD (Asam Lambung Naik)",
+        info: "Naiknya asam lambung ke kerongkongan sehingga menimbulkan rasa perih atau panas di dada."
+      }
+    ],
+    tipsSehat: [
+      "Makan secara teratur dengan porsi secukupnya dan kunyah makanan hingga halus",
+      "Kurangi makanan terlalu pedas, asam, serta minuman berkafein atau bersoda",
+      "Jangan langsung berbaring minimal 2 jam setelah selesai makan"
+    ]
   },
   {
     id: "ginjal",
@@ -252,7 +312,22 @@ const ORGANS = [
       pembuat: "cgmac",
       sumber: "https://skfb.ly/6QUPW",
       lisensi: "CC-BY 4.0"
-    }
+    },
+    penyakit: [
+      {
+        nama: "Batu Ginjal",
+        info: "Endapan mineral dan garam yang mengeras di dalam ginjal sehingga dapat menyumbat saluran urine."
+      },
+      {
+        nama: "Gagal Ginjal",
+        info: "Menurunnya kemampuan ginjal dalam menyaring limbah dan cairan berlebih dari dalam darah."
+      }
+    ],
+    tipsSehat: [
+      "Minum air putih yang cukup (sekitar 8 gelas per hari) agar ginjal mudah menyaring kotoran",
+      "Batasi konsumsi minuman manis, makanan tinggi garam, dan tidak menahan buang air kecil",
+      "Hindari penggunaan obat pereda nyeri sembarangan tanpa anjuran dokter"
+    ]
   },
   {
     id: "hati",
@@ -303,7 +378,22 @@ const ORGANS = [
       pembuat: "ElliotSS",
       sumber: "https://skfb.ly/6SD8p",
       lisensi: "CC-BY 4.0"
-    }
+    },
+    penyakit: [
+      {
+        nama: "Hepatitis",
+        info: "Peradangan pada jaringan hati yang paling sering disebabkan oleh infeksi virus hepatitis A, B, atau C."
+      },
+      {
+        nama: "Perlemakan Hati (Fatty Liver)",
+        info: "Penumpukan lemak berlebih di sel-sel hati yang dapat mengganggu fungsi metabolisme tubuh."
+      }
+    ],
+    tipsSehat: [
+      "Konsumsi makanan bergizi seimbang serta batasi makanan tinggi gula dan lemak jenuh",
+      "Jaga kebersihan makanan dan lakukan vaksinasi hepatitis sesuai anjuran kesehatan",
+      "Hindari konsumsi alkohol dan jaga berat badan tetap ideal"
+    ]
   }
 ];
 
