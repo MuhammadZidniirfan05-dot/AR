@@ -39,6 +39,41 @@ if (!organ) {
     fungsiList.appendChild(li);
   });
 
+  const penyakitList = document.getElementById("penyakit");
+  if (penyakitList && Array.isArray(organ.penyakit)) {
+    organ.penyakit.forEach(item => {
+      const card = document.createElement("div");
+      card.className = "disease-item";
+      const title = document.createElement("strong");
+      title.textContent = item.nama;
+      const desc = document.createElement("p");
+      desc.textContent = item.info;
+      card.appendChild(title);
+      card.appendChild(desc);
+      penyakitList.appendChild(card);
+    });
+  }
+
+  const tipsList = document.getElementById("tips-sehat");
+  if (tipsList && Array.isArray(organ.tipsSehat)) {
+    organ.tipsSehat.forEach(teks => {
+      const li = document.createElement("li");
+      li.textContent = teks;
+      tipsList.appendChild(li);
+    });
+  }
+
+  try {
+    const savedLearned = JSON.parse(localStorage.getItem("ar-organ-learned") || "[]");
+    const learnedList = Array.isArray(savedLearned) ? savedLearned : [];
+    if (!learnedList.includes(organ.id)) {
+      learnedList.push(organ.id);
+      localStorage.setItem("ar-organ-learned", JSON.stringify(learnedList));
+    }
+  } catch (err) {
+    // Abaikan jika localStorage tidak tersedia
+  }
+
   const kreditSection = document.getElementById("kredit");
   kreditSection.innerHTML = `
     <h2>Kredit Model 3D</h2>
@@ -104,7 +139,13 @@ if (!organ) {
     if (!("speechSynthesis" in window)) {
       btnTts.hidden = true;
     } else {
-      const narrationText = `${organ.nama}. ${organ.deskripsi} Fungsi utama: ${organ.fungsi.join(". ")}. Fakta menarik: ${organ.fakta}`;
+      const penyakitNarration = Array.isArray(organ.penyakit)
+        ? organ.penyakit.map(p => `${p.nama}: ${p.info}`).join(" ")
+        : "";
+      const tipsNarration = Array.isArray(organ.tipsSehat)
+        ? organ.tipsSehat.join(". ")
+        : "";
+      const narrationText = `${organ.nama}. ${organ.deskripsi} Fungsi utama: ${organ.fungsi.join(". ")}. Fakta menarik: ${organ.fakta} Gangguan dan penyakit umum: ${penyakitNarration} Cara menjaga kesehatan: ${tipsNarration}`;
 
       function resetTtsButton() {
         btnTts.textContent = "Bacakan";

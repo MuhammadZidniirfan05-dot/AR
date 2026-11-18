@@ -648,6 +648,108 @@ model-viewer {
   color: var(--fact-text);
 }
 
+.disease-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+}
+
+.disease-item {
+  padding: 0.85rem 1rem;
+  background-color: var(--surface-alt);
+  border: 1px solid var(--border);
+  border-left: 4px solid #f59e0b;
+  border-radius: 0.5rem;
+}
+
+.disease-item strong {
+  display: block;
+  margin-bottom: 0.25rem;
+  color: var(--text);
+  font-size: 0.98rem;
+}
+
+.disease-item p {
+  margin: 0;
+  color: var(--text-body);
+  font-size: 0.92rem;
+}
+
+.tips-box {
+  margin-top: 1.25rem;
+  padding: 1rem 1.25rem;
+  background-color: var(--correct-bg);
+  border-left: 4px solid var(--correct-border);
+  border-radius: 0.5rem;
+}
+
+.tips-box h2 {
+  margin: 0 0 0.5rem;
+  font-size: 1rem;
+  color: var(--correct-text);
+}
+
+.tips-box .detail-list {
+  color: var(--correct-text);
+}
+
+.progress-banner {
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1.5rem;
+  box-shadow: var(--shadow);
+}
+
+.progress-banner-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+  color: var(--text-body);
+}
+
+.progress-track {
+  width: 100%;
+  height: 8px;
+  background-color: var(--surface-alt);
+  border-radius: 9999px;
+  overflow: hidden;
+}
+
+.progress-fill-bar {
+  height: 100%;
+  background-color: var(--quiz-bg);
+  border-radius: 9999px;
+  transition: width 0.3s ease;
+}
+
+.card-title-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.card-title-row h2 {
+  margin: 0;
+}
+
+.badge-learned {
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.2rem 0.55rem;
+  border-radius: 9999px;
+  background-color: var(--correct-bg);
+  color: var(--correct-text);
+  border: 1px solid var(--correct-border);
+}
+
 .detail-actions {
   margin-top: 1.5rem;
 }
