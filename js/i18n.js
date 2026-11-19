@@ -223,7 +223,7 @@ const I18N = {
   }
 };
 
-function getCurrentLang() {
+function readSavedLang() {
   try {
     const saved = localStorage.getItem("ar-organ-lang");
     if (saved === "en" || saved === "id") {
@@ -233,6 +233,12 @@ function getCurrentLang() {
     // Abaikan jika localStorage tidak tersedia
   }
   return "id";
+}
+
+let currentLang = readSavedLang();
+
+function getCurrentLang() {
+  return currentLang;
 }
 
 function t(key, vars) {
@@ -306,12 +312,15 @@ function getQuizText(item, lang) {
   };
 }
 
-function applyTranslations(lang) {
+function applyTranslations(lang, persist = true) {
   const activeLang = lang === "en" ? "en" : "id";
-  try {
-    localStorage.setItem("ar-organ-lang", activeLang);
-  } catch (err) {
-    // Abaikan jika localStorage tidak tersedia
+  currentLang = activeLang;
+  if (persist) {
+    try {
+      localStorage.setItem("ar-organ-lang", activeLang);
+    } catch (err) {
+      // Abaikan jika localStorage tidak tersedia
+    }
   }
 
   document.documentElement.lang = activeLang;
@@ -367,14 +376,14 @@ function applyTranslations(lang) {
 }
 
 function initI18n() {
-  applyTranslations(getCurrentLang());
+  applyTranslations(currentLang, false);
   const langBtn = document.getElementById("lang-toggle");
   if (!langBtn) {
     return;
   }
   langBtn.addEventListener("click", () => {
     const nextLang = getCurrentLang() === "en" ? "id" : "en";
-    applyTranslations(nextLang);
+    applyTranslations(nextLang, true);
   });
 }
 

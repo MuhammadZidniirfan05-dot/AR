@@ -68,19 +68,11 @@ const ORGANS = [
     penyakit: [
       {
         nama: "Penyakit Jantung Koroner",
-        info: "Penyempitan pembuluh darah arteri koroner akibat penumpukan lemak dan kolesterol sehingga aliran darah ke otot jantung terhambat.",
-        en: {
-          nama: "Coronary Heart Disease",
-          info: "Narrowing of the coronary arteries due to plaque and cholesterol buildup, restricting blood flow to the heart muscle."
-        }
+        info: "Penyempitan pembuluh darah arteri koroner akibat penumpukan lemak dan kolesterol sehingga aliran darah ke otot jantung terhambat."
       },
       {
         nama: "Aritmia",
-        info: "Gangguan irama detak jantung yang menjadi terlalu cepat, terlalu lambat, atau tidak teratur.",
-        en: {
-          nama: "Arrhythmia",
-          info: "An irregular heartbeat condition where the heart beats too fast, too slow, or unevenly."
-        }
+        info: "Gangguan irama detak jantung yang menjadi terlalu cepat, terlalu lambat, atau tidak teratur."
       }
     ],
     tipsSehat: [
@@ -184,19 +176,11 @@ const ORGANS = [
     penyakit: [
       {
         nama: "Asma",
-        info: "Peradangan dan penyempitan saluran napas yang menyebabkan sesak, mengi, dan batuk saat terpapar debu atau udara dingin.",
-        en: {
-          nama: "Asthma",
-          info: "Inflammation and narrowing of the airways causing shortness of breath, wheezing, and coughing when exposed to dust or cold air."
-        }
+        info: "Peradangan dan penyempitan saluran napas yang menyebabkan sesak, mengi, dan batuk saat terpapar debu atau udara dingin."
       },
       {
         nama: "Pneumonia",
-        info: "Infeksi pada kantung udara (alveolus) di paru-paru akibat bakteri atau virus sehingga terisi cairan.",
-        en: {
-          nama: "Pneumonia",
-          info: "An infection of the air sacs (alveoli) in the lungs caused by bacteria or viruses, causing them to fill with fluid."
-        }
+        info: "Infeksi pada kantung udara (alveolus) di paru-paru akibat bakteri atau virus sehingga terisi cairan."
       }
     ],
     tipsSehat: [
@@ -300,19 +284,11 @@ const ORGANS = [
     penyakit: [
       {
         nama: "Stroke",
-        info: "Terhentinya suplai darah ke bagian otak akibat penyumbatan atau pecahnya pembuluh darah otak.",
-        en: {
-          nama: "Stroke",
-          info: "Interruption of blood supply to part of the brain caused by a blocked or ruptured blood vessel."
-        }
+        info: "Terhentinya suplai darah ke bagian otak akibat penyumbatan atau pecahnya pembuluh darah otak."
       },
       {
         nama: "Migrain",
-        info: "Sakit kepala berdenyut hebat di satu sisi kepala yang sering disertai sensitivitas terhadap cahaya atau suara.",
-        en: {
-          nama: "Migraine",
-          info: "A severe throbbing headache, usually on one side of the head, often accompanied by sensitivity to light or sound."
-        }
+        info: "Sakit kepala berdenyut hebat di satu sisi kepala yang sering disertai sensitivitas terhadap cahaya atau suara."
       }
     ],
     tipsSehat: [
@@ -416,19 +392,11 @@ const ORGANS = [
     penyakit: [
       {
         nama: "Gastritis (Maag)",
-        info: "Peradangan pada dinding lambung yang menimbulkan nyeri ulu hati, mual, dan perut kembung.",
-        en: {
-          nama: "Gastritis",
-          info: "Inflammation of the stomach lining that causes upper abdominal pain, nausea, and bloating."
-        }
+        info: "Peradangan pada dinding lambung yang menimbulkan nyeri ulu hati, mual, dan perut kembung."
       },
       {
         nama: "GERD (Asam Lambung Naik)",
-        info: "Naiknya asam lambung ke kerongkongan sehingga menimbulkan rasa perih atau panas di dada.",
-        en: {
-          nama: "GERD (Acid Reflux)",
-          info: "A condition where stomach acid flows back into the esophagus, causing heartburn or chest discomfort."
-        }
+        info: "Naiknya asam lambung ke kerongkongan sehingga menimbulkan rasa perih atau panas di dada."
       }
     ],
     tipsSehat: [
@@ -532,19 +500,11 @@ const ORGANS = [
     penyakit: [
       {
         nama: "Batu Ginjal",
-        info: "Endapan mineral dan garam yang mengeras di dalam ginjal sehingga dapat menyumbat saluran urine.",
-        en: {
-          nama: "Kidney Stones",
-          info: "Hardened mineral and salt deposits inside the kidneys that can block the urinary tract."
-        }
+        info: "Endapan mineral dan garam yang mengeras di dalam ginjal sehingga dapat menyumbat saluran urine."
       },
       {
         nama: "Gagal Ginjal",
-        info: "Menurunnya kemampuan ginjal dalam menyaring limbah dan cairan berlebih dari dalam darah.",
-        en: {
-          nama: "Kidney Failure",
-          info: "A condition in which the kidneys lose their ability to effectively filter waste and excess fluid from the blood."
-        }
+        info: "Menurunnya kemampuan ginjal dalam menyaring limbah dan cairan berlebih dari dalam darah."
       }
     ],
     tipsSehat: [
@@ -648,19 +608,11 @@ const ORGANS = [
     penyakit: [
       {
         nama: "Hepatitis",
-        info: "Peradangan pada jaringan hati yang paling sering disebabkan oleh infeksi virus hepatitis A, B, atau C.",
-        en: {
-          nama: "Hepatitis",
-          info: "Inflammation of liver tissue most commonly caused by hepatitis A, B, or C viral infections."
-        }
+        info: "Peradangan pada jaringan hati yang paling sering disebabkan oleh infeksi virus hepatitis A, B, atau C."
       },
       {
         nama: "Perlemakan Hati (Fatty Liver)",
-        info: "Penumpukan lemak berlebih di sel-sel hati yang dapat mengganggu fungsi metabolisme tubuh.",
-        en: {
-          nama: "Fatty Liver Disease",
-          info: "Excessive fat buildup inside liver cells that can impair normal liver and metabolic function."
-        }
+        info: "Penumpukan lemak berlebih di sel-sel hati yang dapat mengganggu fungsi metabolisme tubuh."
       }
     ],
     tipsSehat: [
@@ -979,14 +931,19 @@ function getPreferredTheme() {
 }
 
 function getThemeButtonLabels(isDark) {
-  let isEn = document.documentElement.lang === "en";
-  try {
-    const savedLang = localStorage.getItem("ar-organ-lang");
-    if (savedLang === "en" || savedLang === "id") {
-      isEn = savedLang === "en";
+  let isEn = false;
+  if (typeof getCurrentLang === "function") {
+    isEn = getCurrentLang() === "en";
+  } else {
+    isEn = document.documentElement.lang === "en";
+    try {
+      const savedLang = localStorage.getItem("ar-organ-lang");
+      if (savedLang === "en" || savedLang === "id") {
+        isEn = savedLang === "en";
+      }
+    } catch (err) {
+      // Abaikan jika localStorage tidak tersedia
     }
-  } catch (err) {
-    // Abaikan jika localStorage tidak tersedia
   }
   if (isEn) {
     return {
