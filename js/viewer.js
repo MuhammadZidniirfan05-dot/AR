@@ -37,9 +37,16 @@ if (!organ) {
   }
 
   const fungsiList = document.getElementById("fungsi");
-  organ.fungsi.forEach(teks => {
+  organ.fungsi.forEach((teks, index) => {
     const li = document.createElement("li");
-    li.textContent = teks;
+    const num = document.createElement("span");
+    num.className = "step-num";
+    num.textContent = String(index + 1).padStart(2, "0");
+    const spanText = document.createElement("span");
+    spanText.className = "step-text";
+    spanText.textContent = teks;
+    li.appendChild(num);
+    li.appendChild(spanText);
     fungsiList.appendChild(li);
   });
 
@@ -62,7 +69,15 @@ if (!organ) {
   if (tipsList && Array.isArray(organ.tipsSehat)) {
     organ.tipsSehat.forEach(teks => {
       const li = document.createElement("li");
-      li.textContent = teks;
+      const icon = document.createElement("span");
+      icon.className = "check-icon";
+      icon.setAttribute("aria-hidden", "true");
+      icon.textContent = "\u2713";
+      const spanText = document.createElement("span");
+      spanText.className = "check-text";
+      spanText.textContent = teks;
+      li.appendChild(icon);
+      li.appendChild(spanText);
       tipsList.appendChild(li);
     });
   }
@@ -80,7 +95,10 @@ if (!organ) {
   const infoTitle = document.getElementById("info-title");
   const infoText = document.getElementById("info-text");
   const infoClose = document.getElementById("info-close");
+  const hotspotChips = document.getElementById("hotspot-chips");
   let activeButton = null;
+  let activeChip = null;
+  const chipMap = {};
 
   function hideInfo() {
     infoPanel.hidden = true;
@@ -88,14 +106,27 @@ if (!organ) {
       activeButton.classList.remove("active");
       activeButton = null;
     }
+    if (activeChip) {
+      activeChip.classList.remove("is-active");
+      activeChip = null;
+    }
   }
 
   function showInfo(hotspot, button) {
     if (activeButton) {
       activeButton.classList.remove("active");
     }
+    if (activeChip) {
+      activeChip.classList.remove("is-active");
+    }
     activeButton = button;
-    activeButton.classList.add("active");
+    if (activeButton) {
+      activeButton.classList.add("active");
+    }
+    if (chipMap[hotspot.id]) {
+      activeChip = chipMap[hotspot.id];
+      activeChip.classList.add("is-active");
+    }
     infoTitle.textContent = hotspot.label;
     infoText.textContent = hotspot.info;
     infoPanel.hidden = false;
@@ -125,7 +156,76 @@ if (!organ) {
 
     b.addEventListener("click", () => showInfo(h, b));
     mv.appendChild(b);
+
+    if (hotspotChips) {
+      const chip = document.createElement("button");
+      chip.type = "button";
+      chip.className = "hotspot-chip";
+      chip.textContent = h.label;
+      chip.addEventListener("click", () => showInfo(h, b));
+      hotspotChips.appendChild(chip);
+      chipMap[h.id] = chip;
+    }
   });
+
+  const tabButtons = Array.from(document.querySelectorAll(".study-tab"));
+  if (tabButtons.length > 0) {
+    function activateTab(selectedBtn) {
+      tabButtons.forEach(btn => {
+        const isCurrent = btn === selectedBtn;
+        btn.classList.toggle("is-active", isCurrent);
+        btn.setAttribute("aria-selected", String(isCurrent));
+        const panelId = btn.getAttribute("aria-controls");
+        const panel = panelId ? document.getElementById(panelId) : null;
+        if (panel) {
+          panel.hidden = !isCurrent;
+        }
+      });
+    }
+
+    tabButtons.forEach((btn, idx) => {
+      btn.addEventListener("click", () => activateTab(btn));
+      btn.addEventListener("keydown", e => {
+        if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
+          e.preventDefault();
+          const dir = e.key === "ArrowRight" ? 1 : -1;
+          const nextIdx = (idx + dir + tabButtons.length) % tabButtons.length;
+          tabButtons[nextIdx].focus();
+          activateTab(tabButtons[nextIdx]);
+        }
+      });
+    });
+  }
+
+  const detailArticle = document.getElementById("detail-article");
+  const btnFontSize = document.getElementById("btn-font-size");
+  if (detailArticle && btnFontSize) {
+    let isLargeText = false;
+    try {
+      isLargeText = localStorage.getItem("ar-organ-fontsize") === "large";
+    } catch (err) {
+      isLargeText = false;
+    }
+
+    function applyFontSize(large) {
+      detailArticle.classList.toggle("is-large-text", large);
+      btnFontSize.textContent = large ? "Teks: Besar" : "Teks: Normal";
+      btnFontSize.setAttribute("aria-pressed", String(large));
+      btnFontSize.classList.toggle("is-active", large);
+    }
+
+    applyFontSize(isLargeText);
+
+    btnFontSize.addEventListener("click", () => {
+      isLargeText = !isLargeText;
+      applyFontSize(isLargeText);
+      try {
+        localStorage.setItem("ar-organ-fontsize", isLargeText ? "large" : "normal");
+      } catch (err) {
+        // Abaikan jika localStorage tidak tersedia
+      }
+    });
+  }
 
   const btnTts = document.getElementById("btn-tts");
   if (btnTts) {

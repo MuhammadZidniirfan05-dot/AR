@@ -77,9 +77,16 @@ function renderColumn(suffix, organ) {
 
   const fungsiEl = document.getElementById(`fungsi-${suffix}`);
   fungsiEl.innerHTML = "";
-  organ.fungsi.forEach(teks => {
+  organ.fungsi.forEach((teks, index) => {
     const li = document.createElement("li");
-    li.textContent = teks;
+    const num = document.createElement("span");
+    num.className = "step-num";
+    num.textContent = String(index + 1).padStart(2, "0");
+    const spanText = document.createElement("span");
+    spanText.className = "step-text";
+    spanText.textContent = teks;
+    li.appendChild(num);
+    li.appendChild(spanText);
     fungsiEl.appendChild(li);
   });
 
@@ -104,7 +111,15 @@ function renderColumn(suffix, organ) {
   if (Array.isArray(organ.tipsSehat)) {
     organ.tipsSehat.forEach(teks => {
       const li = document.createElement("li");
-      li.textContent = teks;
+      const icon = document.createElement("span");
+      icon.className = "check-icon";
+      icon.setAttribute("aria-hidden", "true");
+      icon.textContent = "\u2713";
+      const spanText = document.createElement("span");
+      spanText.className = "check-text";
+      spanText.textContent = teks;
+      li.appendChild(icon);
+      li.appendChild(spanText);
       tipsEl.appendChild(li);
     });
   }
