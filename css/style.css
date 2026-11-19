@@ -815,16 +815,24 @@ model-viewer {
   align-items: center;
   justify-content: space-between;
   gap: 0.75rem;
-  margin-bottom: 0.75rem;
+  margin-bottom: 1rem;
 }
 
+.detail-title-tools {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.btn-font-size,
 .btn-tts {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0.45rem 0.95rem;
-  min-height: 40px;
-  font-size: 0.88rem;
+  padding: 0.45rem 0.9rem;
+  min-height: 38px;
+  font-size: 0.85rem;
   font-weight: 600;
   font-family: inherit;
   color: var(--primary);
@@ -835,9 +843,17 @@ model-viewer {
   transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
 }
 
+.btn-font-size:hover,
+.btn-font-size:focus-visible,
 .btn-tts:hover,
 .btn-tts:focus-visible {
   border-color: var(--primary);
+}
+
+.btn-font-size.is-active {
+  background-color: var(--fact-bg);
+  border-color: var(--primary);
+  color: var(--fact-title);
 }
 
 .btn-tts.speaking {
@@ -846,15 +862,125 @@ model-viewer {
   border-color: #dc2626;
 }
 
+.study-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  padding: 0.35rem;
+  margin-bottom: 1.25rem;
+  background-color: var(--surface-alt);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+}
+
+.study-tab {
+  flex: 1 1 auto;
+  min-height: 38px;
+  padding: 0.45rem 0.75rem;
+  font-size: 0.88rem;
+  font-weight: 700;
+  font-family: inherit;
+  color: var(--text-muted);
+  background-color: transparent;
+  border: none;
+  border-radius: 0.55rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.study-tab:hover {
+  color: var(--text);
+}
+
+.study-tab.is-active {
+  color: var(--primary);
+  background-color: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.tab-panel[hidden] {
+  display: none;
+}
+
+.tab-intro {
+  margin: 0 0 1rem;
+  color: var(--text-muted);
+  font-size: 0.94rem;
+}
+
 .detail-info h2 {
-  margin: 1.5rem 0 0.5rem;
-  font-size: 1.15rem;
+  margin: 1.35rem 0 0.65rem;
+  font-size: 1.1rem;
   color: var(--text);
 }
 
 .detail-desc {
   margin: 0;
+  font-size: 1.02rem;
+  line-height: 1.75;
   color: var(--text-body);
+}
+
+.detail-info.is-large-text .detail-desc,
+.detail-info.is-large-text .step-text,
+.detail-info.is-large-text .check-text,
+.detail-info.is-large-text .fact-box p,
+.detail-info.is-large-text .disease-item p,
+.detail-info.is-large-text .tab-intro {
+  font-size: 1.12rem;
+  line-height: 1.8;
+}
+
+.detail-info.is-large-text .disease-item strong {
+  font-size: 1.12rem;
+}
+
+.chips-block {
+  margin-top: 1.15rem;
+  padding: 0.9rem 1rem;
+  background-color: var(--surface-alt);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+}
+
+.chips-block h2 {
+  margin: 0 0 0.6rem;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--text-muted);
+}
+
+.hotspot-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.hotspot-chip {
+  padding: 0.38rem 0.8rem;
+  min-height: 34px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  font-family: inherit;
+  color: var(--text);
+  background-color: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background-color 0.15s ease, color 0.15s ease;
+}
+
+.hotspot-chip:hover,
+.hotspot-chip:focus-visible {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.hotspot-chip.is-active {
+  background-color: #ef4444;
+  border-color: #ef4444;
+  color: #ffffff;
 }
 
 .detail-list {
@@ -865,6 +991,67 @@ model-viewer {
 
 .detail-list li + li {
   margin-top: 0.35rem;
+}
+
+.numbered-list,
+.check-list {
+  list-style: none;
+  padding-left: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.6rem;
+}
+
+.numbered-list li,
+.check-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  margin-top: 0;
+  padding: 0.75rem 0.9rem;
+  background-color: var(--surface-alt);
+  border: 1px solid var(--border);
+  border-radius: 0.65rem;
+}
+
+.check-list li {
+  background-color: var(--surface);
+  border-color: var(--correct-border);
+}
+
+.step-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 28px;
+  height: 28px;
+  padding: 0 0.35rem;
+  font-size: 0.78rem;
+  font-weight: 800;
+  border-radius: 0.45rem;
+  background-color: var(--fact-bg);
+  color: var(--fact-title);
+  flex-shrink: 0;
+}
+
+.check-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 24px;
+  height: 24px;
+  font-size: 0.85rem;
+  font-weight: 800;
+  border-radius: 50%;
+  background-color: var(--correct-bg);
+  color: var(--correct-text);
+  flex-shrink: 0;
+}
+
+.step-text,
+.check-text {
+  color: var(--text-body);
+  line-height: 1.55;
 }
 
 .fact-box {
@@ -1367,6 +1554,35 @@ model-viewer {
 
 .compare-card .tips-box h3 {
   color: var(--correct-text);
+}
+
+.compare-accordion {
+  margin-top: 0.85rem;
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  background-color: var(--surface-alt);
+  overflow: hidden;
+}
+
+.compare-accordion summary {
+  padding: 0.75rem 1rem;
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--text);
+  cursor: pointer;
+  user-select: none;
+}
+
+.compare-accordion summary:hover {
+  color: var(--primary);
+}
+
+.compare-accordion .disease-list,
+.compare-accordion .tips-box {
+  margin-top: 0;
+  padding: 0 0.85rem 0.85rem;
+  background: transparent;
+  border-left: none;
 }
 
 @media (min-width: 768px) {

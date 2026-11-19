@@ -68,27 +68,49 @@
       </aside>
     </section>
 
-    <article class="detail-info">
+    <article id="detail-article" class="detail-info">
       <div class="detail-title-row">
         <h1 id="nama"></h1>
-        <button id="btn-tts" class="btn-tts" type="button" aria-pressed="false" aria-label="Bacakan informasi organ">Bacakan</button>
-      </div>
-      <p id="deskripsi" class="detail-desc"></p>
-
-      <h2>Fungsi</h2>
-      <ul id="fungsi" class="detail-list"></ul>
-
-      <div class="fact-box">
-        <h2>Fakta Menarik</h2>
-        <p id="fakta"></p>
+        <div class="detail-title-tools">
+          <button id="btn-font-size" class="btn-font-size" type="button" aria-pressed="false" aria-label="Perbesar ukuran teks materi">Teks: Normal</button>
+          <button id="btn-tts" class="btn-tts" type="button" aria-pressed="false" aria-label="Bacakan informasi organ">Bacakan</button>
+        </div>
       </div>
 
-      <h2>Gangguan &amp; Penyakit Umum</h2>
-      <div id="penyakit" class="disease-list"></div>
+      <div class="study-tabs" role="tablist" aria-label="Kategori materi organ">
+        <button id="tab-btn-overview" class="study-tab is-active" role="tab" aria-selected="true" aria-controls="tab-panel-overview" type="button">Ringkasan &amp; Fungsi</button>
+        <button id="tab-btn-disease" class="study-tab" role="tab" aria-selected="false" aria-controls="tab-panel-disease" type="button">Gangguan &amp; Penyakit</button>
+        <button id="tab-btn-tips" class="study-tab" role="tab" aria-selected="false" aria-controls="tab-panel-tips" type="button">Jaga Kesehatan</button>
+      </div>
 
-      <div class="tips-box">
-        <h2>Cara Menjaga Kesehatan</h2>
-        <ul id="tips-sehat" class="detail-list"></ul>
+      <div id="tab-panel-overview" class="tab-panel" role="tabpanel" aria-labelledby="tab-btn-overview">
+        <p id="deskripsi" class="detail-desc"></p>
+
+        <div class="chips-block">
+          <h2>Bagian Anatomi (Klik untuk Info)</h2>
+          <div id="hotspot-chips" class="hotspot-chips"></div>
+        </div>
+
+        <h2>Fungsi Utama</h2>
+        <ul id="fungsi" class="detail-list numbered-list"></ul>
+
+        <div class="fact-box">
+          <h2>Fakta Menarik</h2>
+          <p id="fakta"></p>
+        </div>
+      </div>
+
+      <div id="tab-panel-disease" class="tab-panel" role="tabpanel" aria-labelledby="tab-btn-disease" hidden>
+        <p class="tab-intro">Kenali beberapa gangguan atau penyakit yang dapat menyerang organ ini:</p>
+        <div id="penyakit" class="disease-list"></div>
+      </div>
+
+      <div id="tab-panel-tips" class="tab-panel" role="tabpanel" aria-labelledby="tab-btn-tips" hidden>
+        <p class="tab-intro">Langkah sederhana sehari-hari untuk merawat dan menjaga fungsi organ tetap optimal:</p>
+        <div class="tips-box">
+          <h2>Cara Menjaga Kesehatan</h2>
+          <ul id="tips-sehat" class="detail-list check-list"></ul>
+        </div>
       </div>
 
       <div class="detail-actions">
