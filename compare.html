@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bandingkan Organ | AR Organ Tubuh</title>
+  <meta name="description" content="Bandingkan dua organ tubuh manusia secara berdampingan dalam 3D, fungsi, fakta menarik, dan keterkaitan antar organ.">
+  <meta property="og:title" content="Bandingkan Organ | AR Organ Tubuh">
+  <meta property="og:description" content="Lihat perbandingan dua model 3D organ tubuh manusia secara berdampingan.">
+  <meta property="og:image" content="img/jantung.webp">
+  <link rel="icon" type="image/svg+xml" href="img/favicon.svg">
+  <script>try{const t=localStorage.getItem("ar-organ-theme")||(matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light");document.documentElement.dataset.theme=t;}catch(e){}</script>
+  <link rel="stylesheet" href="css/style.css">
+  <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container detail-header">
+      <a class="back-link" href="index.html">&larr; Kembali ke Daftar</a>
+      <div class="detail-header-right">
+        <span class="brand-name">Bandingkan Organ</span>
+        <button id="theme-toggle" class="btn-theme" type="button" aria-label="Ubah tema">Gelap</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container compare-main">
+    <section class="compare-controls" aria-label="Pemilih organ untuk dibandingkan">
+      <div class="compare-select-group">
+        <label for="select-a">Organ Pertama</label>
+        <select id="select-a" class="compare-select"></select>
+      </div>
+
+      <button id="btn-swap" class="btn-swap" type="button" aria-label="Tukar posisi kedua organ">&#8644; Tukar</button>
+
+      <div class="compare-select-group">
+        <label for="select-b">Organ Kedua</label>
+        <select id="select-b" class="compare-select"></select>
+      </div>
+    </section>
+
+    <section id="compare-relation" class="compare-relation" aria-live="polite">
+      <h2 id="relation-title">Hubungan Kedua Organ</h2>
+      <p id="relation-text"></p>
+    </section>
+
+    <section id="compare-grid" class="compare-grid">
+      <article class="compare-card" id="col-a">
+        <div class="compare-card-header">
+          <h2 id="nama-a"></h2>
+          <a id="link-a" class="compare-detail-link" href="#">Detail &amp; AR &rarr;</a>
+        </div>
+        <model-viewer
+          id="mv-a"
+          class="compare-viewer"
+          camera-controls
+          auto-rotate
+          shadow-intensity="1"
+          loading="eager"
+          reveal="auto">
+          <div slot="progress-bar" class="progress">
+            <div class="progress-fill"></div>
+          </div>
+        </model-viewer>
+        <p id="ringkas-a" class="compare-summary"></p>
+
+        <h3>Fungsi Utama</h3>
+        <ul id="fungsi-a" class="detail-list"></ul>
+
+        <div class="fact-box">
+          <h3>Fakta Menarik</h3>
+          <p id="fakta-a"></p>
+        </div>
+
+        <h3>Gangguan Umum</h3>
+        <div id="penyakit-a" class="disease-list"></div>
+
+        <div class="tips-box">
+          <h3>Tips Menjaga Kesehatan</h3>
+          <ul id="tips-a" class="detail-list"></ul>
+        </div>
+      </article>
+
+      <article class="compare-card" id="col-b">
+        <div class="compare-card-header">
+          <h2 id="nama-b"></h2>
+          <a id="link-b" class="compare-detail-link" href="#">Detail &amp; AR &rarr;</a>
+        </div>
+        <model-viewer
+          id="mv-b"
+          class="compare-viewer"
+          camera-controls
+          auto-rotate
+          shadow-intensity="1"
+          loading="eager"
+          reveal="auto">
+          <div slot="progress-bar" class="progress">
+            <div class="progress-fill"></div>
+          </div>
+        </model-viewer>
+        <p id="ringkas-b" class="compare-summary"></p>
+
+        <h3>Fungsi Utama</h3>
+        <ul id="fungsi-b" class="detail-list"></ul>
+
+        <div class="fact-box">
+          <h3>Fakta Menarik</h3>
+          <p id="fakta-b"></p>
+        </div>
+
+        <h3>Gangguan Umum</h3>
+        <div id="penyakit-b" class="disease-list"></div>
+
+        <div class="tips-box">
+          <h3>Tips Menjaga Kesehatan</h3>
+          <ul id="tips-b" class="detail-list"></ul>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>AR Organ Tubuh &mdash; Media Edukasi Anatomi 3D</p>
+    </div>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/compare.js"></script>
+</body>
+</html>

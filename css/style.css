@@ -149,6 +149,7 @@ body {
   font-size: 0.9rem;
   font-weight: 600;
   font-family: inherit;
+  text-decoration: none;
   color: var(--text-body);
   background-color: transparent;
   border: 1px solid transparent;
@@ -931,6 +932,9 @@ model-viewer {
 }
 
 .detail-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
   margin-top: 1.5rem;
 }
 
@@ -1201,6 +1205,178 @@ model-viewer {
 
   .organ-grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.compare-main {
+  margin-top: 1.75rem;
+  margin-bottom: 3.5rem;
+}
+
+.compare-controls {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.85rem;
+  align-items: end;
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  padding: 1.15rem 1.25rem;
+  margin-bottom: 1.25rem;
+  box-shadow: var(--shadow);
+}
+
+.compare-select-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.compare-select-group label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.compare-select {
+  width: 100%;
+  padding: 0.65rem 0.9rem;
+  font-size: 0.98rem;
+  font-weight: 600;
+  font-family: inherit;
+  color: var(--text);
+  background-color: var(--surface-alt);
+  border: 1px solid var(--border-strong);
+  border-radius: 0.6rem;
+  cursor: pointer;
+}
+
+.btn-swap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  padding: 0.55rem 1rem;
+  font-size: 0.92rem;
+  font-weight: 700;
+  font-family: inherit;
+  color: var(--primary);
+  background-color: var(--fact-bg);
+  border: 1px solid var(--border-strong);
+  border-radius: 0.6rem;
+  cursor: pointer;
+  transition: border-color 0.2s ease, transform 0.15s ease;
+}
+
+.btn-swap:hover,
+.btn-swap:focus-visible {
+  border-color: var(--primary);
+  transform: translateY(-1px);
+}
+
+.compare-relation {
+  background-color: var(--fact-bg);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--primary);
+  border-radius: 0.85rem;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.compare-relation h2 {
+  margin: 0 0 0.35rem;
+  font-size: 1.05rem;
+  color: var(--fact-title);
+}
+
+.compare-relation p {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--fact-text);
+}
+
+.compare-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+.compare-card {
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  padding: 1.35rem;
+  box-shadow: var(--shadow);
+}
+
+.compare-card-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.85rem;
+}
+
+.compare-card-header h2 {
+  margin: 0;
+  font-size: 1.45rem;
+  color: var(--text);
+}
+
+.compare-detail-link {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--primary);
+  text-decoration: none;
+}
+
+.compare-detail-link:hover,
+.compare-detail-link:focus-visible {
+  text-decoration: underline;
+}
+
+.compare-viewer {
+  height: 42vh;
+  min-height: 260px;
+  max-height: 380px;
+  margin-bottom: 1rem;
+}
+
+.compare-summary {
+  margin: 0 0 1.15rem;
+  color: var(--text-body);
+  font-size: 0.95rem;
+}
+
+.compare-card h3 {
+  margin: 1.25rem 0 0.5rem;
+  font-size: 1.05rem;
+  color: var(--text);
+}
+
+.compare-card .fact-box h3,
+.compare-card .tips-box h3 {
+  margin: 0 0 0.35rem;
+  font-size: 0.98rem;
+}
+
+.compare-card .fact-box h3 {
+  color: var(--fact-title);
+}
+
+.compare-card .tips-box h3 {
+  color: var(--correct-text);
+}
+
+@media (min-width: 768px) {
+  .compare-controls {
+    grid-template-columns: 1fr auto 1fr;
+  }
+
+  .compare-grid {
+    grid-template-columns: repeat(2, 1fr);
+    align-items: start;
   }
 }
 

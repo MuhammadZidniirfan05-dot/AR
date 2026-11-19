@@ -31,6 +31,10 @@ if (!organ) {
   document.getElementById("deskripsi").textContent = organ.deskripsi;
   document.getElementById("fakta").textContent = organ.fakta;
   document.getElementById("link-kuis").href = `quiz.html?organ=${organ.id}`;
+  const linkCompare = document.getElementById("link-compare");
+  if (linkCompare) {
+    linkCompare.href = `compare.html?a=${organ.id}`;
+  }
 
   const fungsiList = document.getElementById("fungsi");
   organ.fungsi.forEach(teks => {
