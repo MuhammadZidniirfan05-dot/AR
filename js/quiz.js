@@ -33,12 +33,18 @@ const baseQuestions = targetOrgan
   ? QUIZ.filter(q => q.organId === targetOrgan.id)
   : QUIZ;
 
-if (targetOrgan) {
-  document.title = `Kuis ${targetOrgan.nama} | AR Organ Tubuh`;
-  quizMode.textContent = `Mode: ${targetOrgan.nama}`;
-} else {
-  quizMode.textContent = "Mode: Semua Organ";
+function updateQuizHeader() {
+  if (targetOrgan) {
+    const organText = getOrganText(targetOrgan);
+    document.title = t("quizTitleOrgan", { name: organText.nama });
+    quizMode.textContent = t("quizModeOrgan", { name: organText.nama });
+  } else {
+    document.title = t("quizTitleAll");
+    quizMode.textContent = t("quizModeAll");
+  }
 }
+
+updateQuizHeader();
 
 const storageKey = targetOrgan
   ? `ar-organ-highscore-${targetOrgan.id}`
@@ -48,6 +54,8 @@ let questions = [];
 let currentIndex = 0;
 let score = 0;
 let answered = false;
+let lastSelectedIndex = -1;
+let lastHighScore = 0;
 
 function getHighScore() {
   try {
@@ -72,10 +80,14 @@ function saveHighScore(newScore) {
 }
 
 function renderQuestion() {
-  const current = questions[currentIndex];
+  const current = getQuizText(questions[currentIndex]);
   answered = false;
+  lastSelectedIndex = -1;
   quizFeedback.hidden = true;
-  quizProgress.textContent = `Soal ${currentIndex + 1} dari ${questions.length}`;
+  quizProgress.textContent = t("quizProgress", {
+    current: currentIndex + 1,
+    total: questions.length
+  });
   quizQuestion.textContent = current.pertanyaan;
   quizOptions.innerHTML = "";
 
@@ -89,7 +101,7 @@ function renderQuestion() {
   });
 
   quizNext.textContent =
-    currentIndex === questions.length - 1 ? "Lihat Hasil" : "Lanjut";
+    currentIndex === questions.length - 1 ? t("quizSeeResult") : t("quizNext");
 }
 
 function handleAnswer(selectedIndex) {
@@ -97,8 +109,9 @@ function handleAnswer(selectedIndex) {
     return;
   }
   answered = true;
+  lastSelectedIndex = selectedIndex;
 
-  const current = questions[currentIndex];
+  const current = getQuizText(questions[currentIndex]);
   const optionButtons = quizOptions.querySelectorAll(".quiz-option");
   const isCorrect = selectedIndex === current.jawaban;
 
@@ -115,19 +128,62 @@ function handleAnswer(selectedIndex) {
     }
   });
 
-  quizStatus.textContent = isCorrect ? "Benar!" : "Kurang tepat.";
+  quizStatus.textContent = isCorrect ? t("quizCorrect") : t("quizWrong");
   quizStatus.className = `quiz-status ${isCorrect ? "is-correct" : "is-wrong"}`;
   quizExplanation.textContent = current.penjelasan;
   quizFeedback.hidden = false;
+}
+
+function renderResultText() {
+  resultScore.textContent = t("quizScoreText", {
+    score: score,
+    total: questions.length
+  });
+  resultHighScore.textContent = t("quizHighScoreText", {
+    high: lastHighScore,
+    total: questions.length
+  });
 }
 
 function showResult() {
   quizCard.hidden = true;
   quizResult.hidden = false;
 
-  const highScore = saveHighScore(score);
-  resultScore.textContent = `Skor kamu: ${score} dari ${questions.length}`;
-  resultHighScore.textContent = `Skor tertinggi: ${highScore} dari ${questions.length}`;
+  lastHighScore = saveHighScore(score);
+  renderResultText();
+}
+
+function refreshQuizTranslation() {
+  updateQuizHeader();
+  if (!quizResult.hidden) {
+    renderResultText();
+    return;
+  }
+  if (!questions.length) {
+    return;
+  }
+  const current = getQuizText(questions[currentIndex]);
+  quizProgress.textContent = t("quizProgress", {
+    current: currentIndex + 1,
+    total: questions.length
+  });
+  quizQuestion.textContent = current.pertanyaan;
+
+  const optionButtons = quizOptions.querySelectorAll(".quiz-option");
+  optionButtons.forEach((btn, idx) => {
+    if (current.pilihan[idx] !== undefined) {
+      btn.textContent = current.pilihan[idx];
+    }
+  });
+
+  quizNext.textContent =
+    currentIndex === questions.length - 1 ? t("quizSeeResult") : t("quizNext");
+
+  if (answered) {
+    const isCorrect = lastSelectedIndex === current.jawaban;
+    quizStatus.textContent = isCorrect ? t("quizCorrect") : t("quizWrong");
+    quizExplanation.textContent = current.penjelasan;
+  }
 }
 
 function startQuiz() {
@@ -149,5 +205,7 @@ quizNext.addEventListener("click", () => {
 });
 
 quizRetry.addEventListener("click", startQuiz);
+
+document.addEventListener("ar-lang-change", refreshQuizTranslation);
 
 startQuiz();

@@ -7,27 +7,50 @@ const aboutOk = document.getElementById("about-ok");
 
 function render(list) {
   grid.innerHTML = list.length
-    ? list.map(o => `
+    ? list.map(o => {
+        const text = typeof getOrganText === "function" ? getOrganText(o) : o;
+        return `
       <a class="card" href="organ.html?id=${o.id}">
         <div class="card-media">
-          <img class="card-img" src="${o.poster}" alt="${o.nama}" loading="lazy" width="300" height="300">
+          <img class="card-img" src="${o.poster}" alt="${text.nama}" loading="lazy" width="300" height="300">
         </div>
         <div class="card-body">
           <div class="card-meta">
-            <h2>${o.nama}</h2>
+            <h2>${text.nama}</h2>
             <span class="card-arrow" aria-hidden="true">&rarr;</span>
           </div>
-          <p>${o.ringkas}</p>
+          <p>${text.ringkas}</p>
         </div>
-      </a>`).join("")
-    : '<p class="empty-state">Organ tidak ditemukan.</p>';
+      </a>`;
+      }).join("")
+    : `<p class="empty-state">${typeof t === "function" ? t("emptyOrgan") : "Organ tidak ditemukan."}</p>`;
 }
 
-render(ORGANS);
+function filterAndRender() {
+  const query = searchInput ? searchInput.value.toLowerCase().trim() : "";
+  if (!query) {
+    render(ORGANS);
+    return;
+  }
+  const filtered = ORGANS.filter(o => {
+    const idName = o.nama.toLowerCase();
+    const enName = o.en && o.en.nama ? o.en.nama.toLowerCase() : "";
+    return idName.includes(query) || enName.includes(query);
+  });
+  render(filtered);
+}
 
-searchInput.addEventListener("input", e => {
-  const query = e.target.value.toLowerCase().trim();
-  render(ORGANS.filter(o => o.nama.toLowerCase().includes(query)));
+filterAndRender();
+
+if (searchInput) {
+  searchInput.addEventListener("input", filterAndRender);
+}
+
+document.addEventListener("ar-lang-change", () => {
+  if (typeof t === "function") {
+    document.title = t("homeTitle");
+  }
+  filterAndRender();
 });
 
 function openAboutModal() {

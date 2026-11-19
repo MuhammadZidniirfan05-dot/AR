@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Halaman Tidak Ditemukan | AR Organ Tubuh</title>
+  <title data-i18n="notFoundTitle">Halaman Tidak Ditemukan | AR Organ Tubuh</title>
   <meta name="description" content="Halaman atau organ yang dicari tidak ditemukan di AR Organ Tubuh.">
   <meta property="og:title" content="Halaman Tidak Ditemukan | AR Organ Tubuh">
   <meta property="og:description" content="Halaman atau organ yang dicari tidak ditemukan.">
@@ -15,9 +15,10 @@
 <body>
   <header class="site-header">
     <div class="container detail-header">
-      <a class="back-link" href="index.html">&larr; Kembali ke Daftar</a>
+      <a class="back-link" href="index.html" data-i18n="backToList">&larr; Kembali ke Daftar</a>
       <div class="detail-header-right">
-        <span class="brand-name">AR Organ Tubuh</span>
+        <span class="brand-name" data-i18n="brandName">AR Organ Tubuh</span>
+        <button id="lang-toggle" class="btn-lang" type="button" aria-label="Ganti ke Bahasa Inggris">EN</button>
         <button id="theme-toggle" class="btn-theme" type="button" aria-label="Ubah tema">Gelap</button>
       </div>
     </div>
@@ -26,12 +27,13 @@
   <main class="container not-found">
     <div class="not-found-card">
       <p class="not-found-code">404</p>
-      <h1>Organ Tidak Ditemukan</h1>
-      <p>Maaf, halaman atau organ yang kamu cari tidak tersedia.</p>
-      <a class="btn-home" href="index.html">Kembali ke Daftar Organ</a>
+      <h1 data-i18n="notFoundHeading">Organ Tidak Ditemukan</h1>
+      <p data-i18n="notFoundText">Maaf, halaman atau organ yang kamu cari tidak tersedia.</p>
+      <a class="btn-home" href="index.html" data-i18n="notFoundBtn">Kembali ke Daftar Organ</a>
     </div>
   </main>
 
   <script src="js/data.js"></script>
+  <script src="js/i18n.js"></script>
 </body>
 </html>

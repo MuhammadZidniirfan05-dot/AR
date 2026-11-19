@@ -11,7 +11,6 @@ if (!organ) {
 
   mv.setAttribute("src", organ.model);
   mv.setAttribute("poster", organ.poster);
-  mv.setAttribute("alt", `Model 3D ${organ.nama}`);
   if (organ.modelIos) {
     mv.setAttribute("ios-src", organ.modelIos);
   }
@@ -26,10 +25,6 @@ if (!organ) {
     }
   });
 
-  document.title = `${organ.nama} | AR Organ Tubuh`;
-  document.getElementById("nama").textContent = organ.nama;
-  document.getElementById("deskripsi").textContent = organ.deskripsi;
-  document.getElementById("fakta").textContent = organ.fakta;
   document.getElementById("link-kuis").href = `quiz.html?organ=${organ.id}`;
   const linkCompare = document.getElementById("link-compare");
   if (linkCompare) {
@@ -37,71 +32,24 @@ if (!organ) {
   }
 
   const fungsiList = document.getElementById("fungsi");
-  organ.fungsi.forEach((teks, index) => {
-    const li = document.createElement("li");
-    const num = document.createElement("span");
-    num.className = "step-num";
-    num.textContent = String(index + 1).padStart(2, "0");
-    const spanText = document.createElement("span");
-    spanText.className = "step-text";
-    spanText.textContent = teks;
-    li.appendChild(num);
-    li.appendChild(spanText);
-    fungsiList.appendChild(li);
-  });
-
   const penyakitList = document.getElementById("penyakit");
-  if (penyakitList && Array.isArray(organ.penyakit)) {
-    organ.penyakit.forEach(item => {
-      const card = document.createElement("div");
-      card.className = "disease-item";
-      const title = document.createElement("strong");
-      title.textContent = item.nama;
-      const desc = document.createElement("p");
-      desc.textContent = item.info;
-      card.appendChild(title);
-      card.appendChild(desc);
-      penyakitList.appendChild(card);
-    });
-  }
-
   const tipsList = document.getElementById("tips-sehat");
-  if (tipsList && Array.isArray(organ.tipsSehat)) {
-    organ.tipsSehat.forEach(teks => {
-      const li = document.createElement("li");
-      const icon = document.createElement("span");
-      icon.className = "check-icon";
-      icon.setAttribute("aria-hidden", "true");
-      icon.textContent = "\u2713";
-      const spanText = document.createElement("span");
-      spanText.className = "check-text";
-      spanText.textContent = teks;
-      li.appendChild(icon);
-      li.appendChild(spanText);
-      tipsList.appendChild(li);
-    });
-  }
-
   const kreditSection = document.getElementById("kredit");
-  kreditSection.innerHTML = `
-    <h2>Kredit Model 3D</h2>
-    <p><strong>Judul:</strong> ${organ.kredit.judul}</p>
-    <p><strong>Pembuat:</strong> ${organ.kredit.pembuat}</p>
-    <p><strong>Lisensi:</strong> ${organ.kredit.lisensi}</p>
-    <p><strong>Sumber:</strong> <a href="${organ.kredit.sumber}" target="_blank" rel="noopener noreferrer">${organ.kredit.sumber}</a></p>
-  `;
-
   const infoPanel = document.getElementById("info");
   const infoTitle = document.getElementById("info-title");
   const infoText = document.getElementById("info-text");
   const infoClose = document.getElementById("info-close");
   const hotspotChips = document.getElementById("hotspot-chips");
+
   let activeButton = null;
   let activeChip = null;
+  let activeHotspotId = null;
   const chipMap = {};
+  const hotspotBtnMap = {};
 
   function hideInfo() {
     infoPanel.hidden = true;
+    activeHotspotId = null;
     if (activeButton) {
       activeButton.classList.remove("active");
       activeButton = null;
@@ -112,19 +60,25 @@ if (!organ) {
     }
   }
 
-  function showInfo(hotspot, button) {
+  function showInfoById(hotspotId, button) {
+    const organText = getOrganText(organ);
+    const hotspot = organText.hotspots.find(item => item.id === hotspotId);
+    if (!hotspot) {
+      return;
+    }
     if (activeButton) {
       activeButton.classList.remove("active");
     }
     if (activeChip) {
       activeChip.classList.remove("is-active");
     }
+    activeHotspotId = hotspotId;
     activeButton = button;
     if (activeButton) {
       activeButton.classList.add("active");
     }
-    if (chipMap[hotspot.id]) {
-      activeChip = chipMap[hotspot.id];
+    if (chipMap[hotspotId]) {
+      activeChip = chipMap[hotspotId];
       activeChip.classList.add("is-active");
     }
     infoTitle.textContent = hotspot.label;
@@ -154,19 +108,104 @@ if (!organ) {
     label.textContent = h.label;
     b.appendChild(label);
 
-    b.addEventListener("click", () => showInfo(h, b));
+    b.addEventListener("click", () => showInfoById(h.id, b));
     mv.appendChild(b);
+    hotspotBtnMap[h.id] = { button: b, labelEl: label };
 
     if (hotspotChips) {
       const chip = document.createElement("button");
       chip.type = "button";
       chip.className = "hotspot-chip";
       chip.textContent = h.label;
-      chip.addEventListener("click", () => showInfo(h, b));
+      chip.addEventListener("click", () => showInfoById(h.id, b));
       hotspotChips.appendChild(chip);
       chipMap[h.id] = chip;
     }
   });
+
+  function renderOrganContent() {
+    const organText = getOrganText(organ);
+    document.title = `${organText.nama} | ${t("brandName")}`;
+    mv.setAttribute("alt", `${t("modelAltPrefix")} ${organText.nama}`);
+    document.getElementById("nama").textContent = organText.nama;
+    document.getElementById("deskripsi").textContent = organText.deskripsi;
+    document.getElementById("fakta").textContent = organText.fakta;
+
+    fungsiList.innerHTML = "";
+    organText.fungsi.forEach((teks, index) => {
+      const li = document.createElement("li");
+      const num = document.createElement("span");
+      num.className = "step-num";
+      num.textContent = String(index + 1).padStart(2, "0");
+      const spanText = document.createElement("span");
+      spanText.className = "step-text";
+      spanText.textContent = teks;
+      li.appendChild(num);
+      li.appendChild(spanText);
+      fungsiList.appendChild(li);
+    });
+
+    if (penyakitList) {
+      penyakitList.innerHTML = "";
+      organText.penyakit.forEach(item => {
+        const card = document.createElement("div");
+        card.className = "disease-item";
+        const title = document.createElement("strong");
+        title.textContent = item.nama;
+        const desc = document.createElement("p");
+        desc.textContent = item.info;
+        card.appendChild(title);
+        card.appendChild(desc);
+        penyakitList.appendChild(card);
+      });
+    }
+
+    if (tipsList) {
+      tipsList.innerHTML = "";
+      organText.tipsSehat.forEach(teks => {
+        const li = document.createElement("li");
+        const icon = document.createElement("span");
+        icon.className = "check-icon";
+        icon.setAttribute("aria-hidden", "true");
+        icon.textContent = "\u2713";
+        const spanText = document.createElement("span");
+        spanText.className = "check-text";
+        spanText.textContent = teks;
+        li.appendChild(icon);
+        li.appendChild(spanText);
+        tipsList.appendChild(li);
+      });
+    }
+
+    kreditSection.innerHTML = `
+      <h2>${t("creditHeading")}</h2>
+      <p><strong>${t("creditTitle")}</strong> ${organ.kredit.judul}</p>
+      <p><strong>${t("creditAuthor")}</strong> ${organ.kredit.pembuat}</p>
+      <p><strong>${t("creditLicense")}</strong> ${organ.kredit.lisensi}</p>
+      <p><strong>${t("creditSource")}</strong> <a href="${organ.kredit.sumber}" target="_blank" rel="noopener noreferrer">${organ.kredit.sumber}</a></p>
+    `;
+
+    organText.hotspots.forEach(h => {
+      const btnEntry = hotspotBtnMap[h.id];
+      if (btnEntry) {
+        btnEntry.button.setAttribute("aria-label", h.label);
+        btnEntry.labelEl.textContent = h.label;
+      }
+      if (chipMap[h.id]) {
+        chipMap[h.id].textContent = h.label;
+      }
+    });
+
+    if (activeHotspotId && !infoPanel.hidden) {
+      const currentHotspot = organText.hotspots.find(item => item.id === activeHotspotId);
+      if (currentHotspot) {
+        infoTitle.textContent = currentHotspot.label;
+        infoText.textContent = currentHotspot.info;
+      }
+    }
+  }
+
+  renderOrganContent();
 
   const tabButtons = Array.from(document.querySelectorAll(".study-tab"));
   if (tabButtons.length > 0) {
@@ -199,6 +238,7 @@ if (!organ) {
 
   const detailArticle = document.getElementById("detail-article");
   const btnFontSize = document.getElementById("btn-font-size");
+  let updateFontSizeLabel = null;
   if (detailArticle && btnFontSize) {
     let isLargeText = false;
     try {
@@ -209,11 +249,12 @@ if (!organ) {
 
     function applyFontSize(large) {
       detailArticle.classList.toggle("is-large-text", large);
-      btnFontSize.textContent = large ? "Teks: Besar" : "Teks: Normal";
+      btnFontSize.textContent = large ? t("fontLarge") : t("fontNormal");
       btnFontSize.setAttribute("aria-pressed", String(large));
       btnFontSize.classList.toggle("is-active", large);
     }
 
+    updateFontSizeLabel = () => applyFontSize(isLargeText);
     applyFontSize(isLargeText);
 
     btnFontSize.addEventListener("click", () => {
@@ -228,24 +269,30 @@ if (!organ) {
   }
 
   const btnTts = document.getElementById("btn-tts");
+  let handleTtsLangChange = null;
   if (btnTts) {
     if (!("speechSynthesis" in window)) {
       btnTts.hidden = true;
     } else {
-      const penyakitNarration = Array.isArray(organ.penyakit)
-        ? organ.penyakit.map(p => `${p.nama}: ${p.info}`).join(" ")
-        : "";
-      const tipsNarration = Array.isArray(organ.tipsSehat)
-        ? organ.tipsSehat.join(". ")
-        : "";
-      const narrationText = `${organ.nama}. ${organ.deskripsi} Fungsi utama: ${organ.fungsi.join(". ")}. Fakta menarik: ${organ.fakta} Gangguan dan penyakit umum: ${penyakitNarration} Cara menjaga kesehatan: ${tipsNarration}`;
+      function buildNarrationText() {
+        const organText = getOrganText(organ);
+        const penyakitNarration = Array.isArray(organText.penyakit)
+          ? organText.penyakit.map(p => `${p.nama}: ${p.info}`).join(" ")
+          : "";
+        const tipsNarration = Array.isArray(organText.tipsSehat)
+          ? organText.tipsSehat.join(". ")
+          : "";
+        return `${organText.nama}. ${organText.deskripsi} ${t("ttsFuncPrefix")} ${organText.fungsi.join(". ")}. ${t("ttsFactPrefix")} ${organText.fakta} ${t("ttsDiseasePrefix")} ${penyakitNarration} ${t("ttsTipsPrefix")} ${tipsNarration}`;
+      }
 
       function resetTtsButton() {
-        btnTts.textContent = "Bacakan";
+        btnTts.textContent = t("ttsRead");
         btnTts.classList.remove("speaking");
         btnTts.setAttribute("aria-pressed", "false");
-        btnTts.setAttribute("aria-label", "Bacakan informasi organ");
+        btnTts.setAttribute("aria-label", t("ttsReadAria"));
       }
+
+      resetTtsButton();
 
       btnTts.addEventListener("click", () => {
         if (window.speechSynthesis.speaking) {
@@ -255,15 +302,15 @@ if (!organ) {
         }
 
         window.speechSynthesis.cancel();
-        const utterance = new SpeechSynthesisUtterance(narrationText);
-        utterance.lang = "id-ID";
+        const utterance = new SpeechSynthesisUtterance(buildNarrationText());
+        utterance.lang = getCurrentLang() === "en" ? "en-US" : "id-ID";
         utterance.onend = resetTtsButton;
         utterance.onerror = resetTtsButton;
 
-        btnTts.textContent = "Berhenti";
+        btnTts.textContent = t("ttsStop");
         btnTts.classList.add("speaking");
         btnTts.setAttribute("aria-pressed", "true");
-        btnTts.setAttribute("aria-label", "Hentikan pembacaan informasi organ");
+        btnTts.setAttribute("aria-label", t("ttsStopAria"));
         window.speechSynthesis.speak(utterance);
       });
 
@@ -272,12 +319,19 @@ if (!organ) {
           window.speechSynthesis.cancel();
         }
       };
+
+      handleTtsLangChange = () => {
+        stopSpeech();
+        resetTtsButton();
+      };
+
       window.addEventListener("pagehide", stopSpeech);
       window.addEventListener("beforeunload", stopSpeech);
     }
   }
 
   const simPanel = document.getElementById("sim-panel");
+  let refreshSimTranslation = null;
   if (simPanel && (organ.id === "jantung" || organ.id === "paru-paru")) {
     const simTitle = document.getElementById("sim-title");
     const simRate = document.getElementById("sim-rate");
@@ -292,32 +346,19 @@ if (!organ) {
     const isHeart = organ.id === "jantung";
     const simConfig = isHeart
       ? {
-          title: "Simulasi Detak Jantung",
           unit: "BPM",
           restRate: 72,
-          activeRate: 130,
-          restLabel: "Istirahat (72 BPM)",
-          activeLabel: "Olahraga (130 BPM)",
-          idleText: "Tekan Mulai Simulasi untuk melihat denyut jantung dan mendengar bunyi Lub-Dub."
+          activeRate: 130
         }
       : {
-          title: "Simulasi Pernapasan",
           unit: "RPM",
           restRate: 15,
-          activeRate: 30,
-          restLabel: "Normal (15x/mnt)",
-          activeLabel: "Olahraga (30x/mnt)",
-          idleText: "Tekan Mulai Simulasi untuk melihat paru-paru mengembang dan mengempis."
+          activeRate: 30
         };
-
-    simPanel.hidden = false;
-    simTitle.textContent = simConfig.title;
-    simModeRest.textContent = simConfig.restLabel;
-    simModeActive.textContent = simConfig.activeLabel;
-    simStatus.textContent = simConfig.idleText;
 
     let simRunning = false;
     let simMode = "rest";
+    let simPhaseState = "idle";
     let soundEnabled = true;
     let vibrateEnabled = true;
     let audioCtx = null;
@@ -325,6 +366,45 @@ if (!organ) {
     let simTimerId = null;
     let pulseTimerId = null;
     let breathFrameId = null;
+
+    function getIdleText() {
+      return isHeart ? t("simHeartIdle") : t("simLungIdle");
+    }
+
+    function updateStatusFromPhase() {
+      if (!simRunning || simPhaseState === "idle") {
+        simStatus.textContent = getIdleText();
+        return;
+      }
+      if (isHeart) {
+        if (simPhaseState === "systole") {
+          simStatus.textContent =
+            simMode === "active"
+              ? t("simHeartSystoleActive")
+              : t("simHeartSystoleRest");
+        } else {
+          simStatus.textContent = t("simHeartDiastole");
+        }
+      } else {
+        simStatus.textContent =
+          simPhaseState === "inhale" ? t("simLungInhale") : t("simLungExhale");
+      }
+    }
+
+    function applySimControlLabels() {
+      simTitle.textContent = isHeart ? t("simHeartTitle") : t("simLungTitle");
+      simModeRest.textContent = isHeart ? t("simHeartRest") : t("simLungRest");
+      simModeActive.textContent = isHeart ? t("simHeartActive") : t("simLungActive");
+      simToggle.textContent = simRunning ? t("simStop") : t("simStart");
+      simSound.textContent = soundEnabled ? t("simSoundOn") : t("simSoundOff");
+      if (simVibrate) {
+        simVibrate.textContent = vibrateEnabled ? t("simVibrateOn") : t("simVibrateOff");
+      }
+      updateStatusFromPhase();
+    }
+
+    simPanel.hidden = false;
+    refreshSimTranslation = applySimControlLabels;
 
     function triggerVibrate(pattern) {
       if (!vibrateEnabled) {
@@ -461,10 +541,8 @@ if (!organ) {
 
       mv.style.transform = "scale(1.06)";
       simDot.classList.add("is-pulsing");
-      simStatus.textContent =
-        simMode === "active"
-          ? "Sistol (Olahraga): Jantung memompa lebih cepat untuk memenuhi kebutuhan oksigen otot."
-          : "Sistol (Istirahat): Jantung memompa darah secara stabil ke seluruh tubuh.";
+      simPhaseState = "systole";
+      updateStatusFromPhase();
       playHeartbeatSound();
       triggerVibrate([75, 105, 55]);
 
@@ -479,7 +557,8 @@ if (!organ) {
           }
           mv.style.transform = "scale(1)";
           simDot.classList.remove("is-pulsing");
-          simStatus.textContent = "Diastol: Bilik jantung berelaksasi dan terisi darah kembali.";
+          simPhaseState = "diastole";
+          updateStatusFromPhase();
         }, 140);
       }, 160);
 
@@ -506,16 +585,15 @@ if (!organ) {
 
         if (phase !== lastPhase) {
           lastPhase = phase;
+          simPhaseState = phase;
           if (isInhale) {
             simDot.classList.add("is-pulsing");
-            simStatus.textContent =
-              "Inspirasi: Paru-paru mengembang menyerap oksigen (O₂).";
+            updateStatusFromPhase();
             playBreathSound(true, Math.min(halfMs / 1000, 2.2));
             triggerVibrate(45);
           } else {
             simDot.classList.remove("is-pulsing");
-            simStatus.textContent =
-              "Ekspirasi: Paru-paru mengempis mengembuskan karbon dioksida (CO₂).";
+            updateStatusFromPhase();
             playBreathSound(false, Math.min(halfMs / 1000, 2.2));
           }
         }
@@ -535,6 +613,7 @@ if (!organ) {
 
     function stopSimulation() {
       simRunning = false;
+      simPhaseState = "idle";
       if (simTimerId) {
         window.clearTimeout(simTimerId);
         simTimerId = null;
@@ -550,15 +629,15 @@ if (!organ) {
       mv.style.transform = "";
       simDot.classList.remove("is-pulsing");
       stopVibration();
-      simToggle.textContent = "Mulai Simulasi";
+      simToggle.textContent = t("simStart");
       simToggle.classList.remove("is-running");
-      simStatus.textContent = simConfig.idleText;
+      updateStatusFromPhase();
     }
 
     function startSimulation() {
       stopSimulation();
       simRunning = true;
-      simToggle.textContent = "Hentikan";
+      simToggle.textContent = t("simStop");
       simToggle.classList.add("is-running");
       ensureAudioContext();
       if (isHeart) {
@@ -579,6 +658,7 @@ if (!organ) {
     }
 
     updateRateBadge();
+    applySimControlLabels();
 
     simToggle.addEventListener("click", () => {
       if (simRunning) {
@@ -593,14 +673,14 @@ if (!organ) {
 
     simSound.addEventListener("click", () => {
       soundEnabled = !soundEnabled;
-      simSound.textContent = soundEnabled ? "Suara: Aktif" : "Suara: Bisu";
+      simSound.textContent = soundEnabled ? t("simSoundOn") : t("simSoundOff");
       simSound.setAttribute("aria-pressed", String(soundEnabled));
     });
 
     if (simVibrate) {
       simVibrate.addEventListener("click", () => {
         vibrateEnabled = !vibrateEnabled;
-        simVibrate.textContent = vibrateEnabled ? "Getar: Aktif" : "Getar: Mati";
+        simVibrate.textContent = vibrateEnabled ? t("simVibrateOn") : t("simVibrateOff");
         simVibrate.setAttribute("aria-pressed", String(vibrateEnabled));
         if (!vibrateEnabled) {
           stopVibration();
@@ -617,4 +697,17 @@ if (!organ) {
     window.addEventListener("pagehide", cleanupSim);
     window.addEventListener("beforeunload", cleanupSim);
   }
+
+  document.addEventListener("ar-lang-change", () => {
+    renderOrganContent();
+    if (updateFontSizeLabel) {
+      updateFontSizeLabel();
+    }
+    if (handleTtsLangChange) {
+      handleTtsLangChange();
+    }
+    if (refreshSimTranslation) {
+      refreshSimTranslation();
+    }
+  });
 }
