@@ -8,8 +8,8 @@ const RELATIONS = {
   "jantung|paru-paru": "Jantung dan paru-paru bekerja sama erat dalam sirkulasi pulmonal: bilik kanan jantung memompa darah miskin oksigen ke paru-paru untuk ditukar dengan oksigen, lalu darah kaya oksigen mengalir kembali ke jantung untuk dipompa ke seluruh tubuh.",
   "jantung|otak": "Jantung memompa sekitar 15–20% curah darah beroksigen langsung menuju otak setiap menit, sementara batang otak mengatur irama detak jantung secara otomatis melalui sistem saraf otonom.",
   "jantung|lambung": "Saat lambung mencerna makanan, jantung meningkatkan aliran darah menuju saluran pencernaan untuk membantu proses pemecahan dan penyerapan nutrisi.",
-  "jantung|ginjal": "Jantung memompa darah melewati ginjal agar kotoran tersaring, sementara ginjal mengatur volume cairan dan hormon yang menjaga tekanan darah jantung tetap normal.",
-  "jantung|hati": "Hati menerima darah yang telah menyerap nutrisi dari saluran pencernaan dan menyaringnya terlebih dahulu sebelum darah tersebut dialirkan kembali menuju jantung.",
+  "ginjal|jantung": "Jantung memompa darah melewati ginjal agar kotoran tersaring, sementara ginjal mengatur volume cairan dan hormon yang menjaga tekanan darah jantung tetap normal.",
+  "hati|jantung": "Hati menerima darah yang telah menyerap nutrisi dari saluran pencernaan dan menyaringnya terlebih dahulu sebelum darah tersebut dialirkan kembali menuju jantung.",
   "otak|paru-paru": "Paru-paru menyuplai oksigen yang sangat dibutuhkan sel saraf otak, sedangkan pusat pernapasan di batang otak mengatur cepat-lambatnya tarikan napas secara otomatis.",
   "lambung|paru-paru": "Oksigen yang diserap paru-paru digunakan oleh sel-sel otot dinding lambung untuk menghasilkan energi saat mengaduk dan mencerna makanan.",
   "ginjal|paru-paru": "Paru-paru dan ginjal bekerja sama menjaga keseimbangan asam-basa (pH) darah: paru-paru mengatur pembuangan gas karbon dioksida, sedangkan ginjal mengatur kadar asam dan mineral dalam urine.",
@@ -56,13 +56,19 @@ function attachProgressListener(mv) {
 
 function renderColumn(suffix, organ) {
   const mv = document.getElementById(`mv-${suffix}`);
-  const progressBar = mv.querySelector(".progress");
-  if (progressBar) {
-    progressBar.classList.remove("hide");
+  if (mv.getAttribute("src") !== organ.model) {
+    const progressBar = mv.querySelector(".progress");
+    const progressFill = mv.querySelector(".progress-fill");
+    if (progressFill) {
+      progressFill.style.width = "0%";
+    }
+    if (progressBar) {
+      progressBar.classList.remove("hide");
+    }
+    mv.setAttribute("src", organ.model);
+    mv.setAttribute("poster", organ.poster);
+    mv.setAttribute("alt", `Model 3D ${organ.nama}`);
   }
-  mv.setAttribute("src", organ.model);
-  mv.setAttribute("poster", organ.poster);
-  mv.setAttribute("alt", `Model 3D ${organ.nama}`);
 
   document.getElementById(`nama-${suffix}`).textContent = organ.nama;
   document.getElementById(`link-${suffix}`).href = `organ.html?id=${organ.id}`;
@@ -127,7 +133,7 @@ function updateComparison() {
   updateRelation(organA, organB);
 
   document.title = `${organA.nama} vs ${organB.nama} | AR Organ Tubuh`;
-  const nextUrl = `compare.html?a=${encodeURIComponent(organA.id)}&b=${encodeURIComponent(organB.id)}`;
+  const nextUrl = `${location.pathname}?a=${encodeURIComponent(organA.id)}&b=${encodeURIComponent(organB.id)}`;
   try {
     history.replaceState(null, "", nextUrl);
   } catch (err) {

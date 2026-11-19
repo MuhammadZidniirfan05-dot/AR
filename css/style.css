@@ -149,6 +149,7 @@ body {
   font-size: 0.9rem;
   font-weight: 600;
   font-family: inherit;
+  text-decoration: none;
   color: var(--text-body);
   background-color: transparent;
   border: 1px solid transparent;
