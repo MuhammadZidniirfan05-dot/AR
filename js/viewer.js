@@ -182,6 +182,7 @@ if (!organ) {
     const simModeRest = document.getElementById("sim-mode-rest");
     const simModeActive = document.getElementById("sim-mode-active");
     const simSound = document.getElementById("sim-sound");
+    const simVibrate = document.getElementById("sim-vibrate");
     const simStatus = document.getElementById("sim-status");
 
     const isHeart = organ.id === "jantung";
@@ -214,10 +215,27 @@ if (!organ) {
     let simRunning = false;
     let simMode = "rest";
     let soundEnabled = true;
+    let vibrateEnabled = true;
     let audioCtx = null;
+    let masterCompressor = null;
     let simTimerId = null;
     let pulseTimerId = null;
     let breathFrameId = null;
+
+    function triggerVibrate(pattern) {
+      if (!vibrateEnabled) {
+        return;
+      }
+      if (typeof navigator !== "undefined" && typeof navigator.vibrate === "function") {
+        navigator.vibrate(pattern);
+      }
+    }
+
+    function stopVibration() {
+      if (typeof navigator !== "undefined" && typeof navigator.vibrate === "function") {
+        navigator.vibrate(0);
+      }
+    }
 
     function getCurrentRate() {
       return simMode === "active" ? simConfig.activeRate : simConfig.restRate;
@@ -237,6 +255,13 @@ if (!organ) {
       }
       if (!audioCtx) {
         audioCtx = new AudioCtor();
+        masterCompressor = audioCtx.createDynamicsCompressor();
+        masterCompressor.threshold.setValueAtTime(-16, audioCtx.currentTime);
+        masterCompressor.knee.setValueAtTime(18, audioCtx.currentTime);
+        masterCompressor.ratio.setValueAtTime(6, audioCtx.currentTime);
+        masterCompressor.attack.setValueAtTime(0.003, audioCtx.currentTime);
+        masterCompressor.release.setValueAtTime(0.15, audioCtx.currentTime);
+        masterCompressor.connect(audioCtx.destination);
       }
       if (audioCtx.state === "suspended") {
         audioCtx.resume().catch(() => {});
@@ -244,21 +269,38 @@ if (!organ) {
       return audioCtx;
     }
 
-    function playThump(ctx, startTime, startFreq, endFreq, duration, volume) {
-      const osc = ctx.createOscillator();
-      const gain = ctx.createGain();
-      osc.type = "sine";
-      osc.frequency.setValueAtTime(startFreq, startTime);
-      osc.frequency.exponentialRampToValueAtTime(endFreq, startTime + duration);
+    function playThump(ctx, startTime, triStart, triEnd, bassStart, bassEnd, duration, volume) {
+      const outputNode = masterCompressor || ctx.destination;
 
-      gain.gain.setValueAtTime(0.001, startTime);
-      gain.gain.exponentialRampToValueAtTime(volume, startTime + 0.02);
-      gain.gain.exponentialRampToValueAtTime(0.001, startTime + duration);
+      const oscTri = ctx.createOscillator();
+      const gainTri = ctx.createGain();
+      oscTri.type = "triangle";
+      oscTri.frequency.setValueAtTime(triStart, startTime);
+      oscTri.frequency.exponentialRampToValueAtTime(triEnd, startTime + duration);
 
-      osc.connect(gain);
-      gain.connect(ctx.destination);
-      osc.start(startTime);
-      osc.stop(startTime + duration + 0.02);
+      gainTri.gain.setValueAtTime(0.001, startTime);
+      gainTri.gain.exponentialRampToValueAtTime(volume * 0.75, startTime + 0.015);
+      gainTri.gain.exponentialRampToValueAtTime(0.001, startTime + duration);
+
+      oscTri.connect(gainTri);
+      gainTri.connect(outputNode);
+      oscTri.start(startTime);
+      oscTri.stop(startTime + duration + 0.02);
+
+      const oscBass = ctx.createOscillator();
+      const gainBass = ctx.createGain();
+      oscBass.type = "sine";
+      oscBass.frequency.setValueAtTime(bassStart, startTime);
+      oscBass.frequency.exponentialRampToValueAtTime(bassEnd, startTime + duration);
+
+      gainBass.gain.setValueAtTime(0.001, startTime);
+      gainBass.gain.exponentialRampToValueAtTime(volume, startTime + 0.015);
+      gainBass.gain.exponentialRampToValueAtTime(0.001, startTime + duration);
+
+      oscBass.connect(gainBass);
+      gainBass.connect(outputNode);
+      oscBass.start(startTime);
+      oscBass.stop(startTime + duration + 0.02);
     }
 
     function playHeartbeatSound() {
@@ -267,8 +309,8 @@ if (!organ) {
         return;
       }
       const now = ctx.currentTime;
-      playThump(ctx, now, 70, 38, 0.14, 0.45);
-      playThump(ctx, now + 0.18, 58, 32, 0.12, 0.32);
+      playThump(ctx, now, 130, 52, 85, 42, 0.16, 1.4);
+      playThump(ctx, now + 0.18, 110, 46, 72, 36, 0.14, 1.1);
     }
 
     function playBreathSound(isInhale, durationSec) {
@@ -276,6 +318,7 @@ if (!organ) {
       if (!ctx) {
         return;
       }
+      const outputNode = masterCompressor || ctx.destination;
       const sampleCount = Math.max(1, Math.floor(ctx.sampleRate * durationSec));
       const buffer = ctx.createBuffer(1, sampleCount, ctx.sampleRate);
       const data = buffer.getChannelData(0);
@@ -288,19 +331,19 @@ if (!organ) {
 
       const filter = ctx.createBiquadFilter();
       filter.type = "bandpass";
-      filter.frequency.value = isInhale ? 520 : 380;
-      filter.Q.value = 1.2;
+      filter.frequency.value = isInhale ? 560 : 400;
+      filter.Q.value = 1.1;
 
       const gain = ctx.createGain();
       const now = ctx.currentTime;
-      const peak = isInhale ? 0.09 : 0.07;
+      const peak = isInhale ? 0.42 : 0.32;
       gain.gain.setValueAtTime(0.001, now);
       gain.gain.linearRampToValueAtTime(peak, now + durationSec * 0.35);
       gain.gain.linearRampToValueAtTime(0.001, now + durationSec);
 
       source.connect(filter);
       filter.connect(gain);
-      gain.connect(ctx.destination);
+      gain.connect(outputNode);
       source.start(now);
       source.stop(now + durationSec + 0.02);
     }
@@ -319,6 +362,7 @@ if (!organ) {
           ? "Sistol (Olahraga): Jantung memompa lebih cepat untuk memenuhi kebutuhan oksigen otot."
           : "Sistol (Istirahat): Jantung memompa darah secara stabil ke seluruh tubuh.";
       playHeartbeatSound();
+      triggerVibrate([75, 105, 55]);
 
       pulseTimerId = window.setTimeout(() => {
         if (!simRunning) {
@@ -363,6 +407,7 @@ if (!organ) {
             simStatus.textContent =
               "Inspirasi: Paru-paru mengembang menyerap oksigen (O₂).";
             playBreathSound(true, Math.min(halfMs / 1000, 2.2));
+            triggerVibrate(45);
           } else {
             simDot.classList.remove("is-pulsing");
             simStatus.textContent =
@@ -400,6 +445,7 @@ if (!organ) {
       }
       mv.style.transform = "";
       simDot.classList.remove("is-pulsing");
+      stopVibration();
       simToggle.textContent = "Mulai Simulasi";
       simToggle.classList.remove("is-running");
       simStatus.textContent = simConfig.idleText;
@@ -446,6 +492,17 @@ if (!organ) {
       simSound.textContent = soundEnabled ? "Suara: Aktif" : "Suara: Bisu";
       simSound.setAttribute("aria-pressed", String(soundEnabled));
     });
+
+    if (simVibrate) {
+      simVibrate.addEventListener("click", () => {
+        vibrateEnabled = !vibrateEnabled;
+        simVibrate.textContent = vibrateEnabled ? "Getar: Aktif" : "Getar: Mati";
+        simVibrate.setAttribute("aria-pressed", String(vibrateEnabled));
+        if (!vibrateEnabled) {
+          stopVibration();
+        }
+      });
+    }
 
     const cleanupSim = () => {
       stopSimulation();
