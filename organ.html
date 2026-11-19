@@ -16,9 +16,10 @@
 <body>
   <header class="site-header">
     <div class="container detail-header">
-      <a class="back-link" href="index.html">&larr; Kembali</a>
+      <a class="back-link" href="index.html" data-i18n="backSimple">&larr; Kembali</a>
       <div class="detail-header-right">
-        <span class="brand-name">AR Organ Tubuh</span>
+        <span class="brand-name" data-i18n="brandName">AR Organ Tubuh</span>
+        <button id="lang-toggle" class="btn-lang" type="button" aria-label="Ganti ke Bahasa Inggris">EN</button>
         <button id="theme-toggle" class="btn-theme" type="button" aria-label="Ubah tema">Gelap</button>
       </div>
     </div>
@@ -36,12 +37,12 @@
         ar-scale="auto"
         loading="eager"
         reveal="auto">
-        <button slot="ar-button" class="btn-ar">Lihat di AR</button>
+        <button slot="ar-button" class="btn-ar" data-i18n="btnAr">Lihat di AR</button>
         <div slot="progress-bar" class="progress">
           <div class="progress-fill"></div>
         </div>
       </model-viewer>
-      <p class="ar-note">Fitur AR tersedia di HP Android/iPhone yang didukung. Klik titik pada model untuk info bagian organ.</p>
+      <p class="ar-note" data-i18n="arNote">Fitur AR tersedia di HP Android/iPhone yang didukung. Klik titik pada model untuk info bagian organ.</p>
       <section id="sim-panel" class="sim-panel" hidden>
         <div class="sim-header">
           <div class="sim-title-wrap">
@@ -62,7 +63,7 @@
       <aside id="info" class="hotspot-info" aria-live="polite" hidden>
         <div class="hotspot-info-header">
           <h2 id="info-title"></h2>
-          <button id="info-close" class="hotspot-info-close" type="button" aria-label="Tutup panel info">&times;</button>
+          <button id="info-close" class="hotspot-info-close" type="button" aria-label="Tutup panel info" data-i18n-aria-label="infoCloseAria">&times;</button>
         </div>
         <p id="info-text"></p>
       </aside>
@@ -72,50 +73,50 @@
       <div class="detail-title-row">
         <h1 id="nama"></h1>
         <div class="detail-title-tools">
-          <button id="btn-font-size" class="btn-font-size" type="button" aria-pressed="false" aria-label="Perbesar ukuran teks materi">Teks: Normal</button>
+          <button id="btn-font-size" class="btn-font-size" type="button" aria-pressed="false" aria-label="Perbesar ukuran teks materi" data-i18n-aria-label="fontToggleAria">Teks: Normal</button>
           <button id="btn-tts" class="btn-tts" type="button" aria-pressed="false" aria-label="Bacakan informasi organ">Bacakan</button>
         </div>
       </div>
 
-      <div class="study-tabs" role="tablist" aria-label="Kategori materi organ">
-        <button id="tab-btn-overview" class="study-tab is-active" role="tab" aria-selected="true" aria-controls="tab-panel-overview" type="button">Ringkasan &amp; Fungsi</button>
-        <button id="tab-btn-disease" class="study-tab" role="tab" aria-selected="false" aria-controls="tab-panel-disease" type="button">Gangguan &amp; Penyakit</button>
-        <button id="tab-btn-tips" class="study-tab" role="tab" aria-selected="false" aria-controls="tab-panel-tips" type="button">Jaga Kesehatan</button>
+      <div class="study-tabs" role="tablist" aria-label="Kategori materi organ" data-i18n-aria-label="tabCategoryAria">
+        <button id="tab-btn-overview" class="study-tab is-active" role="tab" aria-selected="true" aria-controls="tab-panel-overview" type="button" data-i18n="tabOverview">Ringkasan &amp; Fungsi</button>
+        <button id="tab-btn-disease" class="study-tab" role="tab" aria-selected="false" aria-controls="tab-panel-disease" type="button" data-i18n="tabDisease">Gangguan &amp; Penyakit</button>
+        <button id="tab-btn-tips" class="study-tab" role="tab" aria-selected="false" aria-controls="tab-panel-tips" type="button" data-i18n="tabTips">Jaga Kesehatan</button>
       </div>
 
       <div id="tab-panel-overview" class="tab-panel" role="tabpanel" aria-labelledby="tab-btn-overview">
         <p id="deskripsi" class="detail-desc"></p>
 
         <div class="chips-block">
-          <h2>Bagian Anatomi (Klik untuk Info)</h2>
+          <h2 data-i18n="chipsHeading">Bagian Anatomi (Klik untuk Info)</h2>
           <div id="hotspot-chips" class="hotspot-chips"></div>
         </div>
 
-        <h2>Fungsi Utama</h2>
+        <h2 data-i18n="funcHeading">Fungsi Utama</h2>
         <ul id="fungsi" class="detail-list numbered-list"></ul>
 
         <div class="fact-box">
-          <h2>Fakta Menarik</h2>
+          <h2 data-i18n="factHeading">Fakta Menarik</h2>
           <p id="fakta"></p>
         </div>
       </div>
 
       <div id="tab-panel-disease" class="tab-panel" role="tabpanel" aria-labelledby="tab-btn-disease" hidden>
-        <p class="tab-intro">Kenali beberapa gangguan atau penyakit yang dapat menyerang organ ini:</p>
+        <p class="tab-intro" data-i18n="diseaseIntro">Kenali beberapa gangguan atau penyakit yang dapat menyerang organ ini:</p>
         <div id="penyakit" class="disease-list"></div>
       </div>
 
       <div id="tab-panel-tips" class="tab-panel" role="tabpanel" aria-labelledby="tab-btn-tips" hidden>
-        <p class="tab-intro">Langkah sederhana sehari-hari untuk merawat dan menjaga fungsi organ tetap optimal:</p>
+        <p class="tab-intro" data-i18n="tipsIntro">Langkah sederhana sehari-hari untuk merawat dan menjaga fungsi organ tetap optimal:</p>
         <div class="tips-box">
-          <h2>Cara Menjaga Kesehatan</h2>
+          <h2 data-i18n="tipsHeading">Cara Menjaga Kesehatan</h2>
           <ul id="tips-sehat" class="detail-list check-list"></ul>
         </div>
       </div>
 
       <div class="detail-actions">
-        <a id="link-kuis" class="btn-quiz" href="#">Ikut kuis organ ini</a>
-        <a id="link-compare" class="btn-secondary" href="#">Bandingkan organ ini</a>
+        <a id="link-kuis" class="btn-quiz" href="#" data-i18n="btnTakeQuiz">Ikut kuis organ ini</a>
+        <a id="link-compare" class="btn-secondary" href="#" data-i18n="btnCompareOrgan">Bandingkan organ ini</a>
       </div>
 
       <section id="kredit" class="credit-box"></section>
@@ -124,11 +125,12 @@
 
   <footer class="site-footer">
     <div class="container">
-      <p>AR Organ Tubuh &mdash; Media Edukasi Anatomi 3D</p>
+      <p data-i18n="commonFooter">AR Organ Tubuh &mdash; Media Edukasi Anatomi 3D</p>
     </div>
   </footer>
 
   <script src="js/data.js"></script>
+  <script src="js/i18n.js"></script>
   <script src="js/viewer.js"></script>
 </body>
 </html>

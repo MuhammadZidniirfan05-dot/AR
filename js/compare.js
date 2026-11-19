@@ -6,7 +6,7 @@ const relationText = document.getElementById("relation-text");
 
 const RELATIONS = {
   "jantung|paru-paru": "Jantung dan paru-paru bekerja sama erat dalam sirkulasi pulmonal: bilik kanan jantung memompa darah miskin oksigen ke paru-paru untuk ditukar dengan oksigen, lalu darah kaya oksigen mengalir kembali ke jantung untuk dipompa ke seluruh tubuh.",
-  "jantung|otak": "Jantung memompa sekitar 15–20% curah darah beroksigen langsung menuju otak setiap menit, sementara batang otak mengatur irama detak jantung secara otomatis melalui sistem saraf otonom.",
+  "jantung|otak": "Jantung memompa sekitar 15\u201320% curah darah beroksigen langsung menuju otak setiap menit, sementara batang otak mengatur irama detak jantung secara otomatis melalui sistem saraf otonom.",
   "jantung|lambung": "Saat lambung mencerna makanan, jantung meningkatkan aliran darah menuju saluran pencernaan untuk membantu proses pemecahan dan penyerapan nutrisi.",
   "ginjal|jantung": "Jantung memompa darah melewati ginjal agar kotoran tersaring, sementara ginjal mengatur volume cairan dan hormon yang menjaga tekanan darah jantung tetap normal.",
   "hati|jantung": "Hati menerima darah yang telah menyerap nutrisi dari saluran pencernaan dan menyaringnya terlebih dahulu sebelum darah tersebut dialirkan kembali menuju jantung.",
@@ -22,17 +22,48 @@ const RELATIONS = {
   "ginjal|hati": "Hati mengubah zat sisa beracun (seperti amonia) menjadi urea yang lebih aman di dalam darah, lalu ginjal menyaring urea tersebut dan membuangnya bersama urine."
 };
 
+const RELATIONS_EN = {
+  "jantung|paru-paru": "The heart and lungs work closely together in pulmonary circulation: the right ventricle pumps oxygen-poor blood to the lungs to pick up oxygen, and oxygen-rich blood returns to the heart to be pumped throughout the body.",
+  "jantung|otak": "The heart pumps about 15\u201320% of its oxygenated blood output directly to the brain every minute, while the brainstem automatically regulates heart rate through the autonomic nervous system.",
+  "jantung|lambung": "After a meal, the heart increases blood flow to the stomach and digestive tract to support the breakdown of food and absorption of nutrients.",
+  "ginjal|jantung": "The heart pumps blood through the kidneys to filter out waste, while the kidneys regulate fluid volume and hormones that keep blood pressure within a healthy range.",
+  "hati|jantung": "The liver receives nutrient-rich blood from the digestive system and filters it before returning that blood to the heart for circulation.",
+  "otak|paru-paru": "The lungs supply the constant oxygen needed by brain neurons, while the respiratory center in the brainstem automatically controls breathing rate and depth.",
+  "lambung|paru-paru": "Oxygen absorbed by the lungs is delivered via the bloodstream to the smooth muscle cells of the stomach wall to power food churning and digestion.",
+  "ginjal|paru-paru": "The lungs and kidneys work together to maintain the blood's acid-base (pH) balance: the lungs regulate carbon dioxide levels, while the kidneys control acid and mineral excretion in urine.",
+  "hati|paru-paru": "The lungs supply oxygen through the bloodstream to the liver so liver cells can carry out hundreds of metabolic and detoxification reactions.",
+  "lambung|otak": "The brain and stomach communicate via the vagus nerve: the brain regulates hunger and gastric acid secretion, while the stomach sends fullness signals back to the brain.",
+  "ginjal|otak": "The brain releases antidiuretic hormone (ADH) to signal the kidneys how much water to conserve or excrete as urine to prevent dehydration.",
+  "hati|otak": "The liver maintains stable blood glucose levels as the brain's primary energy source and filters toxic ammonia so it does not harm brain cells.",
+  "ginjal|lambung": "The stomach digests the food and liquids entering the body, while the kidneys later filter metabolic nutrient waste and excess water from the blood.",
+  "hati|lambung": "Food broken down by the stomach passes into the small intestine, where it is further digested with the help of bile produced by the liver.",
+  "ginjal|hati": "The liver converts toxic waste products (such as ammonia) into safer urea in the bloodstream, and the kidneys filter that urea out of the body in urine."
+};
+
 function populateSelects() {
   ORGANS.forEach(organ => {
+    const organText = getOrganText(organ);
     const optA = document.createElement("option");
     optA.value = organ.id;
-    optA.textContent = organ.nama;
+    optA.textContent = organText.nama;
     selectA.appendChild(optA);
 
     const optB = document.createElement("option");
     optB.value = organ.id;
-    optB.textContent = organ.nama;
+    optB.textContent = organText.nama;
     selectB.appendChild(optB);
+  });
+}
+
+function updateSelectOptionLabels() {
+  ORGANS.forEach((organ, idx) => {
+    const organText = getOrganText(organ);
+    if (selectA.options[idx]) {
+      selectA.options[idx].textContent = organText.nama;
+    }
+    if (selectB.options[idx]) {
+      selectB.options[idx].textContent = organText.nama;
+    }
   });
 }
 
@@ -55,6 +86,7 @@ function attachProgressListener(mv) {
 }
 
 function renderColumn(suffix, organ) {
+  const organText = getOrganText(organ);
   const mv = document.getElementById(`mv-${suffix}`);
   if (mv.getAttribute("src") !== organ.model) {
     const progressBar = mv.querySelector(".progress");
@@ -67,17 +99,17 @@ function renderColumn(suffix, organ) {
     }
     mv.setAttribute("src", organ.model);
     mv.setAttribute("poster", organ.poster);
-    mv.setAttribute("alt", `Model 3D ${organ.nama}`);
   }
+  mv.setAttribute("alt", `${t("modelAltPrefix")} ${organText.nama}`);
 
-  document.getElementById(`nama-${suffix}`).textContent = organ.nama;
+  document.getElementById(`nama-${suffix}`).textContent = organText.nama;
   document.getElementById(`link-${suffix}`).href = `organ.html?id=${organ.id}`;
-  document.getElementById(`ringkas-${suffix}`).textContent = organ.deskripsi;
-  document.getElementById(`fakta-${suffix}`).textContent = organ.fakta;
+  document.getElementById(`ringkas-${suffix}`).textContent = organText.deskripsi;
+  document.getElementById(`fakta-${suffix}`).textContent = organText.fakta;
 
   const fungsiEl = document.getElementById(`fungsi-${suffix}`);
   fungsiEl.innerHTML = "";
-  organ.fungsi.forEach((teks, index) => {
+  organText.fungsi.forEach((teks, index) => {
     const li = document.createElement("li");
     const num = document.createElement("span");
     num.className = "step-num";
@@ -92,8 +124,8 @@ function renderColumn(suffix, organ) {
 
   const penyakitEl = document.getElementById(`penyakit-${suffix}`);
   penyakitEl.innerHTML = "";
-  if (Array.isArray(organ.penyakit)) {
-    organ.penyakit.forEach(item => {
+  if (Array.isArray(organText.penyakit)) {
+    organText.penyakit.forEach(item => {
       const card = document.createElement("div");
       card.className = "disease-item";
       const title = document.createElement("strong");
@@ -108,8 +140,8 @@ function renderColumn(suffix, organ) {
 
   const tipsEl = document.getElementById(`tips-${suffix}`);
   tipsEl.innerHTML = "";
-  if (Array.isArray(organ.tipsSehat)) {
-    organ.tipsSehat.forEach(teks => {
+  if (Array.isArray(organText.tipsSehat)) {
+    organText.tipsSehat.forEach(teks => {
       const li = document.createElement("li");
       const icon = document.createElement("span");
       icon.className = "check-icon";
@@ -126,28 +158,34 @@ function renderColumn(suffix, organ) {
 }
 
 function updateRelation(organA, organB) {
+  const textA = getOrganText(organA);
+  const textB = getOrganText(organB);
+
   if (organA.id === organB.id) {
-    relationTitle.textContent = `Perbandingan: ${organA.nama}`;
-    relationText.textContent = "Kamu sedang memilih organ yang sama di kedua kolom. Pilih organ yang berbeda pada salah satu menu di atas untuk melihat perbandingan dan hubungan kerja samanya.";
+    relationTitle.textContent = t("compareSameTitle", { name: textA.nama });
+    relationText.textContent = t("compareSameText");
     return;
   }
 
   const pairKey = [organA.id, organB.id].sort().join("|");
-  relationTitle.textContent = `Hubungan Kerja Sama: ${organA.nama} & ${organB.nama}`;
+  const relDict = getCurrentLang() === "en" ? RELATIONS_EN : RELATIONS;
+  relationTitle.textContent = t("compareRelTitle", { a: textA.nama, b: textB.nama });
   relationText.textContent =
-    RELATIONS[pairKey] ||
-    `${organA.nama} dan ${organB.nama} saling mendukung dalam menjaga keseimbangan sistem organ tubuh manusia.`;
+    relDict[pairKey] ||
+    t("compareRelFallback", { a: textA.nama, b: textB.nama });
 }
 
 function updateComparison() {
   const organA = ORGANS.find(o => o.id === selectA.value) || ORGANS[0];
   const organB = ORGANS.find(o => o.id === selectB.value) || ORGANS[1];
+  const textA = getOrganText(organA);
+  const textB = getOrganText(organB);
 
   renderColumn("a", organA);
   renderColumn("b", organB);
   updateRelation(organA, organB);
 
-  document.title = `${organA.nama} vs ${organB.nama} | AR Organ Tubuh`;
+  document.title = `${textA.nama} vs ${textB.nama} | ${t("brandName")}`;
   const nextUrl = `${location.pathname}?a=${encodeURIComponent(organA.id)}&b=${encodeURIComponent(organB.id)}`;
   try {
     history.replaceState(null, "", nextUrl);
@@ -184,6 +222,11 @@ btnSwap.addEventListener("click", () => {
   const temp = selectA.value;
   selectA.value = selectB.value;
   selectB.value = temp;
+  updateComparison();
+});
+
+document.addEventListener("ar-lang-change", () => {
+  updateSelectOptionLabels();
   updateComparison();
 });
 

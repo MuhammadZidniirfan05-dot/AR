@@ -15,9 +15,10 @@
 <body>
   <header class="site-header">
     <div class="container detail-header">
-      <a class="back-link" href="index.html">&larr; Kembali ke Daftar</a>
+      <a class="back-link" href="index.html" data-i18n="backToList">&larr; Kembali ke Daftar</a>
       <div class="detail-header-right">
-        <span class="brand-name">Kuis AR Organ Tubuh</span>
+        <span class="brand-name" data-i18n="brandQuiz">Kuis AR Organ Tubuh</span>
+        <button id="lang-toggle" class="btn-lang" type="button" aria-label="Ganti ke Bahasa Inggris">EN</button>
         <button id="theme-toggle" class="btn-theme" type="button" aria-label="Ubah tema">Gelap</button>
       </div>
     </div>
@@ -41,23 +42,24 @@
     </section>
 
     <section id="quiz-result" class="quiz-card quiz-result" hidden>
-      <h1>Hasil Kuis</h1>
+      <h1 data-i18n="quizResultHeading">Hasil Kuis</h1>
       <p id="result-score" class="result-score"></p>
       <p id="result-high-score" class="result-high-score"></p>
       <div class="result-actions">
-        <button id="quiz-retry" class="btn-quiz" type="button">Ulangi</button>
-        <a class="btn-secondary" href="index.html">Kembali ke daftar</a>
+        <button id="quiz-retry" class="btn-quiz" type="button" data-i18n="quizRetry">Ulangi</button>
+        <a class="btn-secondary" href="index.html" data-i18n="quizBackList">Kembali ke daftar</a>
       </div>
     </section>
   </main>
 
   <footer class="site-footer">
     <div class="container">
-      <p>AR Organ Tubuh &mdash; Media Edukasi Anatomi 3D</p>
+      <p data-i18n="commonFooter">AR Organ Tubuh &mdash; Media Edukasi Anatomi 3D</p>
     </div>
   </footer>
 
   <script src="js/data.js"></script>
+  <script src="js/i18n.js"></script>
   <script src="js/quiz.js"></script>
 </body>
 </html>
