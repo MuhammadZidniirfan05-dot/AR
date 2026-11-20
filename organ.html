@@ -27,21 +27,73 @@
 
   <main class="container detail-main">
     <section class="viewer-section">
-      <model-viewer
-        id="mv"
-        camera-controls
-        auto-rotate
-        shadow-intensity="1"
-        ar
-        ar-modes="webxr scene-viewer quick-look"
-        ar-scale="auto"
-        loading="eager"
-        reveal="auto">
-        <button slot="ar-button" class="btn-ar" data-i18n="btnAr">Lihat di AR</button>
-        <div slot="progress-bar" class="progress">
-          <div class="progress-fill"></div>
+      <div id="viewer-stage" class="viewer-stage">
+        <model-viewer
+          id="mv"
+          camera-controls
+          auto-rotate
+          shadow-intensity="1"
+          ar
+          ar-modes="webxr scene-viewer quick-look"
+          ar-scale="auto"
+          loading="eager"
+          reveal="auto">
+          <button slot="ar-button" class="btn-ar" data-i18n="btnAr">Lihat di AR</button>
+          <div slot="progress-bar" class="progress">
+            <div class="progress-fill"></div>
+          </div>
+        </model-viewer>
+
+        <div class="viewer-toolbar" role="toolbar" aria-label="Kontrol Studio 3D" data-i18n-aria-label="studioToolbarAria">
+          <button id="btn-rotate" class="studio-btn is-active" type="button" aria-pressed="true">Jeda Putar</button>
+          <button id="btn-reset-cam" class="studio-btn" type="button" data-i18n="studioResetCam">Reset Kamera</button>
+          <button id="btn-fullscreen" class="studio-btn" type="button" aria-pressed="false">Layar Penuh</button>
+          <button id="btn-screenshot" class="studio-btn" type="button" data-i18n="studioScreenshot">Foto 3D</button>
+          <button id="btn-hunt-toggle" class="studio-btn studio-btn-accent" type="button" aria-pressed="false">Tebak 3D</button>
         </div>
-      </model-viewer>
+
+        <section id="hunt-panel" class="hunt-panel" aria-live="polite" hidden>
+          <div class="hunt-header">
+            <div class="hunt-title-wrap">
+              <span class="hunt-badge" data-i18n="huntTitle">Tebak Bagian 3D</span>
+              <span id="hunt-progress" class="hunt-progress"></span>
+            </div>
+            <div class="hunt-header-right">
+              <span id="hunt-score-badge" class="hunt-score-badge"></span>
+              <button id="hunt-exit" class="hunt-exit-btn" type="button" data-i18n="huntExit">Keluar</button>
+            </div>
+          </div>
+
+          <div id="hunt-play-area" class="hunt-play-area">
+            <p id="hunt-prompt" class="hunt-prompt"></p>
+            <div class="hunt-actions-row">
+              <button id="hunt-hint" class="sim-btn" type="button" data-i18n="huntHintBtn">Petunjuk</button>
+              <button id="hunt-next" class="sim-btn sim-btn-primary" type="button" hidden>Lanjut</button>
+            </div>
+            <p id="hunt-hint-text" class="hunt-hint-text" hidden></p>
+            <p id="hunt-feedback" class="hunt-feedback" hidden></p>
+          </div>
+
+          <div id="hunt-result" class="hunt-result" hidden>
+            <h3 id="hunt-result-title" class="hunt-result-title"></h3>
+            <p id="hunt-result-score" class="hunt-result-score"></p>
+            <p id="hunt-result-best" class="hunt-result-best"></p>
+            <div class="hunt-actions-row">
+              <button id="hunt-retry" class="sim-btn sim-btn-primary" type="button" data-i18n="huntRetry">Main Lagi</button>
+              <button id="hunt-done" class="sim-btn" type="button" data-i18n="huntDone">Selesai</button>
+            </div>
+          </div>
+        </section>
+
+        <aside id="info" class="hotspot-info" aria-live="polite" hidden>
+          <div class="hotspot-info-header">
+            <h2 id="info-title"></h2>
+            <button id="info-close" class="hotspot-info-close" type="button" aria-label="Tutup panel info" data-i18n-aria-label="infoCloseAria">&times;</button>
+          </div>
+          <p id="info-text"></p>
+        </aside>
+      </div>
+
       <p class="ar-note" data-i18n="arNote">Fitur AR tersedia di HP Android/iPhone yang didukung. Klik titik pada model untuk info bagian organ.</p>
       <section id="sim-panel" class="sim-panel" hidden>
         <div class="sim-header">
@@ -60,13 +112,6 @@
         </div>
         <p id="sim-status" class="sim-status" aria-live="polite"></p>
       </section>
-      <aside id="info" class="hotspot-info" aria-live="polite" hidden>
-        <div class="hotspot-info-header">
-          <h2 id="info-title"></h2>
-          <button id="info-close" class="hotspot-info-close" type="button" aria-label="Tutup panel info" data-i18n-aria-label="infoCloseAria">&times;</button>
-        </div>
-        <p id="info-text"></p>
-      </aside>
     </section>
 
     <article id="detail-article" class="detail-info">
@@ -87,8 +132,8 @@
       <div id="tab-panel-overview" class="tab-panel" role="tabpanel" aria-labelledby="tab-btn-overview">
         <p id="deskripsi" class="detail-desc"></p>
 
-        <div class="chips-block">
-          <h2 data-i18n="chipsHeading">Bagian Anatomi (Klik untuk Info)</h2>
+        <div id="chips-block" class="chips-block">
+          <h2 id="chips-heading" data-i18n="chipsHeading">Bagian Anatomi (Klik untuk Info)</h2>
           <div id="hotspot-chips" class="hotspot-chips"></div>
         </div>
 
