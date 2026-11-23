@@ -173,7 +173,10 @@ const I18N = {
     heroPill2: "24 Titik Anatomi & Game 3D",
     heroPill3: "Glosarium & Kuis Bilingual",
     cardHotspots: "{count} Titik 3D",
-    cardExplore: "Pelajari \u2192"
+    cardExplore: "Pelajari \u2192",
+    compareHeroBadge: "Perbandingan 3D Interaktif",
+    compareHeroTitle: "Bandingkan Dua Organ",
+    compareHeroDesc: "Amati dua model 3D secara berdampingan beserta hubungan, fungsi utama, gangguan umum, dan tips kesehatannya."
   },
   en: {
     brandName: "AR Human Organs",
@@ -349,7 +352,10 @@ const I18N = {
     heroPill2: "24 Anatomy Points & 3D Game",
     heroPill3: "Bilingual Glossary & Quiz",
     cardHotspots: "{count} 3D Points",
-    cardExplore: "Explore \u2192"
+    cardExplore: "Explore \u2192",
+    compareHeroBadge: "Interactive 3D Comparison",
+    compareHeroTitle: "Compare Two Organs",
+    compareHeroDesc: "Inspect two 3D models side by side along with their relationship, key functions, common disorders, and health tips."
   }
 };
 

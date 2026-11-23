@@ -152,6 +152,9 @@ body {
 
 body {
   margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   line-height: 1.65;
   color: var(--text);
@@ -159,6 +162,11 @@ body {
   background-image: var(--hero-bg);
   background-attachment: fixed;
   transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+main {
+  flex: 1 0 auto;
+  width: 100%;
 }
 
 :focus-visible {
@@ -209,20 +217,24 @@ body {
 
 .study-hero {
   position: relative;
-  padding: 1.4rem 1.5rem;
-  margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 2rem 1.5rem;
+  margin-bottom: 2rem;
   background-color: var(--surface);
   background-image: var(--hero-bg);
   border: 1px solid var(--border);
-  border-left: 4px solid var(--primary);
+  border-top: 4px solid var(--primary);
   border-radius: 1.1rem;
   box-shadow: var(--shadow);
 }
 
 .study-hero-badge {
   display: inline-block;
-  padding: 0.22rem 0.7rem;
-  margin-bottom: 0.55rem;
+  padding: 0.22rem 0.75rem;
+  margin-bottom: 0.65rem;
   font-size: 0.76rem;
   font-weight: 800;
   text-transform: uppercase;
@@ -233,25 +245,29 @@ body {
 }
 
 .study-hero-title {
-  margin: 0 0 0.4rem;
-  font-size: 1.45rem;
+  margin: 0 auto 0.6rem;
+  max-width: 24ch;
+  font-size: clamp(1.5rem, 3.2vw, 2.15rem);
   font-weight: 800;
+  line-height: 1.25;
   letter-spacing: -0.02em;
+  text-wrap: balance;
   color: var(--text);
 }
 
 .study-hero-desc {
-  margin: 0 0 0.9rem;
-  max-width: 68ch;
-  font-size: 0.96rem;
-  line-height: 1.65;
+  margin: 0 auto 1.15rem;
+  max-width: 60ch;
+  font-size: 0.98rem;
+  line-height: 1.7;
   color: var(--text-body);
 }
 
 .study-hero-pills {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  justify-content: center;
+  gap: 0.55rem;
 }
 
 .study-pill {
@@ -323,26 +339,30 @@ body {
 .toolbar {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  text-align: center;
   gap: 1rem;
-  margin-bottom: 1.75rem;
+  margin-bottom: 2rem;
 }
 
 .toolbar-heading {
   display: flex;
-  align-items: baseline;
-  gap: 0.75rem;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.25rem;
 }
 
 .toolbar-heading h2 {
   margin: 0;
-  font-size: 1.6rem;
+  font-size: 1.65rem;
   font-weight: 800;
   letter-spacing: -0.02em;
   color: var(--text);
 }
 
 .toolbar-count {
-  font-size: 0.85rem;
+  font-size: 0.86rem;
   font-weight: 600;
   color: var(--text-muted);
 }
@@ -351,6 +371,7 @@ body {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  justify-content: center;
   gap: 0.75rem;
   width: 100%;
 }
@@ -635,22 +656,24 @@ body {
 .card-meta {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+  text-align: center;
   gap: 0.5rem;
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.45rem;
 }
 
 .card-meta h2 {
   margin: 0;
-  font-size: 1.22rem;
+  font-size: 1.25rem;
   color: var(--text);
 }
 
 .card-body p {
-  margin: 0 0 1rem;
+  margin: 0 0 1.1rem;
+  text-align: center;
   color: var(--text-body);
   font-size: 0.94rem;
-  line-height: 1.6;
+  line-height: 1.65;
   flex: 1;
 }
 
@@ -1122,6 +1145,7 @@ model-viewer {
 .sim-controls {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 0.5rem;
   margin-bottom: 0.75rem;
 }
@@ -1169,6 +1193,7 @@ model-viewer {
 
 .sim-status {
   margin: 0;
+  text-align: center;
   font-size: 0.9rem;
   color: var(--text-body);
 }
@@ -1299,13 +1324,15 @@ model-viewer {
 .detail-heading-group {
   display: flex;
   flex-direction: column;
-  gap: 0.3rem;
+  align-items: center;
+  text-align: center;
+  gap: 0.4rem;
 }
 
 .organ-system-badge {
   display: inline-block;
-  align-self: flex-start;
-  padding: 0.2rem 0.68rem;
+  align-self: center;
+  padding: 0.22rem 0.72rem;
   font-size: 0.76rem;
   font-weight: 800;
   text-transform: uppercase;
@@ -1317,24 +1344,27 @@ model-viewer {
 
 .detail-info h1 {
   margin: 0;
-  font-size: 1.9rem;
+  font-size: clamp(1.65rem, 2.8vw, 2.05rem);
   letter-spacing: -0.02em;
   color: var(--text);
 }
 
 .detail-title-row {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  gap: 0.75rem;
-  margin-bottom: 1rem;
+  text-align: center;
+  gap: 0.85rem;
+  padding-bottom: 1.15rem;
+  margin-bottom: 1.25rem;
+  border-bottom: 1px solid var(--border);
 }
 
 .detail-title-tools {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  justify-content: center;
   gap: 0.5rem;
 }
 
@@ -1431,24 +1461,28 @@ model-viewer {
 }
 
 .tab-intro {
-  margin: 0 0 1rem;
+  margin: 0 auto 1.15rem;
+  max-width: 56ch;
+  text-align: center;
   color: var(--text-muted);
   font-size: 0.95rem;
   line-height: 1.65;
 }
 
 .detail-info h2 {
-  margin: 1.45rem 0 0.7rem;
-  font-size: 1.12rem;
+  margin: 1.45rem 0 0.75rem;
+  text-align: center;
+  font-size: 1.14rem;
   color: var(--text);
 }
 
 .detail-desc {
   margin: 0;
-  max-width: 68ch;
-  padding: 1rem 1.2rem;
+  max-width: 100%;
+  padding: 1.05rem 1.25rem;
   font-size: 1.03rem;
   line-height: 1.85;
+  text-align: left;
   color: var(--text-body);
   background-color: var(--surface-alt);
   border: 1px solid var(--border);
@@ -1479,16 +1513,18 @@ model-viewer {
 }
 
 .chips-block h2 {
-  margin: 0 0 0.6rem;
-  font-size: 0.9rem;
+  margin: 0 0 0.65rem;
+  text-align: center;
+  font-size: 0.88rem;
   text-transform: uppercase;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.04em;
   color: var(--text-muted);
 }
 
 .hotspot-chips {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 0.5rem;
 }
 
@@ -1603,7 +1639,8 @@ model-viewer {
 }
 
 .fact-box h2 {
-  margin: 0 0 0.35rem;
+  margin: 0 0 0.4rem;
+  text-align: center;
   font-size: 1rem;
   color: var(--fact-title);
 }
@@ -1649,7 +1686,8 @@ model-viewer {
 }
 
 .tips-box h2 {
-  margin: 0 0 0.5rem;
+  margin: 0 0 0.55rem;
+  text-align: center;
   font-size: 1rem;
   color: var(--correct-text);
 }
@@ -1661,8 +1699,9 @@ model-viewer {
 .detail-actions {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 0.75rem;
-  margin-top: 1.5rem;
+  margin-top: 1.65rem;
 }
 
 .btn-quiz,
@@ -1696,12 +1735,14 @@ model-viewer {
   margin-top: 1.75rem;
   padding-top: 1.25rem;
   border-top: 1px solid var(--border);
+  text-align: center;
   font-size: 0.9rem;
   color: var(--text-muted);
 }
 
 .credit-box h2 {
   margin: 0 0 0.5rem;
+  text-align: center;
   font-size: 1rem;
   color: var(--text);
 }
@@ -1762,8 +1803,9 @@ model-viewer {
 .quiz-card {
   background-color: var(--surface);
   border: 1px solid var(--border);
+  border-top: 4px solid var(--primary);
   border-radius: 1rem;
-  padding: 1.5rem;
+  padding: 1.85rem 1.5rem;
   box-shadow: var(--shadow);
 }
 
@@ -1806,8 +1848,11 @@ model-viewer {
 }
 
 .quiz-question {
-  margin: 0 0 1.25rem;
-  font-size: 1.35rem;
+  margin: 0.25rem auto 1.5rem;
+  max-width: 34ch;
+  text-align: center;
+  text-wrap: balance;
+  font-size: clamp(1.2rem, 2.5vw, 1.45rem);
   line-height: 1.45;
   color: var(--text);
 }
@@ -1891,15 +1936,16 @@ model-viewer {
 }
 
 .quiz-feedback {
-  margin-top: 1.25rem;
-  padding-top: 1.25rem;
+  margin-top: 1.35rem;
+  padding-top: 1.35rem;
   border-top: 1px solid var(--border);
+  text-align: center;
 }
 
 .quiz-status {
-  margin: 0 0 0.4rem;
+  margin: 0 0 0.45rem;
   font-weight: 700;
-  font-size: 1.05rem;
+  font-size: 1.1rem;
 }
 
 .quiz-status.is-correct {
@@ -1919,7 +1965,9 @@ model-viewer {
 }
 
 .quiz-explanation {
-  margin: 0 0 1rem;
+  margin: 0 auto 1.15rem;
+  max-width: 54ch;
+  line-height: 1.65;
   color: var(--text-body);
 }
 
@@ -1974,20 +2022,17 @@ model-viewer {
 }
 
 @media (min-width: 768px) {
-  .toolbar {
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
+  .study-hero {
+    padding: 2.4rem 2rem;
   }
 
-  .toolbar-controls {
-    width: auto;
-    justify-content: flex-end;
+  .quiz-card {
+    padding: 2.25rem 2rem;
   }
 
   .search-wrap {
-    width: 260px;
-    flex: 0 1 260px;
+    width: 300px;
+    flex: 0 1 300px;
   }
 
   .organ-grid {
@@ -2160,6 +2205,7 @@ model-viewer {
 .body-map-quicklist {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 0.5rem;
 }
 
@@ -2259,6 +2305,14 @@ model-viewer {
   margin-bottom: 3.5rem;
 }
 
+.compare-hero {
+  margin-bottom: 1.5rem;
+}
+
+.compare-hero .study-hero-desc {
+  margin-bottom: 0;
+}
+
 .compare-controls {
   display: grid;
   grid-template-columns: 1fr;
@@ -2321,23 +2375,26 @@ model-viewer {
 }
 
 .compare-relation {
+  text-align: center;
   background-color: var(--fact-bg);
   border: 1px solid var(--border);
-  border-left: 4px solid var(--primary);
+  border-top: 4px solid var(--primary);
   border-radius: 0.85rem;
-  padding: 1rem 1.25rem;
+  padding: 1.15rem 1.35rem;
   margin-bottom: 1.5rem;
 }
 
 .compare-relation h2 {
-  margin: 0 0 0.35rem;
-  font-size: 1.05rem;
+  margin: 0 0 0.4rem;
+  font-size: 1.1rem;
   color: var(--fact-title);
 }
 
 .compare-relation p {
-  margin: 0;
+  margin: 0 auto;
+  max-width: 68ch;
   font-size: 0.95rem;
+  line-height: 1.65;
   color: var(--fact-text);
 }
 
@@ -2350,6 +2407,7 @@ model-viewer {
 .compare-card {
   background-color: var(--surface);
   border: 1px solid var(--border);
+  border-top: 4px solid var(--primary);
   border-radius: 1rem;
   padding: 1.35rem;
   box-shadow: var(--shadow);
@@ -2357,11 +2415,11 @@ model-viewer {
 
 .compare-card-header {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  gap: 0.5rem;
-  margin-bottom: 0.85rem;
+  text-align: center;
+  gap: 0.3rem;
+  margin-bottom: 0.9rem;
 }
 
 .compare-card-header h2 {
@@ -2391,12 +2449,15 @@ model-viewer {
 
 .compare-summary {
   margin: 0 0 1.15rem;
+  text-align: center;
   color: var(--text-body);
   font-size: 0.95rem;
+  line-height: 1.65;
 }
 
 .compare-card h3 {
-  margin: 1.25rem 0 0.5rem;
+  margin: 1.25rem 0 0.55rem;
+  text-align: center;
   font-size: 1.05rem;
   color: var(--text);
 }
@@ -2452,35 +2513,46 @@ model-viewer {
 .glossary-hero {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  text-align: center;
   gap: 1rem;
   background-color: var(--surface);
+  background-image: var(--hero-bg);
   border: 1px solid var(--border);
-  border-radius: 1rem;
-  padding: 1.35rem;
-  margin-bottom: 1.15rem;
+  border-top: 4px solid var(--primary);
+  border-radius: 1.1rem;
+  padding: 2rem 1.5rem;
+  margin-bottom: 1.25rem;
   box-shadow: var(--shadow);
 }
 
 .glossary-hero-text h1 {
-  margin: 0 0 0.35rem;
-  font-size: 1.55rem;
+  margin: 0 auto 0.45rem;
+  font-size: clamp(1.45rem, 3vw, 2rem);
+  line-height: 1.25;
+  text-wrap: balance;
   color: var(--text);
 }
 
 .glossary-hero-text p {
-  margin: 0;
-  font-size: 0.95rem;
+  margin: 0 auto;
+  max-width: 58ch;
+  font-size: 0.96rem;
+  line-height: 1.65;
   color: var(--text-muted);
 }
 
 .glossary-search-wrap {
   width: 100%;
+  max-width: 480px;
+  margin-top: 0.25rem;
   flex: none;
 }
 
 .glossary-filters {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 0.5rem;
   margin-bottom: 1rem;
 }
@@ -2512,7 +2584,8 @@ model-viewer {
 }
 
 .glossary-meta-bar {
-  margin-bottom: 1rem;
+  margin-bottom: 1.1rem;
+  text-align: center;
 }
 
 .glossary-count {
@@ -2654,13 +2727,7 @@ model-viewer {
   }
 
   .glossary-hero {
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .glossary-search-wrap {
-    width: 320px;
+    padding: 2.3rem 2rem;
   }
 
   .glossary-grid {
