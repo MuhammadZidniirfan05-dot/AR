@@ -64,7 +64,6 @@ function render(list) {
         <div class="card-body">
           <div class="card-meta">
             <h2>${text.nama}</h2>
-            <span class="card-arrow" aria-hidden="true">&rarr;</span>
           </div>
           <p>${text.ringkas}</p>
           <div class="card-footer">

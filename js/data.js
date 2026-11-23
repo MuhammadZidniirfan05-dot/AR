@@ -3,7 +3,7 @@ const ORGANS = [
     id: "jantung",
     nama: "Jantung",
     sistem: "Sistem Peredaran Darah",
-    warna: "#ef4444",
+    warna: "#b91c1c",
     ringkas: "Memompa darah ke seluruh tubuh.",
     deskripsi: "Jantung adalah organ otot berongga yang terletak di rongga dada sebelah kiri. Jantung bekerja terus-menerus memompa darah yang membawa oksigen dan nutrisi ke seluruh sel tubuh.",
     fungsi: [
@@ -114,7 +114,7 @@ const ORGANS = [
     id: "paru-paru",
     nama: "Paru-paru",
     sistem: "Sistem Pernapasan",
-    warna: "#0284c7",
+    warna: "#0369a1",
     ringkas: "Tempat pertukaran oksigen dan karbon dioksida.",
     deskripsi: "Paru-paru adalah sepasang organ pernapasan yang berada di dalam rongga dada dan dilindungi oleh tulang rusuk. Organ ini bertugas mengambil oksigen dari udara dan membuang karbon dioksida.",
     fungsi: [
@@ -225,7 +225,7 @@ const ORGANS = [
     id: "otak",
     nama: "Otak",
     sistem: "Sistem Saraf",
-    warna: "#7c3aed",
+    warna: "#6d28d9",
     ringkas: "Pusat kendali sistem saraf dan pikiran.",
     deskripsi: "Otak adalah organ paling kompleks yang berada di dalam tulang tengkorak. Otak mengatur seluruh aktivitas tubuh, mulai dari berpikir, mengingat, merasakan emosi, hingga menggerakkan otot.",
     fungsi: [
@@ -336,7 +336,7 @@ const ORGANS = [
     id: "lambung",
     nama: "Lambung",
     sistem: "Sistem Pencernaan",
-    warna: "#d97706",
+    warna: "#92400e",
     ringkas: "Mencerna makanan secara mekanik dan kimiawi.",
     deskripsi: "Lambung adalah organ pencernaan berbentuk seperti kantong otot yang terletak di perut bagian atas. Lambung mencampur makanan dengan asam lambung dan enzim agar mudah diserap tubuh.",
     fungsi: [
@@ -447,7 +447,7 @@ const ORGANS = [
     id: "ginjal",
     nama: "Ginjal",
     sistem: "Sistem Ekskresi",
-    warna: "#0d9488",
+    warna: "#0f766e",
     ringkas: "Menyaring darah dan membuang zat sisa.",
     deskripsi: "Ginjal adalah sepasang organ berbentuk seperti kacang merah yang terletak di bagian belakang rongga perut. Ginjal menyaring kotoran dari darah dan mengeluarkannya dalam bentuk urine.",
     fungsi: [
@@ -558,7 +558,7 @@ const ORGANS = [
     id: "hati",
     nama: "Hati",
     sistem: "Sistem Metabolisme",
-    warna: "#16a34a",
+    warna: "#166534",
     ringkas: "Menetralkan racun dan menghasilkan empedu.",
     deskripsi: "Hati adalah organ dalam terbesar di tubuh manusia yang berada di perut bagian kanan atas. Hati berperan penting dalam metabolisme, penyimpanan energi, serta menyaring racun.",
     fungsi: [

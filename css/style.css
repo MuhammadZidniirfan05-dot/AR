@@ -92,27 +92,51 @@
 }
 
 [data-organ="jantung"] {
-  --organ-accent: #ef4444;
+  --organ-accent: #b91c1c;
 }
 
 [data-organ="paru-paru"] {
-  --organ-accent: #0284c7;
+  --organ-accent: #0369a1;
 }
 
 [data-organ="otak"] {
-  --organ-accent: #7c3aed;
+  --organ-accent: #6d28d9;
 }
 
 [data-organ="lambung"] {
-  --organ-accent: #d97706;
+  --organ-accent: #92400e;
 }
 
 [data-organ="ginjal"] {
-  --organ-accent: #0d9488;
+  --organ-accent: #0f766e;
 }
 
 [data-organ="hati"] {
-  --organ-accent: #16a34a;
+  --organ-accent: #166534;
+}
+
+[data-theme="dark"] [data-organ="jantung"] {
+  --organ-accent: #f87171;
+}
+
+[data-theme="dark"] [data-organ="paru-paru"] {
+  --organ-accent: #38bdf8;
+}
+
+[data-theme="dark"] [data-organ="otak"] {
+  --organ-accent: #c4b5fd;
+}
+
+[data-theme="dark"] [data-organ="lambung"] {
+  --organ-accent: #fbbf24;
+}
+
+[data-theme="dark"] [data-organ="ginjal"] {
+  --organ-accent: #2dd4bf;
+}
+
+[data-theme="dark"] [data-organ="hati"] {
+  --organ-accent: #4ade80;
 }
 
 *,
@@ -309,7 +333,7 @@ body {
   gap: 0.75rem;
 }
 
-.toolbar-heading h1 {
+.toolbar-heading h2 {
   margin: 0;
   font-size: 1.6rem;
   font-weight: 800;
@@ -650,23 +674,16 @@ body {
 }
 
 .card-explore {
+  display: inline-block;
   font-size: 0.84rem;
   font-weight: 700;
   color: var(--organ-accent, var(--primary));
+  transition: transform 0.2s ease;
 }
 
-.card-arrow {
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: var(--organ-accent, var(--primary));
-  opacity: 0.75;
-  transition: transform 0.2s ease, opacity 0.2s ease;
-}
-
-.card:hover .card-arrow,
-.card:focus-visible .card-arrow {
+.card:hover .card-explore,
+.card:focus-visible .card-explore {
   transform: translateX(4px);
-  opacity: 1;
 }
 
 .empty-state {
@@ -1521,9 +1538,7 @@ model-viewer {
 }
 
 .numbered-list li,
-.check-list li,
-.numbered-list li + li,
-.check-list li + li {
+.check-list li {
   display: flex;
   align-items: flex-start;
   gap: 0.75rem;
@@ -1532,6 +1547,11 @@ model-viewer {
   background-color: var(--surface-alt);
   border: 1px solid var(--border);
   border-radius: 0.7rem;
+}
+
+.numbered-list li + li,
+.check-list li + li {
+  margin-top: 0;
 }
 
 .check-list li {
