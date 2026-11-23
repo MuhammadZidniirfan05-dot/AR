@@ -135,7 +135,20 @@ const I18N = {
     huntRetry: "Main Lagi",
     huntDone: "Selesai",
     huntSpotAria: "Titik Anatomi",
-    chipsLockedHeading: "Bagian Anatomi (Dikunci Selama Mode Tebak 3D)"
+    chipsLockedHeading: "Bagian Anatomi (Dikunci Selama Mode Tebak 3D)",
+    viewSwitcherAria: "Pilih mode tampilan",
+    viewGrid: "Tampilan Kartu",
+    viewMap: "Peta Tubuh",
+    bodyMapHint: "Klik titik pada tubuh untuk melihat lokasi dan info organ",
+    bodyMapOpen3d: "Lihat 3D & AR \u2192",
+    bodyMapCompare: "Bandingkan",
+    bodyMapPinAria: "Lihat lokasi {name} pada peta tubuh",
+    locBrain: "Rongga Kepala (Tulang Tengkorak)",
+    locLungs: "Rongga Dada Kanan & Kiri",
+    locHeart: "Rongga Dada Tengah (Agak ke Kiri)",
+    locLiver: "Rongga Perut Kanan Atas",
+    locStomach: "Rongga Perut Kiri Atas",
+    locKidneys: "Rongga Perut Belakang (Kanan & Kiri)"
   },
   en: {
     brandName: "AR Human Organs",
@@ -273,7 +286,20 @@ const I18N = {
     huntRetry: "Play Again",
     huntDone: "Done",
     huntSpotAria: "Anatomical Point",
-    chipsLockedHeading: "Anatomical Parts (Locked During 3D Game)"
+    chipsLockedHeading: "Anatomical Parts (Locked During 3D Game)",
+    viewSwitcherAria: "Select view mode",
+    viewGrid: "Card View",
+    viewMap: "Body Map",
+    bodyMapHint: "Tap any point on the body to explore organ locations and details",
+    bodyMapOpen3d: "View 3D & AR \u2192",
+    bodyMapCompare: "Compare",
+    bodyMapPinAria: "Explore {name} location on the body map",
+    locBrain: "Cranial Cavity (Inside Skull)",
+    locLungs: "Left & Right Chest Cavity",
+    locHeart: "Center-Left Chest Cavity",
+    locLiver: "Upper Right Abdomen",
+    locStomach: "Upper Left Abdomen",
+    locKidneys: "Posterior Abdomen (Left & Right)"
   }
 };
 
