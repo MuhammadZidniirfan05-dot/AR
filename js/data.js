@@ -2,6 +2,8 @@ const ORGANS = [
   {
     id: "jantung",
     nama: "Jantung",
+    sistem: "Sistem Peredaran Darah",
+    warna: "#ef4444",
     ringkas: "Memompa darah ke seluruh tubuh.",
     deskripsi: "Jantung adalah organ otot berongga yang terletak di rongga dada sebelah kiri. Jantung bekerja terus-menerus memompa darah yang membawa oksigen dan nutrisi ke seluruh sel tubuh.",
     fungsi: [
@@ -82,6 +84,7 @@ const ORGANS = [
     ],
     en: {
       nama: "Heart",
+      sistem: "Circulatory System",
       ringkas: "Pumps blood throughout the entire body.",
       deskripsi: "The heart is a hollow muscular organ located in the left side of the chest cavity. It works continuously to pump blood carrying oxygen and nutrients to every cell in the body.",
       fungsi: [
@@ -110,6 +113,8 @@ const ORGANS = [
   {
     id: "paru-paru",
     nama: "Paru-paru",
+    sistem: "Sistem Pernapasan",
+    warna: "#0284c7",
     ringkas: "Tempat pertukaran oksigen dan karbon dioksida.",
     deskripsi: "Paru-paru adalah sepasang organ pernapasan yang berada di dalam rongga dada dan dilindungi oleh tulang rusuk. Organ ini bertugas mengambil oksigen dari udara dan membuang karbon dioksida.",
     fungsi: [
@@ -190,6 +195,7 @@ const ORGANS = [
     ],
     en: {
       nama: "Lungs",
+      sistem: "Respiratory System",
       ringkas: "Exchanges oxygen and carbon dioxide.",
       deskripsi: "The lungs are a pair of respiratory organs located inside the chest cavity and protected by the rib cage. They take in oxygen from inhaled air and release carbon dioxide.",
       fungsi: [
@@ -218,6 +224,8 @@ const ORGANS = [
   {
     id: "otak",
     nama: "Otak",
+    sistem: "Sistem Saraf",
+    warna: "#7c3aed",
     ringkas: "Pusat kendali sistem saraf dan pikiran.",
     deskripsi: "Otak adalah organ paling kompleks yang berada di dalam tulang tengkorak. Otak mengatur seluruh aktivitas tubuh, mulai dari berpikir, mengingat, merasakan emosi, hingga menggerakkan otot.",
     fungsi: [
@@ -298,6 +306,7 @@ const ORGANS = [
     ],
     en: {
       nama: "Brain",
+      sistem: "Nervous System",
       ringkas: "Control center of the nervous system and thought.",
       deskripsi: "The brain is the most complex organ inside the skull. It regulates all body activities, from thinking, remembering, and feeling emotions to controlling muscle movements.",
       fungsi: [
@@ -326,6 +335,8 @@ const ORGANS = [
   {
     id: "lambung",
     nama: "Lambung",
+    sistem: "Sistem Pencernaan",
+    warna: "#d97706",
     ringkas: "Mencerna makanan secara mekanik dan kimiawi.",
     deskripsi: "Lambung adalah organ pencernaan berbentuk seperti kantong otot yang terletak di perut bagian atas. Lambung mencampur makanan dengan asam lambung dan enzim agar mudah diserap tubuh.",
     fungsi: [
@@ -406,6 +417,7 @@ const ORGANS = [
     ],
     en: {
       nama: "Stomach",
+      sistem: "Digestive System",
       ringkas: "Digests food mechanically and chemically.",
       deskripsi: "The stomach is a J-shaped muscular digestive sac located in the upper abdomen. It churns food and mixes it with gastric acid and digestive enzymes so nutrients can be absorbed.",
       fungsi: [
@@ -434,6 +446,8 @@ const ORGANS = [
   {
     id: "ginjal",
     nama: "Ginjal",
+    sistem: "Sistem Ekskresi",
+    warna: "#0d9488",
     ringkas: "Menyaring darah dan membuang zat sisa.",
     deskripsi: "Ginjal adalah sepasang organ berbentuk seperti kacang merah yang terletak di bagian belakang rongga perut. Ginjal menyaring kotoran dari darah dan mengeluarkannya dalam bentuk urine.",
     fungsi: [
@@ -514,6 +528,7 @@ const ORGANS = [
     ],
     en: {
       nama: "Kidneys",
+      sistem: "Excretory System",
       ringkas: "Filters blood and removes waste products.",
       deskripsi: "The kidneys are a pair of bean-shaped organs located at the back of the abdominal cavity. They filter waste products and excess water from the blood to produce urine.",
       fungsi: [
@@ -542,6 +557,8 @@ const ORGANS = [
   {
     id: "hati",
     nama: "Hati",
+    sistem: "Sistem Metabolisme",
+    warna: "#16a34a",
     ringkas: "Menetralkan racun dan menghasilkan empedu.",
     deskripsi: "Hati adalah organ dalam terbesar di tubuh manusia yang berada di perut bagian kanan atas. Hati berperan penting dalam metabolisme, penyimpanan energi, serta menyaring racun.",
     fungsi: [
@@ -622,6 +639,7 @@ const ORGANS = [
     ],
     en: {
       nama: "Liver",
+      sistem: "Metabolic System",
       ringkas: "Detoxifies harmful substances and produces bile.",
       deskripsi: "The liver is the largest internal organ in the human body, located in the upper right abdomen. It plays a vital role in metabolism, energy storage, and filtering toxins.",
       fungsi: [
@@ -1162,7 +1180,7 @@ const GLOSSARY = [
 function getPreferredTheme() {
   try {
     const saved = localStorage.getItem("ar-organ-theme");
-    if (saved === "dark" || saved === "light") {
+    if (saved === "dark" || saved === "sepia" || saved === "light") {
       return saved;
     }
   } catch (err) {
@@ -1173,7 +1191,9 @@ function getPreferredTheme() {
     : "light";
 }
 
-function getThemeButtonLabels(isDark) {
+function getThemeButtonLabels(theme) {
+  const activeTheme =
+    theme === "dark" || theme === "sepia" || theme === "light" ? theme : "light";
   let isEn = false;
   if (typeof getCurrentLang === "function") {
     isEn = getCurrentLang() === "en";
@@ -1188,26 +1208,31 @@ function getThemeButtonLabels(isDark) {
       // Abaikan jika localStorage tidak tersedia
     }
   }
-  if (isEn) {
-    return {
-      text: isDark ? "Light" : "Dark",
-      aria: isDark ? "Switch to light mode" : "Switch to dark mode"
-    };
+  if (activeTheme === "light") {
+    return isEn
+      ? { text: "Sepia", aria: "Switch to sepia reading mode" }
+      : { text: "Sepia", aria: "Ubah ke mode baca sepia" };
   }
-  return {
-    text: isDark ? "Terang" : "Gelap",
-    aria: isDark ? "Ubah ke mode terang" : "Ubah ke mode gelap"
-  };
+  if (activeTheme === "sepia") {
+    return isEn
+      ? { text: "Dark", aria: "Switch to dark mode" }
+      : { text: "Gelap", aria: "Ubah ke mode gelap" };
+  }
+  return isEn
+    ? { text: "Light", aria: "Switch to light mode" }
+    : { text: "Terang", aria: "Ubah ke mode terang" };
 }
 
 function applyTheme(theme) {
-  document.documentElement.dataset.theme = theme;
+  const validTheme =
+    theme === "dark" || theme === "sepia" || theme === "light" ? theme : "light";
+  document.documentElement.dataset.theme = validTheme;
   const toggleBtn = document.getElementById("theme-toggle");
   if (toggleBtn) {
-    const isDark = theme === "dark";
-    const labels = getThemeButtonLabels(isDark);
+    const labels = getThemeButtonLabels(validTheme);
     toggleBtn.textContent = labels.text;
     toggleBtn.setAttribute("aria-label", labels.aria);
+    toggleBtn.setAttribute("title", labels.aria);
   }
 }
 
@@ -1218,8 +1243,9 @@ function initTheme() {
     return;
   }
   toggleBtn.addEventListener("click", () => {
+    const current = document.documentElement.dataset.theme;
     const nextTheme =
-      document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+      current === "light" ? "sepia" : current === "sepia" ? "dark" : "light";
     applyTheme(nextTheme);
     try {
       localStorage.setItem("ar-organ-theme", nextTheme);

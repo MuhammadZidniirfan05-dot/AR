@@ -631,6 +631,14 @@ if (!organ) {
     const organText = getOrganText(organ);
     document.title = `${organText.nama} | ${t("brandName")}`;
     mv.setAttribute("alt", `${t("modelAltPrefix")} ${organText.nama}`);
+    const systemBadge = document.getElementById("organ-system");
+    if (systemBadge) {
+      systemBadge.textContent = organText.sistem || "";
+    }
+    const articleEl = document.getElementById("detail-article");
+    if (articleEl) {
+      articleEl.dataset.organ = organ.id;
+    }
     document.getElementById("nama").textContent = organText.nama;
     document.getElementById("deskripsi").textContent = organText.deskripsi;
     document.getElementById("fakta").textContent = organText.fakta;
@@ -1206,6 +1214,19 @@ if (!organ) {
   };
   window.addEventListener("pagehide", cleanupHuntAudio);
   window.addEventListener("beforeunload", cleanupHuntAudio);
+
+  const readingProgress = document.getElementById("reading-progress");
+  if (readingProgress) {
+    const updateReadingProgress = () => {
+      const docEl = document.documentElement;
+      const scrollTop = window.scrollY || docEl.scrollTop || 0;
+      const scrollHeight = docEl.scrollHeight - docEl.clientHeight;
+      const pct = scrollHeight > 0 ? Math.min(100, Math.round((scrollTop / scrollHeight) * 100)) : 0;
+      readingProgress.style.width = `${pct}%`;
+    };
+    window.addEventListener("scroll", updateReadingProgress, { passive: true });
+    updateReadingProgress();
+  }
 
   document.addEventListener("ar-lang-change", () => {
     renderOrganContent();

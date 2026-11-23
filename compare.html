@@ -9,7 +9,7 @@
   <meta property="og:description" content="Lihat perbandingan dua model 3D organ tubuh manusia secara berdampingan.">
   <meta property="og:image" content="img/jantung.webp">
   <link rel="icon" type="image/svg+xml" href="img/favicon.svg">
-  <script>try{const t=localStorage.getItem("ar-organ-theme")||(matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light");document.documentElement.dataset.theme=t;}catch(e){}</script>
+  <script>try{const s=localStorage.getItem("ar-organ-theme");const t=(s==="dark"||s==="sepia"||s==="light")?s:(matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light");document.documentElement.dataset.theme=t;}catch(e){}</script>
   <link rel="stylesheet" href="css/style.css">
   <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
 </head>
@@ -20,7 +20,7 @@
       <div class="detail-header-right">
         <span class="brand-name" data-i18n="brandCompare">Bandingkan Organ</span>
         <button id="lang-toggle" class="btn-lang" type="button" aria-label="Ganti ke Bahasa Inggris">EN</button>
-        <button id="theme-toggle" class="btn-theme" type="button" aria-label="Ubah tema">Gelap</button>
+        <button id="theme-toggle" class="btn-theme" type="button" aria-label="Ubah tema">Sepia</button>
       </div>
     </div>
   </header>
