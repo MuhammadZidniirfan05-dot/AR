@@ -31,6 +31,10 @@ if (!organ) {
   if (linkCompare) {
     linkCompare.href = `compare.html?a=${organ.id}`;
   }
+  const linkGlossary = document.getElementById("link-glossary");
+  if (linkGlossary) {
+    linkGlossary.href = `glossary.html?organ=${organ.id}`;
+  }
 
   const fungsiList = document.getElementById("fungsi");
   const penyakitList = document.getElementById("penyakit");

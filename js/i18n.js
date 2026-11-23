@@ -148,7 +148,24 @@ const I18N = {
     locHeart: "Rongga Dada Tengah (Agak ke Kiri)",
     locLiver: "Rongga Perut Kanan Atas",
     locStomach: "Rongga Perut Kiri Atas",
-    locKidneys: "Rongga Perut Belakang (Kanan & Kiri)"
+    locKidneys: "Rongga Perut Belakang (Kanan & Kiri)",
+    navGlossary: "Glosarium",
+    brandGlossary: "Glosarium Anatomi",
+    glossaryTitle: "Glosarium Anatomi | AR Organ Tubuh",
+    glossaryHeading: "Kamus Istilah Medis & Anatomi",
+    glossaryLead: "Pelajari arti istilah penting anatomi dan fisiologi yang terdapat pada 6 organ tubuh manusia.",
+    glossarySearchLabel: "Cari istilah atau pengertian",
+    glossarySearchPlaceholder: "Cari istilah (misal: Aorta, Alveolus, Nefron)...",
+    glossaryFilterAll: "Semua",
+    glossaryFilterAria: "Filter istilah berdasarkan organ",
+    glossaryCount: "Menampilkan {shown} dari {total} istilah",
+    glossaryEmpty: "Tidak ada istilah yang cocok dengan pencarian atau filter ini.",
+    glossaryResetBtn: "Reset Filter",
+    glossaryOpenOrgan: "Lihat Organ 3D \u2192",
+    glossarySpeak: "Dengar",
+    glossaryStop: "Berhenti",
+    glossarySpeakAria: "Dengarkan penjelasan istilah {term}",
+    btnGlossaryOrgan: "Glosarium Organ"
   },
   en: {
     brandName: "AR Human Organs",
@@ -299,7 +316,24 @@ const I18N = {
     locHeart: "Center-Left Chest Cavity",
     locLiver: "Upper Right Abdomen",
     locStomach: "Upper Left Abdomen",
-    locKidneys: "Posterior Abdomen (Left & Right)"
+    locKidneys: "Posterior Abdomen (Left & Right)",
+    navGlossary: "Glossary",
+    brandGlossary: "Anatomy Glossary",
+    glossaryTitle: "Anatomy Glossary | AR Human Organs",
+    glossaryHeading: "Medical & Anatomy Glossary",
+    glossaryLead: "Explore clear definitions of key anatomical and physiological terms across all 6 human organs.",
+    glossarySearchLabel: "Search terms or definitions",
+    glossarySearchPlaceholder: "Search terms (e.g., Aorta, Alveoli, Nephron)...",
+    glossaryFilterAll: "All",
+    glossaryFilterAria: "Filter terms by organ",
+    glossaryCount: "Showing {shown} of {total} terms",
+    glossaryEmpty: "No terms match your current search or organ filter.",
+    glossaryResetBtn: "Reset Filter",
+    glossaryOpenOrgan: "View 3D Organ \u2192",
+    glossarySpeak: "Listen",
+    glossaryStop: "Stop",
+    glossarySpeakAria: "Listen to the definition of {term}",
+    btnGlossaryOrgan: "Organ Glossary"
   }
 };
 
@@ -389,6 +423,18 @@ function getQuizText(item, lang) {
     pilihan: Array.isArray(src.pilihan) ? src.pilihan : item.pilihan,
     jawaban: item.jawaban,
     penjelasan: src.penjelasan || item.penjelasan
+  };
+}
+
+function getGlossaryText(item, lang) {
+  const activeLang = lang || getCurrentLang();
+  const useEn = activeLang === "en" && item.en;
+  const src = useEn ? item.en : item;
+  return {
+    id: item.id,
+    organId: item.organId,
+    istilah: src.istilah || item.istilah,
+    definisi: src.definisi || item.definisi
   };
 }
 

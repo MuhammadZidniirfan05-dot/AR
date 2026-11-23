@@ -2151,6 +2151,200 @@ model-viewer {
   border-left: none;
 }
 
+.glossary-main {
+  margin-top: 1.75rem;
+  margin-bottom: 3.5rem;
+}
+
+.glossary-hero {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  padding: 1.35rem;
+  margin-bottom: 1.15rem;
+  box-shadow: var(--shadow);
+}
+
+.glossary-hero-text h1 {
+  margin: 0 0 0.35rem;
+  font-size: 1.55rem;
+  color: var(--text);
+}
+
+.glossary-hero-text p {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--text-muted);
+}
+
+.glossary-search-wrap {
+  width: 100%;
+  flex: none;
+}
+
+.glossary-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.glossary-filter-btn {
+  min-height: 38px;
+  padding: 0.42rem 0.9rem;
+  font-size: 0.86rem;
+  font-weight: 700;
+  font-family: inherit;
+  color: var(--text);
+  background-color: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.glossary-filter-btn:hover,
+.glossary-filter-btn:focus-visible {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.glossary-filter-btn.is-active {
+  background-color: var(--primary);
+  border-color: var(--primary);
+  color: #ffffff;
+}
+
+.glossary-meta-bar {
+  margin-bottom: 1rem;
+}
+
+.glossary-count {
+  margin: 0;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.glossary-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.15rem;
+}
+
+.glossary-card {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  padding: 1.25rem;
+  box-shadow: var(--shadow);
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.glossary-card:hover {
+  border-color: var(--primary);
+  transform: translateY(-2px);
+}
+
+.glossary-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.65rem;
+}
+
+.glossary-organ-badge {
+  display: inline-block;
+  font-size: 0.76rem;
+  font-weight: 700;
+  padding: 0.2rem 0.65rem;
+  border-radius: 9999px;
+  background-color: var(--fact-bg);
+  color: var(--fact-title);
+  text-decoration: none;
+}
+
+.glossary-organ-badge:hover,
+.glossary-organ-badge:focus-visible {
+  text-decoration: underline;
+}
+
+.glossary-speak-btn {
+  min-height: 30px;
+  padding: 0.2rem 0.65rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  font-family: inherit;
+  color: var(--primary);
+  background-color: var(--surface-alt);
+  border: 1px solid var(--border-strong);
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.glossary-speak-btn:hover,
+.glossary-speak-btn:focus-visible {
+  border-color: var(--primary);
+}
+
+.glossary-speak-btn.is-speaking {
+  color: #ffffff;
+  background-color: #dc2626;
+  border-color: #dc2626;
+}
+
+.glossary-term {
+  margin: 0 0 0.45rem;
+  font-size: 1.18rem;
+  color: var(--text);
+}
+
+.glossary-def {
+  margin: 0 0 1rem;
+  font-size: 0.94rem;
+  line-height: 1.65;
+  color: var(--text-body);
+  flex: 1;
+}
+
+.glossary-card-footer {
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--border);
+}
+
+.glossary-open-link {
+  font-size: 0.86rem;
+  font-weight: 700;
+  color: var(--primary);
+  text-decoration: none;
+}
+
+.glossary-open-link:hover,
+.glossary-open-link:focus-visible {
+  text-decoration: underline;
+}
+
+.glossary-empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 2.5rem 1.25rem;
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+}
+
+.glossary-empty p {
+  margin: 0 0 1rem;
+  color: var(--text-muted);
+}
+
 @media (min-width: 768px) {
   .body-map-section {
     grid-template-columns: 1fr 1.15fr;
@@ -2165,10 +2359,28 @@ model-viewer {
     grid-template-columns: repeat(2, 1fr);
     align-items: start;
   }
+
+  .glossary-hero {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .glossary-search-wrap {
+    width: 320px;
+  }
+
+  .glossary-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 @media (min-width: 1024px) {
   .organ-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .glossary-grid {
     grid-template-columns: repeat(3, 1fr);
   }
 
