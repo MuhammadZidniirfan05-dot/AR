@@ -916,6 +916,249 @@ const QUIZ = [
   }
 ];
 
+const GLOSSARY = [
+  {
+    id: "aorta",
+    organId: "jantung",
+    istilah: "Aorta",
+    definisi: "Pembuluh darah arteri terbesar di dalam tubuh manusia yang membawa darah kaya oksigen keluar dari bilik kiri jantung menuju seluruh bagian tubuh.",
+    en: {
+      istilah: "Aorta",
+      definisi: "The largest artery in the human body, carrying oxygen-rich blood out from the left ventricle of the heart to the rest of the body."
+    }
+  },
+  {
+    id: "atrium",
+    organId: "jantung",
+    istilah: "Atrium (Serambi)",
+    definisi: "Dua ruang bagian atas jantung (serambi kanan dan kiri) yang bertugas menerima darah yang masuk kembali ke jantung dari tubuh maupun paru-paru.",
+    en: {
+      istilah: "Atrium",
+      definisi: "The two upper chambers of the heart (right and left atria) that receive blood returning to the heart from the body and lungs."
+    }
+  },
+  {
+    id: "ventrikel",
+    organId: "jantung",
+    istilah: "Ventrikel (Bilik)",
+    definisi: "Dua ruang bagian bawah jantung berdinding otot tebal yang bertugas memompa darah keluar dari jantung menuju paru-paru dan seluruh tubuh.",
+    en: {
+      istilah: "Ventricle",
+      definisi: "The two muscular lower chambers of the heart that pump blood out to the lungs and throughout the entire body."
+    }
+  },
+  {
+    id: "sistol-diastol",
+    organId: "jantung",
+    istilah: "Sistol & Diastol",
+    definisi: "Dua fase siklus detak jantung: sistol adalah saat otot jantung berkontraksi memompa darah, sedangkan diastol adalah saat otot jantung berelaksasi menerima darah.",
+    en: {
+      istilah: "Systole & Diastole",
+      definisi: "The two phases of the heartbeat cycle: systole is when the heart muscle contracts to pump blood, and diastole is when it relaxes to refill."
+    }
+  },
+  {
+    id: "trakea",
+    organId: "paru-paru",
+    istilah: "Trakea",
+    definisi: "Batang tenggorokan yang tersusun atas cincin tulang rawan untuk menyalurkan udara dari hidung dan tenggorokan menuju cabang bronkus di paru-paru.",
+    en: {
+      istilah: "Trachea (Windpipe)",
+      definisi: "The main airway reinforced by cartilage rings that carries inhaled air from the throat down to the bronchi of the lungs."
+    }
+  },
+  {
+    id: "bronkus",
+    organId: "paru-paru",
+    istilah: "Bronkus",
+    definisi: "Percabangan saluran napas dari trakea yang membagi aliran udara masuk ke paru-paru kanan dan paru-paru kiri.",
+    en: {
+      istilah: "Bronchi",
+      definisi: "The two main airway branches splitting from the trachea that direct air into the right and left lungs."
+    }
+  },
+  {
+    id: "alveolus",
+    organId: "paru-paru",
+    istilah: "Alveolus",
+    definisi: "Kantung udara mikroskopis di ujung saluran paru-paru tempat berlangsungnya pertukaran gas oksigen (O\u2082) dan karbon dioksida (CO\u2082) dengan kapiler darah.",
+    en: {
+      istilah: "Alveoli",
+      definisi: "Microscopic air sacs at the end of the lung airways where oxygen (O\u2082) and carbon dioxide (CO\u2082) are exchanged with blood capillaries."
+    }
+  },
+  {
+    id: "inspirasi-ekspirasi",
+    organId: "paru-paru",
+    istilah: "Inspirasi & Ekspirasi",
+    definisi: "Proses siklus pernapasan: inspirasi adalah menghirup udara sehingga paru-paru mengembang, sedangkan ekspirasi adalah mengembuskan napas sehingga paru-paru mengempis.",
+    en: {
+      istilah: "Inhalation & Exhalation",
+      definisi: "The breathing cycle: inhalation draws air in as the lungs expand, while exhalation pushes carbon dioxide-rich air out as the lungs recoil."
+    }
+  },
+  {
+    id: "serebrum",
+    organId: "otak",
+    istilah: "Serebrum (Otak Besar)",
+    definisi: "Bagian terbesar otak manusia yang terbagi menjadi belahan kanan dan kiri, berperan mengatur kecerdasan, ingatan, bahasa, kesadaran, dan pengolahan indra.",
+    en: {
+      istilah: "Cerebrum",
+      definisi: "The largest part of the brain divided into left and right hemispheres, responsible for thought, memory, language, consciousness, and sensory processing."
+    }
+  },
+  {
+    id: "serebelum",
+    organId: "otak",
+    istilah: "Serebelum (Otak Kecil)",
+    definisi: "Bagian otak di bawah belakang kepala yang bertugas mengoordinasikan gerakan otot halus, postur tubuh, serta menjaga keseimbangan.",
+    en: {
+      istilah: "Cerebellum",
+      definisi: "The region at the lower back of the brain that coordinates smooth muscle movements, posture, and physical balance."
+    }
+  },
+  {
+    id: "lobus-frontal",
+    organId: "otak",
+    istilah: "Lobus Frontal",
+    definisi: "Bagian terdepan dari otak besar yang menjadi pusat perencanaan, pengambilan keputusan, konsentrasi, pemecahan masalah, dan pengendalian emosi.",
+    en: {
+      istilah: "Frontal Lobe",
+      definisi: "The front section of the cerebrum that governs planning, decision-making, concentration, problem-solving, and emotional regulation."
+    }
+  },
+  {
+    id: "batang-otak",
+    organId: "otak",
+    istilah: "Batang Otak",
+    definisi: "Penghubung otak dengan sumsum tulang belakang yang mengendalikan fungsi vital otomatis tanpa perlu kita pikirkan, seperti bernapas dan detak jantung.",
+    en: {
+      istilah: "Brainstem",
+      definisi: "The structure connecting the brain to the spinal cord that controls automatic life-sustaining functions such as breathing and heart rate."
+    }
+  },
+  {
+    id: "esofagus",
+    organId: "lambung",
+    istilah: "Esofagus (Kerongkongan)",
+    definisi: "Saluran berotot yang menghubungkan mulut serta tenggorokan dengan lambung dan mendorong makanan turun melalui gerakan meremas (peristaltik).",
+    en: {
+      istilah: "Esophagus",
+      definisi: "A muscular tube connecting the throat to the stomach that propels swallowed food downward through wave-like contractions (peristalsis)."
+    }
+  },
+  {
+    id: "enzim-pepsin",
+    organId: "lambung",
+    istilah: "Enzim Pepsin",
+    definisi: "Enzim pencernaan di dalam lambung yang bekerja bersama asam lambung untuk memecah protein dari makanan menjadi molekul yang lebih kecil.",
+    en: {
+      istilah: "Pepsin Enzyme",
+      definisi: "A digestive enzyme in the stomach that works alongside gastric acid to break down dietary proteins into smaller peptides."
+    }
+  },
+  {
+    id: "lapisan-mukus",
+    organId: "lambung",
+    istilah: "Lapisan Mukus (Lendir)",
+    definisi: "Lapisan lendir pelindung tebal yang melapisi dinding bagian dalam lambung agar jaringan lambung tidak terluka oleh asam lambung yang sangat kuat.",
+    en: {
+      istilah: "Gastric Mucus Layer",
+      definisi: "A thick protective mucus barrier coating the inner stomach wall so the tissue is not corroded by strong hydrochloric stomach acid."
+    }
+  },
+  {
+    id: "duodenum",
+    organId: "lambung",
+    istilah: "Duodenum (Usus 12 Jari)",
+    definisi: "Bagian pertama dari usus halus tepat setelah lambung yang menerima bubur makanan untuk dicerna lebih lanjut bersama empedu dan enzim pankreas.",
+    en: {
+      istilah: "Duodenum",
+      definisi: "The first segment of the small intestine immediately after the stomach, where partially digested food mixes with bile and pancreatic enzymes."
+    }
+  },
+  {
+    id: "nefron",
+    organId: "ginjal",
+    istilah: "Nefron",
+    definisi: "Unit penyaring mikroskopis di dalam ginjal (terdapat sekitar satu juta nefron di tiap ginjal) yang menyaring kotoran dari darah dan membentuk urine.",
+    en: {
+      istilah: "Nephron",
+      definisi: "The microscopic filtering unit inside the kidney (around one million per kidney) that filters waste from blood and produces urine."
+    }
+  },
+  {
+    id: "korteks-ginjal",
+    organId: "ginjal",
+    istilah: "Korteks Ginjal",
+    definisi: "Lapisan bagian luar ginjal yang kaya pembuluh darah dan menjadi tempat sebagian besar nefron memulai proses penyaringan darah.",
+    en: {
+      istilah: "Renal Cortex",
+      definisi: "The outer layer of the kidney rich in blood vessels where most nephrons begin the blood filtration process."
+    }
+  },
+  {
+    id: "hilum",
+    organId: "ginjal",
+    istilah: "Hilum Ginjal",
+    definisi: "Celah cekung di sisi tengah bagian dalam ginjal tempat keluar-masuknya pembuluh arteri renalis, vena renalis, saraf, dan saluran ureter.",
+    en: {
+      istilah: "Renal Hilum",
+      definisi: "The concave medial notch of the kidney where the renal artery enters and the renal vein and ureter exit."
+    }
+  },
+  {
+    id: "ureter",
+    organId: "ginjal",
+    istilah: "Ureter",
+    definisi: "Sepasang saluran sempit berotot yang mengalirkan urine hasil saringan dari masing-masing ginjal turun menuju kandung kemih.",
+    en: {
+      istilah: "Ureter",
+      definisi: "A pair of narrow muscular tubes that transport urine downward from each kidney to the urinary bladder."
+    }
+  },
+  {
+    id: "cairan-empedu",
+    organId: "hati",
+    istilah: "Cairan Empedu",
+    definisi: "Cairan berwarna kuning kehijauan yang diproduksi oleh hati dan disimpan di kantung empedu untuk membantu memecah serta mencerna lemak di usus halus.",
+    en: {
+      istilah: "Bile",
+      definisi: "A yellowish-green fluid produced by the liver and stored in the gallbladder to emulsify and digest fats in the small intestine."
+    }
+  },
+  {
+    id: "glikogen",
+    organId: "hati",
+    istilah: "Glikogen",
+    definisi: "Bentuk cadangan gula (glukosa) yang disimpan di dalam hati dan otot, yang dapat diubah kembali menjadi energi saat tubuh membutuhkannya.",
+    en: {
+      istilah: "Glycogen",
+      definisi: "The stored form of glucose kept in the liver and muscles, which can be converted back into energy when blood sugar drops."
+    }
+  },
+  {
+    id: "detoksifikasi",
+    organId: "hati",
+    istilah: "Detoksifikasi",
+    definisi: "Proses penyaringan dan penetralan zat beracun, sisa obat-obatan, atau amonia di dalam darah oleh sel-sel hati agar aman dibuang dari tubuh.",
+    en: {
+      istilah: "Detoxification",
+      definisi: "The process by which liver cells filter, break down, and neutralize toxins, drugs, and ammonia in the blood for safe removal."
+    }
+  },
+  {
+    id: "regenerasi-hati",
+    organId: "hati",
+    istilah: "Regenerasi Hati",
+    definisi: "Kemampuan unik organ hati untuk menumbuhkan dan memperbaiki kembali jaringan sel-selnya yang rusak atau hilang hingga kembali ke fungsi semula.",
+    en: {
+      istilah: "Liver Regeneration",
+      definisi: "The unique ability of the liver to regrow and repair damaged or lost tissue back to its normal functional capacity."
+    }
+  }
+];
+
 function getPreferredTheme() {
   try {
     const saved = localStorage.getItem("ar-organ-theme");
