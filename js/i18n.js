@@ -165,7 +165,15 @@ const I18N = {
     glossarySpeak: "Dengar",
     glossaryStop: "Berhenti",
     glossarySpeakAria: "Dengarkan penjelasan istilah {term}",
-    btnGlossaryOrgan: "Glosarium Organ"
+    btnGlossaryOrgan: "Glosarium Organ",
+    heroBadge: "Media Belajar Anatomi 3D & AR",
+    heroTitle: "Jelajahi Organ Tubuh Manusia Secara Interaktif",
+    heroDesc: "Putar model 3D, tampilkan di dunia nyata lewat AR, pelajari materi lengkap yang nyaman dibaca, lalu uji pemahamanmu.",
+    heroPill1: "6 Model 3D & AR",
+    heroPill2: "24 Titik Anatomi & Game 3D",
+    heroPill3: "Glosarium & Kuis Bilingual",
+    cardHotspots: "{count} Titik 3D",
+    cardExplore: "Pelajari \u2192"
   },
   en: {
     brandName: "AR Human Organs",
@@ -333,7 +341,15 @@ const I18N = {
     glossarySpeak: "Listen",
     glossaryStop: "Stop",
     glossarySpeakAria: "Listen to the definition of {term}",
-    btnGlossaryOrgan: "Organ Glossary"
+    btnGlossaryOrgan: "Organ Glossary",
+    heroBadge: "3D & AR Anatomy Learning Hub",
+    heroTitle: "Explore Human Body Organs Interactively",
+    heroDesc: "Rotate 3D models, project them into the real world with AR, read comfortable study guides, and test your knowledge.",
+    heroPill1: "6 3D & AR Models",
+    heroPill2: "24 Anatomy Points & 3D Game",
+    heroPill3: "Bilingual Glossary & Quiz",
+    cardHotspots: "{count} 3D Points",
+    cardExplore: "Explore \u2192"
   }
 };
 
@@ -403,6 +419,7 @@ function getOrganText(organ, lang) {
   return {
     id: organ.id,
     nama: src.nama || organ.nama,
+    sistem: src.sistem || organ.sistem || "",
     ringkas: src.ringkas || organ.ringkas,
     deskripsi: src.deskripsi || organ.deskripsi,
     fungsi: Array.isArray(src.fungsi) ? src.fungsi : organ.fungsi,

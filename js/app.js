@@ -48,17 +48,28 @@ function render(list) {
   grid.innerHTML = list.length
     ? list.map(o => {
         const text = typeof getOrganText === "function" ? getOrganText(o) : o;
+        const hsCount = Array.isArray(o.hotspots) ? o.hotspots.length : 4;
+        const hsLabel =
+          typeof t === "function"
+            ? t("cardHotspots", { count: hsCount })
+            : `${hsCount} Titik 3D`;
+        const exploreLabel =
+          typeof t === "function" ? t("cardExplore") : "Pelajari \u2192";
         return `
-      <a class="card" href="organ.html?id=${o.id}">
+      <a class="card" href="organ.html?id=${o.id}" data-organ="${o.id}">
         <div class="card-media">
+          <span class="card-system">${text.sistem || ""}</span>
           <img class="card-img" src="${o.poster}" alt="${text.nama}" loading="lazy" width="300" height="300">
         </div>
         <div class="card-body">
           <div class="card-meta">
             <h2>${text.nama}</h2>
-            <span class="card-arrow" aria-hidden="true">&rarr;</span>
           </div>
           <p>${text.ringkas}</p>
+          <div class="card-footer">
+            <span class="card-tag">${hsLabel}</span>
+            <span class="card-explore">${exploreLabel}</span>
+          </div>
         </div>
       </a>`;
       }).join("")

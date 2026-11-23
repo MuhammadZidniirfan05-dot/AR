@@ -277,4 +277,17 @@ document.addEventListener("ar-lang-change", () => {
 if (typeof window !== "undefined") {
   window.addEventListener("pagehide", stopGlossarySpeech);
   window.addEventListener("beforeunload", stopGlossarySpeech);
+
+  const readingProgress = document.getElementById("reading-progress");
+  if (readingProgress) {
+    const updateReadingProgress = () => {
+      const docEl = document.documentElement;
+      const scrollTop = window.scrollY || docEl.scrollTop || 0;
+      const scrollHeight = docEl.scrollHeight - docEl.clientHeight;
+      const pct = scrollHeight > 0 ? Math.min(100, Math.round((scrollTop / scrollHeight) * 100)) : 0;
+      readingProgress.style.width = `${pct}%`;
+    };
+    window.addEventListener("scroll", updateReadingProgress, { passive: true });
+    updateReadingProgress();
+  }
 }

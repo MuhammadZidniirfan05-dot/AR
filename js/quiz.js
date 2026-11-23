@@ -8,6 +8,7 @@ const quizCard = document.getElementById("quiz-card");
 const quizResult = document.getElementById("quiz-result");
 const quizMode = document.getElementById("quiz-mode");
 const quizProgress = document.getElementById("quiz-progress");
+const quizBarFill = document.getElementById("quiz-bar-fill");
 const quizQuestion = document.getElementById("quiz-question");
 const quizOptions = document.getElementById("quiz-options");
 const quizFeedback = document.getElementById("quiz-feedback");
@@ -81,6 +82,7 @@ function saveHighScore(newScore) {
 
 function renderQuestion() {
   const current = getQuizText(questions[currentIndex]);
+  const letters = ["A", "B", "C", "D"];
   answered = false;
   lastSelectedIndex = -1;
   quizFeedback.hidden = true;
@@ -88,6 +90,10 @@ function renderQuestion() {
     current: currentIndex + 1,
     total: questions.length
   });
+  if (quizBarFill && questions.length > 0) {
+    const pct = Math.round(((currentIndex + 1) / questions.length) * 100);
+    quizBarFill.style.width = `${pct}%`;
+  }
   quizQuestion.textContent = current.pertanyaan;
   quizOptions.innerHTML = "";
 
@@ -95,7 +101,18 @@ function renderQuestion() {
     const btn = document.createElement("button");
     btn.type = "button";
     btn.className = "quiz-option";
-    btn.textContent = pilihanText;
+
+    const letterSpan = document.createElement("span");
+    letterSpan.className = "quiz-opt-letter";
+    letterSpan.setAttribute("aria-hidden", "true");
+    letterSpan.textContent = letters[index] || String(index + 1);
+
+    const textSpan = document.createElement("span");
+    textSpan.className = "quiz-opt-text";
+    textSpan.textContent = pilihanText;
+
+    btn.appendChild(letterSpan);
+    btn.appendChild(textSpan);
     btn.addEventListener("click", () => handleAnswer(index));
     quizOptions.appendChild(btn);
   });
@@ -148,6 +165,9 @@ function renderResultText() {
 function showResult() {
   quizCard.hidden = true;
   quizResult.hidden = false;
+  if (quizBarFill) {
+    quizBarFill.style.width = "100%";
+  }
 
   lastHighScore = saveHighScore(score);
   renderResultText();
@@ -172,7 +192,12 @@ function refreshQuizTranslation() {
   const optionButtons = quizOptions.querySelectorAll(".quiz-option");
   optionButtons.forEach((btn, idx) => {
     if (current.pilihan[idx] !== undefined) {
-      btn.textContent = current.pilihan[idx];
+      const textSpan = btn.querySelector(".quiz-opt-text");
+      if (textSpan) {
+        textSpan.textContent = current.pilihan[idx];
+      } else {
+        btn.textContent = current.pilihan[idx];
+      }
     }
   });
 

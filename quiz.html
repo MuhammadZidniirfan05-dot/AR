@@ -9,7 +9,7 @@
   <meta property="og:description" content="Kuis singkat seputar fungsi dan fakta organ tubuh manusia.">
   <meta property="og:image" content="img/jantung.webp">
   <link rel="icon" type="image/svg+xml" href="img/favicon.svg">
-  <script>try{const t=localStorage.getItem("ar-organ-theme")||(matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light");document.documentElement.dataset.theme=t;}catch(e){}</script>
+  <script>try{const s=localStorage.getItem("ar-organ-theme");const t=(s==="dark"||s==="sepia"||s==="light")?s:(matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light");document.documentElement.dataset.theme=t;}catch(e){}</script>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -19,7 +19,7 @@
       <div class="detail-header-right">
         <span class="brand-name" data-i18n="brandQuiz">Kuis AR Organ Tubuh</span>
         <button id="lang-toggle" class="btn-lang" type="button" aria-label="Ganti ke Bahasa Inggris">EN</button>
-        <button id="theme-toggle" class="btn-theme" type="button" aria-label="Ubah tema">Gelap</button>
+        <button id="theme-toggle" class="btn-theme" type="button" aria-label="Ubah tema">Sepia</button>
       </div>
     </div>
   </header>
@@ -29,6 +29,9 @@
       <div class="quiz-top">
         <span id="quiz-mode" class="quiz-mode"></span>
         <span id="quiz-progress" class="quiz-progress"></span>
+      </div>
+      <div class="quiz-bar" aria-hidden="true">
+        <div id="quiz-bar-fill" class="quiz-bar-fill"></div>
       </div>
 
       <h1 id="quiz-question" class="quiz-question"></h1>

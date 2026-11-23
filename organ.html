@@ -9,7 +9,7 @@
   <meta property="og:description" content="Eksplorasi bagian organ tubuh manusia dalam 3D dan Augmented Reality.">
   <meta property="og:image" content="img/jantung.webp">
   <link rel="icon" type="image/svg+xml" href="img/favicon.svg">
-  <script>try{const t=localStorage.getItem("ar-organ-theme")||(matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light");document.documentElement.dataset.theme=t;}catch(e){}</script>
+  <script>try{const s=localStorage.getItem("ar-organ-theme");const t=(s==="dark"||s==="sepia"||s==="light")?s:(matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light");document.documentElement.dataset.theme=t;}catch(e){}</script>
   <link rel="stylesheet" href="css/style.css">
   <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
 </head>
@@ -20,9 +20,10 @@
       <div class="detail-header-right">
         <span class="brand-name" data-i18n="brandName">AR Organ Tubuh</span>
         <button id="lang-toggle" class="btn-lang" type="button" aria-label="Ganti ke Bahasa Inggris">EN</button>
-        <button id="theme-toggle" class="btn-theme" type="button" aria-label="Ubah tema">Gelap</button>
+        <button id="theme-toggle" class="btn-theme" type="button" aria-label="Ubah tema">Sepia</button>
       </div>
     </div>
+    <div id="reading-progress" class="reading-progress" aria-hidden="true"></div>
   </header>
 
   <main class="container detail-main">
@@ -116,7 +117,10 @@
 
     <article id="detail-article" class="detail-info">
       <div class="detail-title-row">
-        <h1 id="nama"></h1>
+        <div class="detail-heading-group">
+          <span id="organ-system" class="organ-system-badge"></span>
+          <h1 id="nama"></h1>
+        </div>
         <div class="detail-title-tools">
           <button id="btn-font-size" class="btn-font-size" type="button" aria-pressed="false" aria-label="Perbesar ukuran teks materi" data-i18n-aria-label="fontToggleAria">Teks: Normal</button>
           <button id="btn-tts" class="btn-tts" type="button" aria-pressed="false" aria-label="Bacakan informasi organ">Bacakan</button>
