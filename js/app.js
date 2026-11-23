@@ -151,6 +151,7 @@ function initBodyMap() {
     pin.appendChild(dot);
     pin.appendChild(label);
     pin.addEventListener("click", () => selectMapOrgan(organ.id));
+    pin.addEventListener("focus", () => selectMapOrgan(organ.id));
     bodyMapPins.appendChild(pin);
     pinBtnMap[organ.id] = { btn: pin, labelEl: label };
 
@@ -160,6 +161,7 @@ function initBodyMap() {
     quickBtn.textContent = text.nama;
     quickBtn.setAttribute("aria-pressed", "false");
     quickBtn.addEventListener("click", () => selectMapOrgan(organ.id));
+    quickBtn.addEventListener("focus", () => selectMapOrgan(organ.id));
     bodyMapQuicklist.appendChild(quickBtn);
     quickBtnMap[organ.id] = quickBtn;
   });
